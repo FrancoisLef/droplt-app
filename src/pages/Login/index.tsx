@@ -16,7 +16,7 @@ import { HiArrowRight } from 'react-icons/hi';
 import { InputPassword } from '../../components/InputPassword';
 import locales from './locales';
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const {
     handleSubmit,
@@ -110,3 +110,5 @@ export const LoginPage = () => {
     </Box>
   );
 };
+
+export default LoginPage;
