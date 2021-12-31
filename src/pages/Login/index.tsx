@@ -14,9 +14,11 @@ import { useForm } from 'react-hook-form';
 import { HiArrowRight } from 'react-icons/hi';
 
 import { InputPassword } from '../../components/InputPassword';
+import { useAuth } from '../../modules/auth';
 import locales from './locales';
 
 const LoginPage = () => {
+  const { user, signin } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const {
     handleSubmit,
@@ -25,17 +27,15 @@ const LoginPage = () => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      username: 'admin',
-      password: 'coucou123',
+      email: 'test@test.fr',
+      password: 'password',
     },
   });
 
-  const onSubmit = (values: any) => {
+  const onSubmit = async (values: any) => {
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-    console.log(values);
+    await signin(values);
+    setIsLoading(false);
   };
 
   return (
@@ -49,6 +49,15 @@ const LoginPage = () => {
         <Heading mb="8" textAlign="center" size="xl" fontWeight="extrabold">
           {locales.heading}
         </Heading>
+        <Box>
+          {user ? (
+            <div>
+              Bonjour {user.firstName} {user.lastName}
+            </div>
+          ) : (
+            <div>NOT CONNECTED</div>
+          )}
+        </Box>
         <Box
           bg={useColorModeValue('white', 'gray.700')}
           py="8"
@@ -58,20 +67,16 @@ const LoginPage = () => {
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing="6">
-              <FormControl
-                id="username"
-                isInvalid={!!errors.username}
-                isRequired
-              >
-                <FormLabel>{locales.form.username}</FormLabel>
+              <FormControl id="email" isInvalid={!!errors.email} isRequired>
+                <FormLabel>{locales.form.email}</FormLabel>
                 <Input
-                  autoComplete="username"
-                  {...register('username', {
-                    required: locales.form.usernameRequired,
+                  autoComplete="email"
+                  {...register('email', {
+                    required: locales.form.emailRequired,
                   })}
                 />
                 <FormErrorMessage>
-                  {errors.username && errors.username.message}
+                  {errors.email && errors.email.message}
                 </FormErrorMessage>
               </FormControl>
               <FormControl
