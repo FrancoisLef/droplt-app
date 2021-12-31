@@ -12,12 +12,23 @@ import {
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { HiArrowRight } from 'react-icons/hi';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { InputPassword } from '../../components/InputPassword';
 import { useAuth } from '../../modules/auth';
 import locales from './locales';
 
+interface LocationStateFrom {
+  state?: {
+    from?: {
+      pathname?: string;
+    };
+  };
+}
+
 const LoginPage = () => {
+  const location = useLocation() as LocationStateFrom;
+  const navigate = useNavigate();
   const { user, signin } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const {
@@ -32,10 +43,17 @@ const LoginPage = () => {
     },
   });
 
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (credentials: { email: string; password: string }) => {
     setIsLoading(true);
-    await signin(values);
+    await signin(credentials);
     setIsLoading(false);
+    // Send them back to the page they tried to visit when they were
+    // redirected to the login page. Use { replace: true } so we don't create
+    // another entry in the history stack for the login page. This means that
+    // when they get to the protected page and click the back button, they
+    // won't end up back on the login page, which is also really nice for the
+    // user experience.
+    navigate(location?.state?.from?.pathname || '/', { replace: true });
   };
 
   return (
