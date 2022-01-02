@@ -9,7 +9,7 @@ import * as React from 'react';
 
 type ThemeSwitcherProps = Omit<IconButtonProps, 'aria-label'>;
 
-export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = (props) => {
+const ThemeSwitcher: React.FC<ThemeSwitcherProps> = (props) => {
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
@@ -28,3 +28,5 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = (props) => {
     />
   );
 };
+
+export default ThemeSwitcher;

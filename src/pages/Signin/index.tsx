@@ -14,8 +14,10 @@ import { useForm } from 'react-hook-form';
 import { HiArrowRight } from 'react-icons/hi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { InputPassword } from '../../components/InputPassword';
+import Alert from '../../components/Alert';
+import InputPassword from '../../components/InputPassword';
 import { useAuth } from '../../modules/auth';
+import { ERRORS } from './constants';
 import locales from './locales';
 
 interface LocationStateFrom {
@@ -29,12 +31,14 @@ interface LocationStateFrom {
 const SigninPage = () => {
   const location = useLocation() as LocationStateFrom;
   const navigate = useNavigate();
-  const { user, signin } = useAuth();
+  const auth = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const {
     handleSubmit,
     register,
     formState: { errors, isValid },
+    setError,
   } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -44,9 +48,36 @@ const SigninPage = () => {
   });
 
   const onSubmit = async (credentials: { email: string; password: string }) => {
+    setHasError(false);
     setIsLoading(true);
-    await signin(credentials);
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const result = await response.json();
+
     setIsLoading(false);
+
+    if (result?.error?.message === ERRORS.UNKNOWN_EMAIL) {
+      return setError('email', {
+        message: locales.errors[ERRORS.UNKNOWN_EMAIL],
+      });
+    }
+
+    if (result?.error?.message === ERRORS.WRONG_PASSWORD) {
+      return setError('password', {
+        message: locales.errors[ERRORS.WRONG_PASSWORD],
+      });
+    }
+
+    if (result?.error?.message === ERRORS.COMMON_ERROR) {
+      setHasError(true);
+      return;
+    }
+
+    await auth.signin(result.token);
+
     // Send them back to the page they tried to visit when they were
     // redirected to the login page. Use { replace: true } so we don't create
     // another entry in the history stack for the login page. This means that
@@ -67,15 +98,6 @@ const SigninPage = () => {
         <Heading mb="8" textAlign="center" size="xl" fontWeight="extrabold">
           {locales.heading}
         </Heading>
-        <Box>
-          {user ? (
-            <div>
-              Bonjour {user.firstName} {user.lastName}
-            </div>
-          ) : (
-            <div>NOT CONNECTED</div>
-          )}
-        </Box>
         <Box
           bg={useColorModeValue('white', 'gray.700')}
           py="8"
@@ -85,6 +107,9 @@ const SigninPage = () => {
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing="6">
+              {hasError ? (
+                <Alert message={locales.errors[ERRORS.COMMON_ERROR]} />
+              ) : null}
               <FormControl id="email" isInvalid={!!errors.email} isRequired>
                 <FormLabel>{locales.form.email}</FormLabel>
                 <Input
@@ -93,9 +118,7 @@ const SigninPage = () => {
                     required: locales.form.emailRequired,
                   })}
                 />
-                <FormErrorMessage>
-                  {errors.email && errors.email.message}
-                </FormErrorMessage>
+                <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
               </FormControl>
               <FormControl
                 id="password"
@@ -109,9 +132,7 @@ const SigninPage = () => {
                     required: locales.form.passwordRequired,
                   })}
                 />
-                <FormErrorMessage>
-                  {errors.password && errors.password.message}
-                </FormErrorMessage>
+                <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
               </FormControl>
               <Button
                 isLoading={isLoading}

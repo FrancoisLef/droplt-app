@@ -12,7 +12,7 @@ import { HiEye, HiEyeOff } from 'react-icons/hi';
 
 import locales from './locales';
 
-export const InputPassword = React.forwardRef<HTMLInputElement, InputProps>(
+const InputPassword = React.forwardRef<HTMLInputElement, InputProps>(
   (props, ref) => {
     const { isOpen, onToggle } = useDisclosure();
     const inputRef = React.useRef<HTMLInputElement>(null);
@@ -49,3 +49,5 @@ export const InputPassword = React.forwardRef<HTMLInputElement, InputProps>(
 );
 
 InputPassword.displayName = 'InputPassword';
+
+export default InputPassword;
