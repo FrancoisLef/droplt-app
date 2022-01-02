@@ -9,11 +9,9 @@ import {
   Stack,
   useColorModeValue,
 } from '@chakra-ui/react';
-// import { useState } from 'react';
 import { HiArrowRight } from 'react-icons/hi';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-// import Alert from '../../components/Alert';
 import InputPassword from '../../components/InputPassword';
 import { useAuth } from '../../modules/auth';
 import { SubmitFn, useSigninForm } from './hooks';
