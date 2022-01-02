@@ -26,7 +26,7 @@ interface LocationStateFrom {
   };
 }
 
-const LoginPage = () => {
+const SigninPage = () => {
   const location = useLocation() as LocationStateFrom;
   const navigate = useNavigate();
   const { user, signin } = useAuth();
@@ -134,4 +134,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SigninPage;
