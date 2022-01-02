@@ -2,7 +2,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 import { useAuth } from '../../modules/auth';
 
-const ProtectedLayout = () => {
+const ProtectedRoutes = () => {
   const auth = useAuth();
   const location = useLocation();
 
@@ -17,4 +17,4 @@ const ProtectedLayout = () => {
   return <Outlet />;
 };
 
-export default ProtectedLayout;
+export default ProtectedRoutes;
