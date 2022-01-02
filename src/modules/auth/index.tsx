@@ -1,17 +1,10 @@
-import jwtDecode from 'jwt-decode';
+import decode from 'jwt-decode';
 import React, { useState } from 'react';
 
 interface AuthUser {
   userId: string;
   firstName: string;
   lastName: string;
-}
-
-interface AuthToken {
-  userId: string;
-  firstName: string;
-  lastName: string;
-  exp: number;
 }
 
 interface AuthContextType {
@@ -29,17 +22,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
-  const signin = async (authToken: string) => {
-    const decoded = jwtDecode<AuthToken>(authToken);
-    setToken(authToken);
-    setUser({
-      userId: decoded.userId,
-      firstName: decoded.firstName,
-      lastName: decoded.lastName,
-    });
+  const signin = async (jwt: string) => {
+    const { userId, firstName, lastName } = decode<AuthUser>(jwt);
+    setToken(jwt);
+    setUser({ userId, firstName, lastName });
   };
 
   const signout = async () => {
+    await fetch('/api/signout');
     setToken('');
     setUser(null);
   };
