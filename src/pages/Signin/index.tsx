@@ -13,6 +13,7 @@ import { HiArrowRight } from 'react-icons/hi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import InputPassword from '../../components/InputPassword';
+import ThemeSwitcher from '../../components/ThemeSwitcher';
 import { useAuth } from '../../modules/auth';
 import { SubmitFn, useSigninForm } from './hooks';
 import locales from './locales';
@@ -48,6 +49,9 @@ const SigninPage = () => {
       py="12"
       px={{ base: '4', lg: '8' }}
     >
+      <Box textAlign="right">
+        <ThemeSwitcher />
+      </Box>
       <Box maxW="md" mx="auto">
         <Heading mb="8" textAlign="center" size="xl" fontWeight="extrabold">
           {locales.heading}

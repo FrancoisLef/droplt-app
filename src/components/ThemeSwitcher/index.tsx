@@ -11,7 +11,7 @@ type ThemeSwitcherProps = Omit<IconButtonProps, 'aria-label'>;
 
 const ThemeSwitcher: React.FC<ThemeSwitcherProps> = (props) => {
   const { toggleColorMode } = useColorMode();
-  const text = useColorModeValue('dark', 'light');
+  const text = useColorModeValue('sombre', 'clair');
   const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
 
   return (
@@ -23,7 +23,7 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = (props) => {
       marginLeft="2"
       onClick={toggleColorMode}
       icon={<SwitchIcon />}
-      aria-label={`Switch to ${text} mode`}
+      aria-label={`Passer en mode ${text}`}
       {...props}
     />
   );
