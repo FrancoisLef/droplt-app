@@ -21,11 +21,13 @@ const AppLayout = () => {
         px={6}
         py={8}
       >
-        <Heading mb={8}>Droplt</Heading>
+        <Heading mb={8} textAlign="center">
+          Droplt
+        </Heading>
         <Stack spacing={6}>
           <Stack>
-            <NavLink label={locales.torrents} icon={ImDroplet} />
-            <NavLink label={locales.users} icon={HiUsers} isActive />
+            <NavLink to="/" label={locales.torrents} icon={ImDroplet} />
+            <NavLink to="/users" label={locales.users} icon={HiUsers} />
           </Stack>
         </Stack>
         <Spacer />

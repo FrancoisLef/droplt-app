@@ -1,41 +1,44 @@
-import { HStack, Icon, Link, LinkProps, Text } from '@chakra-ui/react';
+import { HStack, Icon, Link, Text } from '@chakra-ui/react';
+import { IconType } from 'react-icons';
+import { LinkProps, useMatch, useResolvedPath } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 
 interface NavLinkProps extends LinkProps {
-  isActive?: boolean;
   label: string;
-  icon: any;
+  icon: IconType;
 }
 
 export const NavLink = (props: NavLinkProps) => {
-  const { icon, isActive, label, ...rest } = props;
+  const { icon, to, label, ...rest } = props;
+  const resolved = useResolvedPath(to);
+  const match = useMatch({ path: resolved.pathname, end: true });
+
   return (
-    <RouterLink to="/">
-      <Link
-        display="block"
-        py={2}
-        px={3}
-        borderRadius="md"
-        transition="all 0.3s"
-        fontWeight="medium"
-        lineHeight="1.5rem"
-        aria-current={isActive ? 'page' : undefined}
-        color="whiteAlpha.900"
-        _hover={{
-          bg: 'gray.500',
-          color: 'white',
-        }}
-        _activeLink={{
-          bg: 'gray.600',
-          color: 'white',
-        }}
-        {...rest}
-      >
-        <HStack spacing={4}>
-          <Icon as={icon} boxSize="16px" />
-          <Text as="span">{label}</Text>
-        </HStack>
-      </Link>
-    </RouterLink>
+    <Link
+      as={RouterLink}
+      py={2}
+      to={to}
+      px={3}
+      borderRadius="md"
+      transition="all 0.3s"
+      fontWeight="medium"
+      lineHeight="1.5rem"
+      aria-current={match ? 'page' : undefined}
+      color="whiteAlpha.900"
+      _hover={{
+        bg: 'gray.500',
+        color: 'white',
+      }}
+      _activeLink={{
+        bg: 'gray.600',
+        color: 'white',
+      }}
+      {...rest}
+    >
+      <HStack spacing={4}>
+        <Icon as={icon} boxSize="16px" />
+        <Text as="span">{label}</Text>
+      </HStack>
+    </Link>
   );
 };
