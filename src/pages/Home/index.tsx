@@ -1,12 +1,15 @@
-import { useQuery } from '@apollo/client';
-
-import { USER_QUERY } from './graphql';
+import { useUsersQuery } from '../../graphql';
 
 const HomePage: React.FC = () => {
-  const { data } = useQuery(USER_QUERY);
-  console.log(data);
+  const { data } = useUsersQuery();
 
-  return <div>cocou</div>;
+  return (
+    <div>
+      {data?.users.map((user) => (
+        <div key={user.userId}>{user.firstName}</div>
+      ))}
+    </div>
+  );
 };
 
 export default HomePage;
