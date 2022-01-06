@@ -3,10 +3,10 @@ import { useQuery } from '@apollo/client';
 import { USER_QUERY } from './graphql';
 
 const HomePage: React.FC = () => {
-  const { data, loading, error } = useQuery(USER_QUERY);
-  console.log(data, loading, error);
+  const { data } = useQuery(USER_QUERY);
+  console.log(data);
 
-  return <div>Torrents</div>;
+  return <div>cocou</div>;
 };
 
 export default HomePage;

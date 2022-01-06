@@ -1,6 +1,6 @@
 import decode from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 interface AuthUser {
   userId: string;
@@ -15,6 +15,8 @@ interface AuthContextType {
   signin: (token: string) => Promise<void>;
   signout: () => Promise<void>;
 }
+
+export let inMemoryToken: string = '';
 
 const AuthContext = React.createContext<AuthContextType>(null!);
 
@@ -32,12 +34,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const { userId, firstName, lastName } = decode<AuthUser>(jwt);
     setUser({ userId, firstName, lastName });
     setToken(jwt);
+    inMemoryToken = jwt;
   };
 
   const signout = async () => {
     await fetch('/api/signout');
     setUser(null);
     setToken('');
+    inMemoryToken = '';
   };
 
   const refresh = async () => {
