@@ -1,0 +1,11 @@
+query HomeUsersQuery {
+    users {
+      userId
+      email
+      firstName
+      lastName
+      isDisabled
+      createdAt
+      updatedAt
+    }
+  }
