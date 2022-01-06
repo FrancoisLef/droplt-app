@@ -6,7 +6,11 @@ const HomePage: React.FC = () => {
   return (
     <div>
       {data?.users.map((user) => (
-        <div key={user.userId}>{user.firstName}</div>
+        <div key={user.userId}>
+          <span>{user.firstName}</span>
+          <span>{user.lastName}</span>
+          <span>{user.userId}</span>
+        </div>
       ))}
     </div>
   );

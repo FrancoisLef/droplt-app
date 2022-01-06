@@ -16,6 +16,15 @@ interface AuthContextType {
   signout: () => Promise<void>;
 }
 
+interface LocationStateFrom {
+  pathname: string;
+  state?: {
+    from?: {
+      pathname?: string;
+    };
+  };
+}
+
 export let inMemoryToken: string = '';
 
 const AuthContext = React.createContext<AuthContextType>(null!);
@@ -60,7 +69,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 export const AuthSession = ({ children }: { children: JSX.Element }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const location = useLocation();
+  const location = useLocation() as LocationStateFrom;
   const { refresh, user } = useAuth();
 
   useEffect(() => {
@@ -78,7 +87,7 @@ export const AuthSession = ({ children }: { children: JSX.Element }) => {
   }
 
   if (user && location.pathname === '/signin') {
-    return <Navigate to="/" replace />;
+    return <Navigate to={location?.state?.from?.pathname || '/'} replace />;
   }
 
   return children;
