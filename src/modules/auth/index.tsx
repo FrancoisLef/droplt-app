@@ -1,6 +1,6 @@
 import decode from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 interface AuthUser {
   userId: string;
@@ -66,7 +66,7 @@ export const AuthSession = ({ children }: { children: JSX.Element }) => {
     }
 
     setIsLoading(true);
-    refresh().then(() => setIsLoading(false));
+    refresh().finally(() => setIsLoading(false));
   }, [refresh, setIsLoading, user]);
 
   if (isLoading) {

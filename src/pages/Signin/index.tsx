@@ -26,7 +26,7 @@ interface LocationStateFrom {
   };
 }
 
-const SigninPage = () => {
+const SigninPage: React.FC = () => {
   const location = useLocation() as LocationStateFrom;
   const navigate = useNavigate();
   const { form, submit, isLoading } = useSigninForm();
