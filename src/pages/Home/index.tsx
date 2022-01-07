@@ -1,15 +1,17 @@
-import { useUsersQuery } from '../../graphql';
+import { useTorrentsQuery } from '../../graphql';
 
 const HomePage: React.FC = () => {
-  const { data } = useUsersQuery();
+  const { data } = useTorrentsQuery();
+
+  console.log(data);
 
   return (
     <div>
-      {data?.users.map((user) => (
-        <div key={user.userId}>
-          <span>{user.firstName}</span>
-          <span>{user.lastName}</span>
-          <span>{user.userId}</span>
+      {data?.torrents.map((torrent) => (
+        <div key={torrent.torrentId}>
+          <span>{torrent.name}</span>
+          <span>{torrent.status}</span>
+          <span>{torrent.torrentId}</span>
         </div>
       ))}
     </div>

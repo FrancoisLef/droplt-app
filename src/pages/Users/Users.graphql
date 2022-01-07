@@ -1,0 +1,11 @@
+query Users {
+  users {
+    userId
+    email
+    firstName
+    lastName
+    isDisabled
+    createdAt
+    updatedAt
+  }
+}

@@ -1,0 +1,11 @@
+query Torrents {
+  torrents {
+    torrentId
+    hash
+    name
+    percentDone
+    status
+    createdAt
+    updatedAt
+  }
+}
