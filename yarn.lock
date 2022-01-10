@@ -7214,6 +7214,7 @@ __metadata:
     jwt-decode: ^3.1.2
     lint-staged: ^12.1.4
     prettier: ^2.5.1
+    pretty-bytes: ^5.6.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-hook-form: ^7.22.5
@@ -13150,7 +13151,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-bytes@npm:^5.3.0, pretty-bytes@npm:^5.4.1":
+"pretty-bytes@npm:^5.3.0, pretty-bytes@npm:^5.4.1, pretty-bytes@npm:^5.6.0":
   version: 5.6.0
   resolution: "pretty-bytes@npm:5.6.0"
   checksum: 9c082500d1e93434b5b291bd651662936b8bd6204ec9fa17d563116a192d6d86b98f6d328526b4e8d783c07d5499e2614a807520249692da9ec81564b2f439cd

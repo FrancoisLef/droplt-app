@@ -1,3 +1,5 @@
+import pretty from 'pretty-bytes';
+
 import { useTorrentsQuery } from '../../graphql';
 
 const HomePage: React.FC = () => {
@@ -9,9 +11,8 @@ const HomePage: React.FC = () => {
     <div>
       {data?.torrents.map((torrent) => (
         <div key={torrent.torrentId}>
-          <span>{torrent.name}</span>
-          <span>{torrent.status}</span>
-          <span>{torrent.torrentId}</span>
+          <div>{torrent.name}</div>
+          <div>{pretty(torrent.downloaded)}</div>
         </div>
       ))}
     </div>

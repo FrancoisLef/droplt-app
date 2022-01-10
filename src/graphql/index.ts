@@ -33,6 +33,39 @@ export type DateTimeFilter = {
   notIn?: InputMaybe<Array<Scalars['DateTime']>>;
 };
 
+export type DateTimeNullableFilter = {
+  equals?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']>;
+  in?: InputMaybe<Array<Scalars['DateTime']>>;
+  lt?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']>;
+  not?: InputMaybe<NestedDateTimeNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']>>;
+};
+
+export type FloatFilter = {
+  equals?: InputMaybe<Scalars['Float']>;
+  gt?: InputMaybe<Scalars['Float']>;
+  gte?: InputMaybe<Scalars['Float']>;
+  in?: InputMaybe<Array<Scalars['Float']>>;
+  lt?: InputMaybe<Scalars['Float']>;
+  lte?: InputMaybe<Scalars['Float']>;
+  not?: InputMaybe<NestedFloatFilter>;
+  notIn?: InputMaybe<Array<Scalars['Float']>>;
+};
+
+export type IntFilter = {
+  equals?: InputMaybe<Scalars['Int']>;
+  gt?: InputMaybe<Scalars['Int']>;
+  gte?: InputMaybe<Scalars['Int']>;
+  in?: InputMaybe<Array<Scalars['Int']>>;
+  lt?: InputMaybe<Scalars['Int']>;
+  lte?: InputMaybe<Scalars['Int']>;
+  not?: InputMaybe<NestedIntFilter>;
+  notIn?: InputMaybe<Array<Scalars['Int']>>;
+};
+
 export type NestedBoolFilter = {
   equals?: InputMaybe<Scalars['Boolean']>;
   not?: InputMaybe<NestedBoolFilter>;
@@ -49,6 +82,39 @@ export type NestedDateTimeFilter = {
   notIn?: InputMaybe<Array<Scalars['DateTime']>>;
 };
 
+export type NestedDateTimeNullableFilter = {
+  equals?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']>;
+  in?: InputMaybe<Array<Scalars['DateTime']>>;
+  lt?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']>;
+  not?: InputMaybe<NestedDateTimeNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']>>;
+};
+
+export type NestedFloatFilter = {
+  equals?: InputMaybe<Scalars['Float']>;
+  gt?: InputMaybe<Scalars['Float']>;
+  gte?: InputMaybe<Scalars['Float']>;
+  in?: InputMaybe<Array<Scalars['Float']>>;
+  lt?: InputMaybe<Scalars['Float']>;
+  lte?: InputMaybe<Scalars['Float']>;
+  not?: InputMaybe<NestedFloatFilter>;
+  notIn?: InputMaybe<Array<Scalars['Float']>>;
+};
+
+export type NestedIntFilter = {
+  equals?: InputMaybe<Scalars['Int']>;
+  gt?: InputMaybe<Scalars['Int']>;
+  gte?: InputMaybe<Scalars['Int']>;
+  in?: InputMaybe<Array<Scalars['Int']>>;
+  lt?: InputMaybe<Scalars['Int']>;
+  lte?: InputMaybe<Scalars['Int']>;
+  not?: InputMaybe<NestedIntFilter>;
+  notIn?: InputMaybe<Array<Scalars['Int']>>;
+};
+
 export type NestedStringFilter = {
   contains?: InputMaybe<Scalars['String']>;
   endsWith?: InputMaybe<Scalars['String']>;
@@ -59,6 +125,20 @@ export type NestedStringFilter = {
   lt?: InputMaybe<Scalars['String']>;
   lte?: InputMaybe<Scalars['String']>;
   not?: InputMaybe<NestedStringFilter>;
+  notIn?: InputMaybe<Array<Scalars['String']>>;
+  startsWith?: InputMaybe<Scalars['String']>;
+};
+
+export type NestedStringNullableFilter = {
+  contains?: InputMaybe<Scalars['String']>;
+  endsWith?: InputMaybe<Scalars['String']>;
+  equals?: InputMaybe<Scalars['String']>;
+  gt?: InputMaybe<Scalars['String']>;
+  gte?: InputMaybe<Scalars['String']>;
+  in?: InputMaybe<Array<Scalars['String']>>;
+  lt?: InputMaybe<Scalars['String']>;
+  lte?: InputMaybe<Scalars['String']>;
+  not?: InputMaybe<NestedStringNullableFilter>;
   notIn?: InputMaybe<Array<Scalars['String']>>;
   startsWith?: InputMaybe<Scalars['String']>;
 };
@@ -108,52 +188,132 @@ export type StringFilter = {
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
+export type StringNullableFilter = {
+  contains?: InputMaybe<Scalars['String']>;
+  endsWith?: InputMaybe<Scalars['String']>;
+  equals?: InputMaybe<Scalars['String']>;
+  gt?: InputMaybe<Scalars['String']>;
+  gte?: InputMaybe<Scalars['String']>;
+  in?: InputMaybe<Array<Scalars['String']>>;
+  lt?: InputMaybe<Scalars['String']>;
+  lte?: InputMaybe<Scalars['String']>;
+  not?: InputMaybe<NestedStringNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['String']>>;
+  startsWith?: InputMaybe<Scalars['String']>;
+};
+
 export type Torrent = {
   __typename?: 'Torrent';
+  _count?: Maybe<TorrentCount>;
+  addedAt: Scalars['DateTime'];
+  completedAt?: Maybe<Scalars['DateTime']>;
   createdAt: Scalars['DateTime'];
+  downloaded: Scalars['Float'];
   hash: Scalars['String'];
   name: Scalars['String'];
-  percentDone: Scalars['String'];
+  path: Scalars['String'];
+  progress: Scalars['Float'];
+  ratio: Scalars['Float'];
+  size: Scalars['Float'];
   status: Scalars['String'];
   torrentId: Scalars['String'];
-  totalSize: Scalars['String'];
+  transmissionId: Scalars['Int'];
   updatedAt: Scalars['DateTime'];
+  upload?: Maybe<Scalars['String']>;
+  uploaded: Scalars['Float'];
+};
+
+export type TorrentCount = {
+  __typename?: 'TorrentCount';
+  files: Scalars['Int'];
+};
+
+export type TorrentFileListRelationFilter = {
+  every?: InputMaybe<TorrentFileWhereInput>;
+  none?: InputMaybe<TorrentFileWhereInput>;
+  some?: InputMaybe<TorrentFileWhereInput>;
+};
+
+export type TorrentFileOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type TorrentFileWhereInput = {
+  AND?: InputMaybe<Array<TorrentFileWhereInput>>;
+  NOT?: InputMaybe<Array<TorrentFileWhereInput>>;
+  OR?: InputMaybe<Array<TorrentFileWhereInput>>;
+  Torrent?: InputMaybe<TorrentRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  downloaded?: InputMaybe<FloatFilter>;
+  name?: InputMaybe<StringFilter>;
+  size?: InputMaybe<FloatFilter>;
+  torrentFileId?: InputMaybe<StringFilter>;
+  torrentId?: InputMaybe<StringNullableFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
 export type TorrentOrderByWithRelationInput = {
+  addedAt?: InputMaybe<SortOrder>;
+  completedAt?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
+  downloaded?: InputMaybe<SortOrder>;
+  files?: InputMaybe<TorrentFileOrderByRelationAggregateInput>;
   hash?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
-  percentDone?: InputMaybe<SortOrder>;
+  path?: InputMaybe<SortOrder>;
+  progress?: InputMaybe<SortOrder>;
+  ratio?: InputMaybe<SortOrder>;
+  size?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
   torrentId?: InputMaybe<SortOrder>;
-  totalSize?: InputMaybe<SortOrder>;
+  transmissionId?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
+  uploaded?: InputMaybe<SortOrder>;
+};
+
+export type TorrentRelationFilter = {
+  is?: InputMaybe<TorrentWhereInput>;
+  isNot?: InputMaybe<TorrentWhereInput>;
 };
 
 export enum TorrentScalarFieldEnum {
+  AddedAt = 'addedAt',
+  CompletedAt = 'completedAt',
   CreatedAt = 'createdAt',
+  Downloaded = 'downloaded',
   Hash = 'hash',
   Name = 'name',
-  PercentDone = 'percentDone',
+  Path = 'path',
+  Progress = 'progress',
+  Ratio = 'ratio',
+  Size = 'size',
   Status = 'status',
   TorrentId = 'torrentId',
-  TotalSize = 'totalSize',
-  UpdatedAt = 'updatedAt'
+  TransmissionId = 'transmissionId',
+  UpdatedAt = 'updatedAt',
+  Uploaded = 'uploaded'
 }
 
 export type TorrentWhereInput = {
   AND?: InputMaybe<Array<TorrentWhereInput>>;
   NOT?: InputMaybe<Array<TorrentWhereInput>>;
   OR?: InputMaybe<Array<TorrentWhereInput>>;
+  addedAt?: InputMaybe<DateTimeFilter>;
+  completedAt?: InputMaybe<DateTimeNullableFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  downloaded?: InputMaybe<FloatFilter>;
+  files?: InputMaybe<TorrentFileListRelationFilter>;
   hash?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
-  percentDone?: InputMaybe<StringFilter>;
+  path?: InputMaybe<StringFilter>;
+  progress?: InputMaybe<FloatFilter>;
+  ratio?: InputMaybe<FloatFilter>;
+  size?: InputMaybe<FloatFilter>;
   status?: InputMaybe<StringFilter>;
   torrentId?: InputMaybe<StringFilter>;
-  totalSize?: InputMaybe<StringFilter>;
+  transmissionId?: InputMaybe<IntFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
+  uploaded?: InputMaybe<FloatFilter>;
 };
 
 export type TorrentWhereUniqueInput = {
@@ -168,7 +328,6 @@ export type User = {
   firstName: Scalars['String'];
   isDisabled: Scalars['Boolean'];
   lastName: Scalars['String'];
-  password: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   userId: Scalars['String'];
 };
@@ -217,7 +376,7 @@ export type UserWhereUniqueInput = {
 export type TorrentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TorrentsQuery = { __typename?: 'Query', torrents: Array<{ __typename?: 'Torrent', torrentId: string, hash: string, name: string, percentDone: string, status: string, createdAt: any, updatedAt: any }> };
+export type TorrentsQuery = { __typename?: 'Query', torrents: Array<{ __typename?: 'Torrent', torrentId: string, hash: string, name: string, downloaded: number, createdAt: any, updatedAt: any }> };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -231,8 +390,7 @@ export const TorrentsDocument = gql`
     torrentId
     hash
     name
-    percentDone
-    status
+    downloaded
     createdAt
     updatedAt
   }
