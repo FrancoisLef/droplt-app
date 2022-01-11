@@ -1,11 +1,44 @@
 import pretty from 'pretty-bytes';
+import { useEffect } from 'react';
 
-import { useTorrentsQuery } from '../../graphql';
+import {
+  TorrentsUpdatesDocument,
+  TorrentsUpdatesSubscription,
+  useTorrentsQuery,
+} from '../../graphql';
 
 const HomePage: React.FC = () => {
-  const { data } = useTorrentsQuery();
+  const { data, subscribeToMore } = useTorrentsQuery();
 
-  console.log(data);
+  useEffect(() => {
+    subscribeToMore<TorrentsUpdatesSubscription>({
+      document: TorrentsUpdatesDocument,
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) return prev;
+
+        const { torrents } = prev;
+        const {
+          data: { torrentsUpdate },
+        } = subscriptionData;
+
+        return {
+          ...prev,
+          torrents: torrents.map((torrent) => {
+            const isMatchingUpdate = torrentsUpdate.find(
+              (t) => t.torrentId === torrent.torrentId
+            );
+            if (isMatchingUpdate) {
+              return {
+                ...torrent,
+                ...isMatchingUpdate,
+              };
+            }
+            return torrent;
+          }, []),
+        };
+      },
+    });
+  }, [subscribeToMore]);
 
   return (
     <div>

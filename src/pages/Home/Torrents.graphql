@@ -8,3 +8,10 @@ query Torrents {
     updatedAt
   }
 }
+
+subscription TorrentsUpdates {
+  torrentsUpdate {
+    torrentId
+    downloaded
+  }
+}

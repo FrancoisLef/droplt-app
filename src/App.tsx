@@ -2,10 +2,10 @@ import { ApolloProvider } from '@apollo/client';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import client from './graphql';
 import AppLayout from './layouts/AppLayout';
 import ProtectedRoutes from './layouts/ProtectedRoutes';
 import { AuthProvider, AuthSession } from './modules/auth';
-import client from './modules/graphql';
 import HomePage from './pages/Home';
 import SigninPage from './pages/Signin';
 import UsersPage from './pages/Users';
