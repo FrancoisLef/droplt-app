@@ -1,5 +1,5 @@
 query Torrents {
-  torrents {
+  torrents(orderBy: { updatedAt: desc } ) {
     torrentId
     hash
     name

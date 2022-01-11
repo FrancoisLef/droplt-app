@@ -1304,7 +1304,7 @@ export type UsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'Us
 
 export const TorrentsDocument = gql`
     query Torrents {
-  torrents {
+  torrents(orderBy: {updatedAt: desc}) {
     torrentId
     hash
     name
