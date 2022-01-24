@@ -128,6 +128,33 @@ export type FloatFilter = {
   notIn?: InputMaybe<Array<Scalars['Float']>>;
 };
 
+export type FloatNullableFilter = {
+  equals?: InputMaybe<Scalars['Float']>;
+  gt?: InputMaybe<Scalars['Float']>;
+  gte?: InputMaybe<Scalars['Float']>;
+  in?: InputMaybe<Array<Scalars['Float']>>;
+  lt?: InputMaybe<Scalars['Float']>;
+  lte?: InputMaybe<Scalars['Float']>;
+  not?: InputMaybe<NestedFloatNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['Float']>>;
+};
+
+export type FloatNullableWithAggregatesFilter = {
+  _avg?: InputMaybe<NestedFloatNullableFilter>;
+  _count?: InputMaybe<NestedIntNullableFilter>;
+  _max?: InputMaybe<NestedFloatNullableFilter>;
+  _min?: InputMaybe<NestedFloatNullableFilter>;
+  _sum?: InputMaybe<NestedFloatNullableFilter>;
+  equals?: InputMaybe<Scalars['Float']>;
+  gt?: InputMaybe<Scalars['Float']>;
+  gte?: InputMaybe<Scalars['Float']>;
+  in?: InputMaybe<Array<Scalars['Float']>>;
+  lt?: InputMaybe<Scalars['Float']>;
+  lte?: InputMaybe<Scalars['Float']>;
+  not?: InputMaybe<NestedFloatNullableWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<Scalars['Float']>>;
+};
+
 export type FloatWithAggregatesFilter = {
   _avg?: InputMaybe<NestedFloatFilter>;
   _count?: InputMaybe<NestedIntFilter>;
@@ -181,6 +208,8 @@ export type IntWithAggregatesFilter = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createManyTorrent: AffectedRowsOutput;
+  createManyUser: AffectedRowsOutput;
   createTorrent: Torrent;
   createUser: User;
   deleteManyTorrent: AffectedRowsOutput;
@@ -193,6 +222,18 @@ export type Mutation = {
   updateUser?: Maybe<User>;
   upsertTorrent: Torrent;
   upsertUser: User;
+};
+
+
+export type MutationCreateManyTorrentArgs = {
+  data: Array<TorrentCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type MutationCreateManyUserArgs = {
+  data: Array<UserCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -337,6 +378,33 @@ export type NestedFloatFilter = {
   notIn?: InputMaybe<Array<Scalars['Float']>>;
 };
 
+export type NestedFloatNullableFilter = {
+  equals?: InputMaybe<Scalars['Float']>;
+  gt?: InputMaybe<Scalars['Float']>;
+  gte?: InputMaybe<Scalars['Float']>;
+  in?: InputMaybe<Array<Scalars['Float']>>;
+  lt?: InputMaybe<Scalars['Float']>;
+  lte?: InputMaybe<Scalars['Float']>;
+  not?: InputMaybe<NestedFloatNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['Float']>>;
+};
+
+export type NestedFloatNullableWithAggregatesFilter = {
+  _avg?: InputMaybe<NestedFloatNullableFilter>;
+  _count?: InputMaybe<NestedIntNullableFilter>;
+  _max?: InputMaybe<NestedFloatNullableFilter>;
+  _min?: InputMaybe<NestedFloatNullableFilter>;
+  _sum?: InputMaybe<NestedFloatNullableFilter>;
+  equals?: InputMaybe<Scalars['Float']>;
+  gt?: InputMaybe<Scalars['Float']>;
+  gte?: InputMaybe<Scalars['Float']>;
+  in?: InputMaybe<Array<Scalars['Float']>>;
+  lt?: InputMaybe<Scalars['Float']>;
+  lte?: InputMaybe<Scalars['Float']>;
+  not?: InputMaybe<NestedFloatNullableWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<Scalars['Float']>>;
+};
+
 export type NestedFloatWithAggregatesFilter = {
   _avg?: InputMaybe<NestedFloatFilter>;
   _count?: InputMaybe<NestedIntFilter>;
@@ -438,6 +506,14 @@ export type NestedStringWithAggregatesFilter = {
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type NullableFloatFieldUpdateOperationsInput = {
+  decrement?: InputMaybe<Scalars['Float']>;
+  divide?: InputMaybe<Scalars['Float']>;
+  increment?: InputMaybe<Scalars['Float']>;
+  multiply?: InputMaybe<Scalars['Float']>;
+  set?: InputMaybe<Scalars['Float']>;
 };
 
 export type Query = {
@@ -542,6 +618,11 @@ export type QueryUsersArgs = {
   where?: InputMaybe<UserWhereInput>;
 };
 
+export enum QueryMode {
+  Default = 'default',
+  Insensitive = 'insensitive'
+}
+
 export enum SortOrder {
   Asc = 'asc',
   Desc = 'desc'
@@ -560,6 +641,7 @@ export type StringFilter = {
   in?: InputMaybe<Array<Scalars['String']>>;
   lt?: InputMaybe<Scalars['String']>;
   lte?: InputMaybe<Scalars['String']>;
+  mode?: InputMaybe<QueryMode>;
   not?: InputMaybe<NestedStringFilter>;
   notIn?: InputMaybe<Array<Scalars['String']>>;
   startsWith?: InputMaybe<Scalars['String']>;
@@ -574,6 +656,7 @@ export type StringNullableFilter = {
   in?: InputMaybe<Array<Scalars['String']>>;
   lt?: InputMaybe<Scalars['String']>;
   lte?: InputMaybe<Scalars['String']>;
+  mode?: InputMaybe<QueryMode>;
   not?: InputMaybe<NestedStringNullableFilter>;
   notIn?: InputMaybe<Array<Scalars['String']>>;
   startsWith?: InputMaybe<Scalars['String']>;
@@ -591,6 +674,7 @@ export type StringWithAggregatesFilter = {
   in?: InputMaybe<Array<Scalars['String']>>;
   lt?: InputMaybe<Scalars['String']>;
   lte?: InputMaybe<Scalars['String']>;
+  mode?: InputMaybe<QueryMode>;
   not?: InputMaybe<NestedStringWithAggregatesFilter>;
   notIn?: InputMaybe<Array<Scalars['String']>>;
   startsWith?: InputMaybe<Scalars['String']>;
@@ -607,14 +691,16 @@ export type Torrent = {
   addedAt: Scalars['DateTime'];
   completedAt?: Maybe<Scalars['DateTime']>;
   createdAt: Scalars['DateTime'];
+  deletedAt?: Maybe<Scalars['DateTime']>;
   downloaded: Scalars['Float'];
+  eta?: Maybe<Scalars['Float']>;
   hash: Scalars['String'];
+  isDeleted: Scalars['Boolean'];
   name: Scalars['String'];
   path: Scalars['String'];
   progress: Scalars['Float'];
   ratio: Scalars['Float'];
   size: Scalars['Float'];
-  stats: TorrentStats;
   status: Scalars['String'];
   torrentId: Scalars['String'];
   transmissionId: Scalars['Int'];
@@ -625,6 +711,7 @@ export type Torrent = {
 export type TorrentAvgAggregate = {
   __typename?: 'TorrentAvgAggregate';
   downloaded?: Maybe<Scalars['Float']>;
+  eta?: Maybe<Scalars['Float']>;
   progress?: Maybe<Scalars['Float']>;
   ratio?: Maybe<Scalars['Float']>;
   size?: Maybe<Scalars['Float']>;
@@ -634,6 +721,7 @@ export type TorrentAvgAggregate = {
 
 export type TorrentAvgOrderByAggregateInput = {
   downloaded?: InputMaybe<SortOrder>;
+  eta?: InputMaybe<SortOrder>;
   progress?: InputMaybe<SortOrder>;
   ratio?: InputMaybe<SortOrder>;
   size?: InputMaybe<SortOrder>;
@@ -652,8 +740,11 @@ export type TorrentCountAggregate = {
   addedAt: Scalars['Int'];
   completedAt: Scalars['Int'];
   createdAt: Scalars['Int'];
+  deletedAt: Scalars['Int'];
   downloaded: Scalars['Int'];
+  eta: Scalars['Int'];
   hash: Scalars['Int'];
+  isDeleted: Scalars['Int'];
   name: Scalars['Int'];
   path: Scalars['Int'];
   progress: Scalars['Int'];
@@ -670,8 +761,11 @@ export type TorrentCountOrderByAggregateInput = {
   addedAt?: InputMaybe<SortOrder>;
   completedAt?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrder>;
   downloaded?: InputMaybe<SortOrder>;
+  eta?: InputMaybe<SortOrder>;
   hash?: InputMaybe<SortOrder>;
+  isDeleted?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
   path?: InputMaybe<SortOrder>;
   progress?: InputMaybe<SortOrder>;
@@ -688,9 +782,12 @@ export type TorrentCreateInput = {
   addedAt: Scalars['DateTime'];
   completedAt?: InputMaybe<Scalars['DateTime']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  deletedAt?: InputMaybe<Scalars['DateTime']>;
   downloaded?: InputMaybe<Scalars['Float']>;
+  eta?: InputMaybe<Scalars['Float']>;
   files?: InputMaybe<TorrentFileCreateNestedManyWithoutTorrentInput>;
   hash: Scalars['String'];
+  isDeleted?: InputMaybe<Scalars['Boolean']>;
   name: Scalars['String'];
   path: Scalars['String'];
   progress?: InputMaybe<Scalars['Float']>;
@@ -703,10 +800,46 @@ export type TorrentCreateInput = {
   uploaded?: InputMaybe<Scalars['Float']>;
 };
 
+export type TorrentCreateManyInput = {
+  addedAt: Scalars['DateTime'];
+  completedAt?: InputMaybe<Scalars['DateTime']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  deletedAt?: InputMaybe<Scalars['DateTime']>;
+  downloaded?: InputMaybe<Scalars['Float']>;
+  eta?: InputMaybe<Scalars['Float']>;
+  hash: Scalars['String'];
+  isDeleted?: InputMaybe<Scalars['Boolean']>;
+  name: Scalars['String'];
+  path: Scalars['String'];
+  progress?: InputMaybe<Scalars['Float']>;
+  ratio?: InputMaybe<Scalars['Float']>;
+  size: Scalars['Float'];
+  status: Scalars['String'];
+  torrentId?: InputMaybe<Scalars['String']>;
+  transmissionId: Scalars['Int'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  uploaded?: InputMaybe<Scalars['Float']>;
+};
+
+export type TorrentFileCreateManyTorrentInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  downloaded?: InputMaybe<Scalars['Float']>;
+  name: Scalars['String'];
+  size: Scalars['Float'];
+  torrentFileId?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TorrentFileCreateManyTorrentInputEnvelope = {
+  data: Array<TorrentFileCreateManyTorrentInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
 export type TorrentFileCreateNestedManyWithoutTorrentInput = {
   connect?: InputMaybe<Array<TorrentFileWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<TorrentFileCreateOrConnectWithoutTorrentInput>>;
   create?: InputMaybe<Array<TorrentFileCreateWithoutTorrentInput>>;
+  createMany?: InputMaybe<TorrentFileCreateManyTorrentInputEnvelope>;
 };
 
 export type TorrentFileCreateOrConnectWithoutTorrentInput = {
@@ -764,6 +897,7 @@ export type TorrentFileUpdateManyWithoutTorrentInput = {
   connect?: InputMaybe<Array<TorrentFileWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<TorrentFileCreateOrConnectWithoutTorrentInput>>;
   create?: InputMaybe<Array<TorrentFileCreateWithoutTorrentInput>>;
+  createMany?: InputMaybe<TorrentFileCreateManyTorrentInputEnvelope>;
   delete?: InputMaybe<Array<TorrentFileWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<TorrentFileScalarWhereInput>>;
   disconnect?: InputMaybe<Array<TorrentFileWhereUniqueInput>>;
@@ -821,8 +955,11 @@ export type TorrentGroupBy = {
   addedAt: Scalars['DateTime'];
   completedAt?: Maybe<Scalars['DateTime']>;
   createdAt: Scalars['DateTime'];
+  deletedAt?: Maybe<Scalars['DateTime']>;
   downloaded: Scalars['Float'];
+  eta?: Maybe<Scalars['Float']>;
   hash: Scalars['String'];
+  isDeleted: Scalars['Boolean'];
   name: Scalars['String'];
   path: Scalars['String'];
   progress: Scalars['Float'];
@@ -840,8 +977,11 @@ export type TorrentMaxAggregate = {
   addedAt?: Maybe<Scalars['DateTime']>;
   completedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  deletedAt?: Maybe<Scalars['DateTime']>;
   downloaded?: Maybe<Scalars['Float']>;
+  eta?: Maybe<Scalars['Float']>;
   hash?: Maybe<Scalars['String']>;
+  isDeleted?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
   progress?: Maybe<Scalars['Float']>;
@@ -858,8 +998,11 @@ export type TorrentMaxOrderByAggregateInput = {
   addedAt?: InputMaybe<SortOrder>;
   completedAt?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrder>;
   downloaded?: InputMaybe<SortOrder>;
+  eta?: InputMaybe<SortOrder>;
   hash?: InputMaybe<SortOrder>;
+  isDeleted?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
   path?: InputMaybe<SortOrder>;
   progress?: InputMaybe<SortOrder>;
@@ -877,8 +1020,11 @@ export type TorrentMinAggregate = {
   addedAt?: Maybe<Scalars['DateTime']>;
   completedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  deletedAt?: Maybe<Scalars['DateTime']>;
   downloaded?: Maybe<Scalars['Float']>;
+  eta?: Maybe<Scalars['Float']>;
   hash?: Maybe<Scalars['String']>;
+  isDeleted?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
   progress?: Maybe<Scalars['Float']>;
@@ -895,8 +1041,11 @@ export type TorrentMinOrderByAggregateInput = {
   addedAt?: InputMaybe<SortOrder>;
   completedAt?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrder>;
   downloaded?: InputMaybe<SortOrder>;
+  eta?: InputMaybe<SortOrder>;
   hash?: InputMaybe<SortOrder>;
+  isDeleted?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
   path?: InputMaybe<SortOrder>;
   progress?: InputMaybe<SortOrder>;
@@ -918,8 +1067,11 @@ export type TorrentOrderByWithAggregationInput = {
   addedAt?: InputMaybe<SortOrder>;
   completedAt?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrder>;
   downloaded?: InputMaybe<SortOrder>;
+  eta?: InputMaybe<SortOrder>;
   hash?: InputMaybe<SortOrder>;
+  isDeleted?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
   path?: InputMaybe<SortOrder>;
   progress?: InputMaybe<SortOrder>;
@@ -936,9 +1088,12 @@ export type TorrentOrderByWithRelationInput = {
   addedAt?: InputMaybe<SortOrder>;
   completedAt?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrder>;
   downloaded?: InputMaybe<SortOrder>;
+  eta?: InputMaybe<SortOrder>;
   files?: InputMaybe<TorrentFileOrderByRelationAggregateInput>;
   hash?: InputMaybe<SortOrder>;
+  isDeleted?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
   path?: InputMaybe<SortOrder>;
   progress?: InputMaybe<SortOrder>;
@@ -960,8 +1115,11 @@ export enum TorrentScalarFieldEnum {
   AddedAt = 'addedAt',
   CompletedAt = 'completedAt',
   CreatedAt = 'createdAt',
+  DeletedAt = 'deletedAt',
   Downloaded = 'downloaded',
+  Eta = 'eta',
   Hash = 'hash',
+  IsDeleted = 'isDeleted',
   Name = 'name',
   Path = 'path',
   Progress = 'progress',
@@ -981,8 +1139,11 @@ export type TorrentScalarWhereWithAggregatesInput = {
   addedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   completedAt?: InputMaybe<DateTimeNullableWithAggregatesFilter>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableWithAggregatesFilter>;
   downloaded?: InputMaybe<FloatWithAggregatesFilter>;
+  eta?: InputMaybe<FloatNullableWithAggregatesFilter>;
   hash?: InputMaybe<StringWithAggregatesFilter>;
+  isDeleted?: InputMaybe<BoolWithAggregatesFilter>;
   name?: InputMaybe<StringWithAggregatesFilter>;
   path?: InputMaybe<StringWithAggregatesFilter>;
   progress?: InputMaybe<FloatWithAggregatesFilter>;
@@ -995,19 +1156,10 @@ export type TorrentScalarWhereWithAggregatesInput = {
   uploaded?: InputMaybe<FloatWithAggregatesFilter>;
 };
 
-export type TorrentStats = {
-  __typename?: 'TorrentStats';
-  downloadSpeed?: Maybe<Scalars['Float']>;
-  eta?: Maybe<Scalars['Float']>;
-  peers?: Maybe<Scalars['Float']>;
-  seeds?: Maybe<Scalars['Float']>;
-  torrentId: Scalars['String'];
-  uploadSpeed?: Maybe<Scalars['Float']>;
-};
-
 export type TorrentSumAggregate = {
   __typename?: 'TorrentSumAggregate';
   downloaded?: Maybe<Scalars['Float']>;
+  eta?: Maybe<Scalars['Float']>;
   progress?: Maybe<Scalars['Float']>;
   ratio?: Maybe<Scalars['Float']>;
   size?: Maybe<Scalars['Float']>;
@@ -1017,6 +1169,7 @@ export type TorrentSumAggregate = {
 
 export type TorrentSumOrderByAggregateInput = {
   downloaded?: InputMaybe<SortOrder>;
+  eta?: InputMaybe<SortOrder>;
   progress?: InputMaybe<SortOrder>;
   ratio?: InputMaybe<SortOrder>;
   size?: InputMaybe<SortOrder>;
@@ -1028,9 +1181,12 @@ export type TorrentUpdateInput = {
   addedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   completedAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  deletedAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   downloaded?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  eta?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
   files?: InputMaybe<TorrentFileUpdateManyWithoutTorrentInput>;
   hash?: InputMaybe<StringFieldUpdateOperationsInput>;
+  isDeleted?: InputMaybe<BoolFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   path?: InputMaybe<StringFieldUpdateOperationsInput>;
   progress?: InputMaybe<FloatFieldUpdateOperationsInput>;
@@ -1047,8 +1203,11 @@ export type TorrentUpdateManyMutationInput = {
   addedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   completedAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  deletedAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   downloaded?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  eta?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
   hash?: InputMaybe<StringFieldUpdateOperationsInput>;
+  isDeleted?: InputMaybe<BoolFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   path?: InputMaybe<StringFieldUpdateOperationsInput>;
   progress?: InputMaybe<FloatFieldUpdateOperationsInput>;
@@ -1068,9 +1227,12 @@ export type TorrentWhereInput = {
   addedAt?: InputMaybe<DateTimeFilter>;
   completedAt?: InputMaybe<DateTimeNullableFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
   downloaded?: InputMaybe<FloatFilter>;
+  eta?: InputMaybe<FloatNullableFilter>;
   files?: InputMaybe<TorrentFileListRelationFilter>;
   hash?: InputMaybe<StringFilter>;
+  isDeleted?: InputMaybe<BoolFilter>;
   name?: InputMaybe<StringFilter>;
   path?: InputMaybe<StringFilter>;
   progress?: InputMaybe<FloatFilter>;
@@ -1091,8 +1253,11 @@ export type TorrentWhereUniqueInput = {
 export type User = {
   __typename?: 'User';
   createdAt: Scalars['DateTime'];
+  deletedAt?: Maybe<Scalars['DateTime']>;
+  disabledAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   firstName: Scalars['String'];
+  isDeleted: Scalars['Boolean'];
   isDisabled: Scalars['Boolean'];
   lastName: Scalars['String'];
   updatedAt: Scalars['DateTime'];
@@ -1103,8 +1268,11 @@ export type UserCountAggregate = {
   __typename?: 'UserCountAggregate';
   _all: Scalars['Int'];
   createdAt: Scalars['Int'];
+  deletedAt: Scalars['Int'];
+  disabledAt: Scalars['Int'];
   email: Scalars['Int'];
   firstName: Scalars['Int'];
+  isDeleted: Scalars['Int'];
   isDisabled: Scalars['Int'];
   lastName: Scalars['Int'];
   password: Scalars['Int'];
@@ -1114,8 +1282,11 @@ export type UserCountAggregate = {
 
 export type UserCountOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrder>;
+  disabledAt?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   firstName?: InputMaybe<SortOrder>;
+  isDeleted?: InputMaybe<SortOrder>;
   isDisabled?: InputMaybe<SortOrder>;
   lastName?: InputMaybe<SortOrder>;
   password?: InputMaybe<SortOrder>;
@@ -1125,8 +1296,25 @@ export type UserCountOrderByAggregateInput = {
 
 export type UserCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  deletedAt?: InputMaybe<Scalars['DateTime']>;
+  disabledAt?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
   firstName: Scalars['String'];
+  isDeleted?: InputMaybe<Scalars['Boolean']>;
+  isDisabled?: InputMaybe<Scalars['Boolean']>;
+  lastName: Scalars['String'];
+  password: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  userId?: InputMaybe<Scalars['String']>;
+};
+
+export type UserCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  deletedAt?: InputMaybe<Scalars['DateTime']>;
+  disabledAt?: InputMaybe<Scalars['DateTime']>;
+  email: Scalars['String'];
+  firstName: Scalars['String'];
+  isDeleted?: InputMaybe<Scalars['Boolean']>;
   isDisabled?: InputMaybe<Scalars['Boolean']>;
   lastName: Scalars['String'];
   password: Scalars['String'];
@@ -1140,8 +1328,11 @@ export type UserGroupBy = {
   _max?: Maybe<UserMaxAggregate>;
   _min?: Maybe<UserMinAggregate>;
   createdAt: Scalars['DateTime'];
+  deletedAt?: Maybe<Scalars['DateTime']>;
+  disabledAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   firstName: Scalars['String'];
+  isDeleted: Scalars['Boolean'];
   isDisabled: Scalars['Boolean'];
   lastName: Scalars['String'];
   password: Scalars['String'];
@@ -1152,8 +1343,11 @@ export type UserGroupBy = {
 export type UserMaxAggregate = {
   __typename?: 'UserMaxAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
+  deletedAt?: Maybe<Scalars['DateTime']>;
+  disabledAt?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
+  isDeleted?: Maybe<Scalars['Boolean']>;
   isDisabled?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
@@ -1163,8 +1357,11 @@ export type UserMaxAggregate = {
 
 export type UserMaxOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrder>;
+  disabledAt?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   firstName?: InputMaybe<SortOrder>;
+  isDeleted?: InputMaybe<SortOrder>;
   isDisabled?: InputMaybe<SortOrder>;
   lastName?: InputMaybe<SortOrder>;
   password?: InputMaybe<SortOrder>;
@@ -1175,8 +1372,11 @@ export type UserMaxOrderByAggregateInput = {
 export type UserMinAggregate = {
   __typename?: 'UserMinAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
+  deletedAt?: Maybe<Scalars['DateTime']>;
+  disabledAt?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
+  isDeleted?: Maybe<Scalars['Boolean']>;
   isDisabled?: Maybe<Scalars['Boolean']>;
   lastName?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
@@ -1186,8 +1386,11 @@ export type UserMinAggregate = {
 
 export type UserMinOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrder>;
+  disabledAt?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   firstName?: InputMaybe<SortOrder>;
+  isDeleted?: InputMaybe<SortOrder>;
   isDisabled?: InputMaybe<SortOrder>;
   lastName?: InputMaybe<SortOrder>;
   password?: InputMaybe<SortOrder>;
@@ -1200,8 +1403,11 @@ export type UserOrderByWithAggregationInput = {
   _max?: InputMaybe<UserMaxOrderByAggregateInput>;
   _min?: InputMaybe<UserMinOrderByAggregateInput>;
   createdAt?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrder>;
+  disabledAt?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   firstName?: InputMaybe<SortOrder>;
+  isDeleted?: InputMaybe<SortOrder>;
   isDisabled?: InputMaybe<SortOrder>;
   lastName?: InputMaybe<SortOrder>;
   password?: InputMaybe<SortOrder>;
@@ -1211,8 +1417,11 @@ export type UserOrderByWithAggregationInput = {
 
 export type UserOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrder>;
+  disabledAt?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   firstName?: InputMaybe<SortOrder>;
+  isDeleted?: InputMaybe<SortOrder>;
   isDisabled?: InputMaybe<SortOrder>;
   lastName?: InputMaybe<SortOrder>;
   password?: InputMaybe<SortOrder>;
@@ -1222,8 +1431,11 @@ export type UserOrderByWithRelationInput = {
 
 export enum UserScalarFieldEnum {
   CreatedAt = 'createdAt',
+  DeletedAt = 'deletedAt',
+  DisabledAt = 'disabledAt',
   Email = 'email',
   FirstName = 'firstName',
+  IsDeleted = 'isDeleted',
   IsDisabled = 'isDisabled',
   LastName = 'lastName',
   Password = 'password',
@@ -1236,8 +1448,11 @@ export type UserScalarWhereWithAggregatesInput = {
   NOT?: InputMaybe<Array<UserScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<UserScalarWhereWithAggregatesInput>>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableWithAggregatesFilter>;
+  disabledAt?: InputMaybe<DateTimeNullableWithAggregatesFilter>;
   email?: InputMaybe<StringWithAggregatesFilter>;
   firstName?: InputMaybe<StringWithAggregatesFilter>;
+  isDeleted?: InputMaybe<BoolWithAggregatesFilter>;
   isDisabled?: InputMaybe<BoolWithAggregatesFilter>;
   lastName?: InputMaybe<StringWithAggregatesFilter>;
   password?: InputMaybe<StringWithAggregatesFilter>;
@@ -1247,8 +1462,11 @@ export type UserScalarWhereWithAggregatesInput = {
 
 export type UserUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  deletedAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
+  disabledAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  isDeleted?: InputMaybe<BoolFieldUpdateOperationsInput>;
   isDisabled?: InputMaybe<BoolFieldUpdateOperationsInput>;
   lastName?: InputMaybe<StringFieldUpdateOperationsInput>;
   password?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -1258,8 +1476,11 @@ export type UserUpdateInput = {
 
 export type UserUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  deletedAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
+  disabledAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  isDeleted?: InputMaybe<BoolFieldUpdateOperationsInput>;
   isDisabled?: InputMaybe<BoolFieldUpdateOperationsInput>;
   lastName?: InputMaybe<StringFieldUpdateOperationsInput>;
   password?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -1272,8 +1493,11 @@ export type UserWhereInput = {
   NOT?: InputMaybe<Array<UserWhereInput>>;
   OR?: InputMaybe<Array<UserWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  disabledAt?: InputMaybe<DateTimeNullableFilter>;
   email?: InputMaybe<StringFilter>;
   firstName?: InputMaybe<StringFilter>;
+  isDeleted?: InputMaybe<BoolFilter>;
   isDisabled?: InputMaybe<BoolFilter>;
   lastName?: InputMaybe<StringFilter>;
   password?: InputMaybe<StringFilter>;
@@ -1289,12 +1513,12 @@ export type UserWhereUniqueInput = {
 export type TorrentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TorrentsQuery = { __typename?: 'Query', torrents: Array<{ __typename?: 'Torrent', torrentId: string, hash: string, name: string, downloaded: number, createdAt: any, updatedAt: any }> };
+export type TorrentsQuery = { __typename?: 'Query', torrents: Array<{ __typename?: 'Torrent', torrentId: string, hash: string, name: string, size: number, eta?: number | null | undefined, downloaded: number, uploaded: number, ratio: number, addedAt: any, createdAt: any, updatedAt: any }> };
 
 export type TorrentsUpdatesSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TorrentsUpdatesSubscription = { __typename?: 'Subscription', torrentsUpdate: Array<{ __typename?: 'Torrent', torrentId: string, downloaded: number }> };
+export type TorrentsUpdatesSubscription = { __typename?: 'Subscription', torrentsUpdate: Array<{ __typename?: 'Torrent', torrentId: string, downloaded: number, ratio: number, eta?: number | null | undefined }> };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1304,11 +1528,16 @@ export type UsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'Us
 
 export const TorrentsDocument = gql`
     query Torrents {
-  torrents(orderBy: {updatedAt: desc}) {
+  torrents(orderBy: {addedAt: desc}) {
     torrentId
     hash
     name
+    size
+    eta
     downloaded
+    uploaded
+    ratio
+    addedAt
     createdAt
     updatedAt
   }
@@ -1346,6 +1575,8 @@ export const TorrentsUpdatesDocument = gql`
   torrentsUpdate {
     torrentId
     downloaded
+    ratio
+    eta
   }
 }
     `;

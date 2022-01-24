@@ -1,54 +1,118 @@
-import pretty from 'pretty-bytes';
-import { useEffect } from 'react';
+import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
+import { chakra, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import prettyBytes from 'pretty-bytes';
+import { useMemo } from 'react';
+import { Column, useSortBy, useTable } from 'react-table';
 
-import {
-  TorrentsUpdatesDocument,
-  TorrentsUpdatesSubscription,
-  useTorrentsQuery,
-} from '../../graphql';
+import { formatDate, Patp } from '../../helpers/date';
+import { useTorrents } from './hooks';
+import locales from './locales';
+
+type ColumnType = Array<
+  Column<{
+    name: string;
+    eta?: number | null;
+    ratio: number;
+    downloaded: number;
+    size: number;
+    uploaded: number;
+    addedAt: string;
+  }>
+>;
 
 const HomePage: React.FC = () => {
-  const { data, subscribeToMore } = useTorrentsQuery();
+  const { torrents } = useTorrents();
 
-  useEffect(() => {
-    subscribeToMore<TorrentsUpdatesSubscription>({
-      document: TorrentsUpdatesDocument,
-      updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data) return prev;
-
-        const { torrents } = prev;
-        const {
-          data: { torrentsUpdate },
-        } = subscriptionData;
-
-        return {
-          ...prev,
-          torrents: torrents.map((torrent) => {
-            const isMatchingUpdate = torrentsUpdate.find(
-              (t) => t.torrentId === torrent.torrentId
-            );
-            if (isMatchingUpdate) {
-              return {
-                ...torrent,
-                ...isMatchingUpdate,
-              };
-            }
-            return torrent;
-          }, []),
-        };
+  const columns: ColumnType = useMemo(
+    () => [
+      {
+        Header: locales.columns.name,
+        accessor: 'name',
       },
-    });
-  }, [subscribeToMore]);
+      {
+        Header: locales.columns.eta,
+        accessor: 'eta',
+      },
+      {
+        Header: locales.columns.ratio,
+        accessor: 'ratio',
+      },
+      {
+        Header: locales.columns.size,
+        accessor: 'size',
+        Cell: ({ value }) => prettyBytes(value),
+      },
+      {
+        Header: locales.columns.downloaded,
+        accessor: 'downloaded',
+        Cell: ({ value }) => prettyBytes(value),
+      },
+      {
+        Header: locales.columns.uploaded,
+        accessor: 'uploaded',
+        Cell: ({ value }) => prettyBytes(value),
+      },
+      {
+        Header: locales.columns.addedAt,
+        accessor: 'addedAt',
+        Cell: ({ value }) => formatDate(new Date(value), Patp),
+      },
+    ],
+    []
+  );
+
+  const data = useMemo(
+    () =>
+      torrents.map((torrent) => ({
+        name: torrent.name,
+        eta: torrent.eta,
+        ratio: torrent.ratio,
+        downloaded: torrent.downloaded,
+        size: torrent.size,
+        uploaded: torrent.uploaded,
+        addedAt: torrent.addedAt,
+      })),
+    [torrents]
+  );
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data }, useSortBy);
 
   return (
-    <div>
-      {data?.torrents.map((torrent) => (
-        <div key={torrent.torrentId}>
-          <div>{torrent.name}</div>
-          <div>{pretty(torrent.downloaded)}</div>
-        </div>
-      ))}
-    </div>
+    <Table {...getTableProps()}>
+      <Thead>
+        {headerGroups.map((headerGroup) => (
+          <Tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <Th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                {column.render('Header')}
+                <chakra.span pl="4">
+                  {column.isSorted ? (
+                    column.isSortedDesc ? (
+                      <TriangleDownIcon aria-label={locales.sortedDescending} />
+                    ) : (
+                      <TriangleUpIcon aria-label={locales.sortedAscending} />
+                    )
+                  ) : null}
+                </chakra.span>
+              </Th>
+            ))}
+          </Tr>
+        ))}
+      </Thead>
+      <Tbody {...getTableBodyProps()}>
+        {rows.map((row) => {
+          prepareRow(row);
+          return (
+            <Tr {...row.getRowProps()}>
+              {row.cells.map((cell) => (
+                <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
+              ))}
+            </Tr>
+          );
+        })}
+      </Tbody>
+    </Table>
   );
 };
 

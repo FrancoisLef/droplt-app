@@ -1,9 +1,14 @@
 query Torrents {
-  torrents(orderBy: { updatedAt: desc } ) {
+  torrents(orderBy: { addedAt: desc } ) {
     torrentId
     hash
     name
+    size
+    eta
     downloaded
+    uploaded
+    ratio
+    addedAt
     createdAt
     updatedAt
   }
@@ -13,5 +18,7 @@ subscription TorrentsUpdates {
   torrentsUpdate {
     torrentId
     downloaded
+    ratio
+    eta
   }
 }
