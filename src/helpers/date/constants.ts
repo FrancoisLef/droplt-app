@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import { enUS, fr } from 'date-fns/locale';
 import LocalizedStrings from 'localized-strings';
 

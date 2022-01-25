@@ -17,6 +17,7 @@
 
 # production
 /build
+/public/runtime-env.js
 
 # misc
 .DS_Store

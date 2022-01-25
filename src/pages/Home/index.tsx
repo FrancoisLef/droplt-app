@@ -2,7 +2,7 @@ import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
 import { chakra, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import prettyBytes from 'pretty-bytes';
 import { useMemo } from 'react';
-import { Column, useSortBy, useTable } from 'react-table';
+import { Column, usePagination, useSortBy, useTable } from 'react-table';
 
 import { formatDate, Patp } from '../../helpers/date';
 import { useTorrents } from './hooks';
@@ -76,7 +76,16 @@ const HomePage: React.FC = () => {
   );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data }, useSortBy);
+    useTable(
+      {
+        columns,
+        data,
+        autoResetSortBy: false,
+        initialState: { pageSize: 5, pageIndex: 0 },
+      },
+      useSortBy,
+      usePagination
+    );
 
   return (
     <Table {...getTableProps()}>
