@@ -2,12 +2,13 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { AuthProvider, ProtectedRoutes, PublicRoutes } from './helpers/auth';
 // import client from './graphql';
 // import AppLayout from './layouts/AppLayout';
 // import ProtectedRoutes from './layouts/ProtectedRoutes';
 // import { AuthProvider, AuthSession } from './modules/auth';
 // import HomePage from './pages/Home';
+import AppLayout from './components/AppLayout';
+import { AuthProvider, ProtectedRoutes, PublicRoutes } from './helpers/auth';
 import LoginPage from './pages/Login';
 import ProtectedPage from './pages/Protected';
 // import UsersPage from './pages/Users';
@@ -21,10 +22,12 @@ const App = () => {
           <Routes>
             <Route element={<PublicRoutes />}>
               <Route path="/login" element={<LoginPage />} />
-              <Route path="*" element={<LoginPage />} />
             </Route>
             <Route element={<ProtectedRoutes />}>
-              <Route path="/" element={<ProtectedPage />} />
+              <Route element={<AppLayout />}>
+                <Route index element={<ProtectedPage />} />
+                <Route path="*" element={<ProtectedPage />} />
+              </Route>
             </Route>
           </Routes>
         </AuthProvider>
