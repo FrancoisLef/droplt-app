@@ -4,6 +4,7 @@ import { ImDroplet } from 'react-icons/im';
 import { Outlet } from 'react-router-dom';
 
 import { useAuth } from '../../../helpers/auth';
+import Logo from '../../Logo';
 import { NavLink } from './components/NavLink';
 import locales from './locales';
 
@@ -21,8 +22,8 @@ const ProtectedLayout = () => {
         px={6}
         py={8}
       >
-        <Heading mb={8} textAlign="center">
-          Droplt
+        <Heading mb={8}>
+          <Logo />
         </Heading>
         <Stack spacing={6}>
           <Stack>
