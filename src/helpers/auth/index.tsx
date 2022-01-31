@@ -53,7 +53,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     return onAuthStateChanged(auth, (user) => {
-      console.log('Auth State Changed', user);
       setCurrentUser(user);
       setLoading(false);
     });

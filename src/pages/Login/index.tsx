@@ -9,14 +9,19 @@ import {
   Stack,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { AuthErrorCodes } from 'firebase/auth';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { HiArrowRight } from 'react-icons/hi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import InputPassword from '../../components/InputPassword';
 import ThemeSwitcher from '../../components/ThemeSwitcher';
 import { useAuth } from '../../helpers/auth';
-import { SubmitFn, useLoginForm } from './hooks';
 import locales from './locales';
+
+const { NODE_ENV } = process.env;
+const IS_DEV = NODE_ENV === 'development';
 
 interface LocationStateFrom {
   state?: {
@@ -26,21 +31,58 @@ interface LocationStateFrom {
   };
 }
 
+type FormData = {
+  email: string;
+  password: string;
+};
+
 const LoginPage: React.FC = () => {
   const location = useLocation() as LocationStateFrom;
   const navigate = useNavigate();
-  const { form, isLoading } = useLoginForm();
   const { login } = useAuth();
-
   const {
+    register,
     formState: { errors, isValid },
-  } = form;
+    handleSubmit,
+    setError,
+  } = useForm<FormData>({
+    mode: 'onChange',
+    defaultValues: {
+      email: IS_DEV ? 'testa@test.fr' : '',
+      password: IS_DEV ? 'password1' : '',
+    },
+  });
 
-  const onSubmit: SubmitFn = async (credentials) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const onSubmit = handleSubmit(async (credentials) => {
     const { email, password } = credentials;
-    await login(email, password);
-    navigate(location?.state?.from?.pathname || '/', { replace: true });
-  };
+    setIsLoading(true);
+    try {
+      await login(email, password);
+      navigate(location?.state?.from?.pathname || '/', { replace: true });
+    } catch (err: any) {
+      console.log(err);
+
+      setIsLoading(false);
+      switch (err.code) {
+        case AuthErrorCodes.INVALID_PASSWORD:
+          setError('password', {
+            type: 'manual',
+            message: locales.form.passwordNoMatch,
+          });
+          break;
+        case AuthErrorCodes.USER_DELETED:
+          setError('email', {
+            type: 'manual',
+            message: locales.form.emailNotFound,
+          });
+          break;
+        default:
+          break;
+      }
+    }
+  });
 
   return (
     <Box
@@ -63,13 +105,13 @@ const LoginPage: React.FC = () => {
           shadow="base"
           rounded={{ sm: 'lg' }}
         >
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={onSubmit}>
             <Stack spacing="6">
               <FormControl id="email" isInvalid={!!errors.email} isRequired>
                 <FormLabel>{locales.form.email}</FormLabel>
                 <Input
                   autoComplete="email"
-                  {...form.register('email', {
+                  {...register('email', {
                     required: locales.form.emailRequired,
                   })}
                 />
@@ -83,7 +125,7 @@ const LoginPage: React.FC = () => {
                 <FormLabel>{locales.form.password}</FormLabel>
                 <InputPassword
                   autoComplete="password"
-                  {...form.register('password', {
+                  {...register('password', {
                     required: locales.form.passwordRequired,
                   })}
                 />

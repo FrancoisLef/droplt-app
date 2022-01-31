@@ -9,7 +9,7 @@ import {
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 
-import { inMemoryToken } from '../modules/auth';
+// import { inMemoryToken } from '../helpers/auth';
 
 // HTTP Link
 const httpLink = createHttpLink({ uri: '/graphql' });
@@ -19,7 +19,7 @@ const httpAuth = new ApolloLink((operation, next) => {
   operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,
-      authorization: inMemoryToken ? `Bearer ${inMemoryToken}` : null,
+      // authorization: inMemoryToken ? `Bearer ${inMemoryToken}` : null,
     },
   }));
 
@@ -32,7 +32,7 @@ const wsLink = new WebSocketLink({
   options: {
     reconnect: true,
     connectionParams: {
-      authToken: inMemoryToken,
+      // authToken: inMemoryToken,
     },
   },
 });
