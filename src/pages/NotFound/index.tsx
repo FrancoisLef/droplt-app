@@ -1,12 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const NotFoundPage: React.FC = () => {
-  return (
-    <div>
-      <Link to="/">Home</Link>
-      <Link to="/protected">Protected</Link>
-    </div>
-  );
+  console.warn('404 not found: redirected to home page');
+  return <Navigate to="/" replace />;
 };
 
 export default NotFoundPage;

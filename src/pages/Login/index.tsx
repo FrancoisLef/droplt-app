@@ -1,18 +1,21 @@
 import {
   Box,
   Button,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Heading,
   Input,
+  Link,
   Stack,
-  useColorModeValue,
+  useColorModeValue as mode,
 } from '@chakra-ui/react';
 import { AuthErrorCodes } from 'firebase/auth';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { HiArrowRight } from 'react-icons/hi';
+import { Link as RouterLink } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import InputPassword from '../../components/InputPassword';
@@ -91,7 +94,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <Box
-      bg={useColorModeValue('gray.50', 'inherit')}
+      bg={mode('gray.50', 'inherit')}
       minH="100vh"
       py="12"
       px={{ base: '4', lg: '8' }}
@@ -104,7 +107,7 @@ const LoginPage: React.FC = () => {
           {locales.heading}
         </Heading>
         <Box
-          bg={useColorModeValue('white', 'gray.700')}
+          bg={mode('white', 'gray.700')}
           py="8"
           px={{ base: '4', md: '10' }}
           shadow="base"
@@ -112,9 +115,11 @@ const LoginPage: React.FC = () => {
         >
           <form onSubmit={onSubmit}>
             <Stack spacing="6">
-              <FormControl isInvalid={!!errors.common}>
-                <FormErrorMessage>{errors?.common?.message}</FormErrorMessage>
-              </FormControl>
+              {errors?.common ? (
+                <FormControl isInvalid>
+                  <FormErrorMessage>{errors?.common?.message}</FormErrorMessage>
+                </FormControl>
+              ) : null}
               <FormControl id="email" isInvalid={!!errors.email} isRequired>
                 <FormLabel>{locales.label.email}</FormLabel>
                 <Input
@@ -130,7 +135,18 @@ const LoginPage: React.FC = () => {
                 isInvalid={!!errors.password}
                 isRequired
               >
-                <FormLabel>{locales.label.password}</FormLabel>
+                <Flex justify="space-between">
+                  <FormLabel>{locales.label.password}</FormLabel>
+                  <Link
+                    as={RouterLink}
+                    to="/forgot-password"
+                    color={mode('blue.600', 'blue.200')}
+                    fontWeight="semibold"
+                    fontSize="sm"
+                  >
+                    {locales.forgotPassword}
+                  </Link>
+                </Flex>
                 <InputPassword
                   autoComplete="password"
                   {...register('password', {

@@ -17,12 +17,15 @@ const locales = new LocalizedStrings({
         invalid: 'Mot de passe incorrect',
       },
       common: {
-        unknownError: 'Une erreur est survenue. Merci de contacter votre administrateur.',
-        tooManyRequests: 'L’accès à ce compte à été temporairement désactivé suite à de nombreuses tentatives de connexion échouées. Vous pouvez réinitialiser votre mot de passe ou réessayer plus tard.',
-      }
+        unknownError:
+          'Une erreur est survenue. Merci de contacter votre administrateur.',
+        tooManyRequests:
+          'L’accès à ce compte à été temporairement désactivé suite à de nombreuses tentatives de connexion échouées. Vous pouvez réinitialiser votre mot de passe ou réessayer plus tard.',
+      },
     },
     submit: 'Connexion',
     loading: 'En attente de connexion',
+    forgotPassword: 'Mot de passe oublié ?',
   },
 });
 

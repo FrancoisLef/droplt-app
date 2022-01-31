@@ -81,7 +81,7 @@ export const ProtectedRoutes = (): JSX.Element => {
   const location = useLocation();
 
   if (!currentUser) {
-    // Redirect them to the /login page, but save the current location they were
+    // Redirect them to the login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them
     // along to that page after they sign in, which is a nicer user experience
     // than dropping them off on the home page.
@@ -98,7 +98,9 @@ export const PublicRoutes = (): JSX.Element => {
   const { currentUser } = useAuth();
   const location = useLocation() as LocationStateFrom;
 
-  if (currentUser && location.pathname === '/login') {
+  if (currentUser) {
+    // Redirect them to saved location if it exists.
+    // Otherwise redirect them to the home page.
     return <Navigate to={location?.state?.from?.pathname || '/'} replace />;
   }
 

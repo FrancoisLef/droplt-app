@@ -9,7 +9,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // import HomePage from './pages/Home';
 import AppLayout from './components/AppLayout';
 import { AuthProvider, ProtectedRoutes, PublicRoutes } from './helpers/auth';
+import ForgotPasswordPage from './pages/ForgotPassword';
 import LoginPage from './pages/Login';
+import NotFoundPage from './pages/NotFound';
 import ProtectedPage from './pages/Protected';
 // import UsersPage from './pages/Users';
 import theme from './theme';
@@ -22,12 +24,13 @@ const App = () => {
           <Routes>
             <Route element={<PublicRoutes />}>
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             </Route>
             <Route element={<ProtectedRoutes />}>
               <Route element={<AppLayout />}>
                 <Route index element={<ProtectedPage />} />
-                <Route path="*" element={<ProtectedPage />} />
               </Route>
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </AuthProvider>
