@@ -3,8 +3,11 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Heading,
   Input,
   Stack,
+  Text,
+  useColorModeValue as mode,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { HiArrowLeft, HiArrowRight } from 'react-icons/hi';
@@ -40,16 +43,12 @@ const ForgotPasswordPage: React.FC = () => {
 
   return (
     <>
-      <Button
-        as={RouterLink}
-        colorScheme="blue"
-        variant="link"
-        size="sm"
-        leftIcon={<HiArrowLeft />}
-        to="/login"
-      >
-        {locales.backToLogin}
-      </Button>
+      <Heading mb="4" as="h2" size="md">
+        {locales.title}
+      </Heading>
+      <Text mb="4" fontSize="sm" textColor={mode('gray.500', 'gray.300')}>
+        {locales.subtitle}
+      </Text>
       <form onSubmit={onSubmit}>
         <Stack spacing="6">
           {errors?.common ? (
@@ -80,6 +79,17 @@ const ForgotPasswordPage: React.FC = () => {
           </Button>
         </Stack>
       </form>
+      <Button
+        as={RouterLink}
+        colorScheme="blue"
+        variant="link"
+        size="sm"
+        mt="4"
+        leftIcon={<HiArrowLeft />}
+        to="/login"
+      >
+        {locales.backToLogin}
+      </Button>
     </>
   );
 };

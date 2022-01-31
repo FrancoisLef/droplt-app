@@ -2,6 +2,9 @@ import LocalizedStrings from 'react-localization';
 
 const locales = new LocalizedStrings({
   fr: {
+    title: 'Mot de passe oublié ?',
+    subtitle:
+      'Pas de panique, entrez votre adresse email et suivez les instructions.',
     label: {
       email: 'Adresse email',
     },
@@ -18,7 +21,7 @@ const locales = new LocalizedStrings({
       },
     },
     submit: 'Réinitialiser mon mot de passe',
-    backToLogin: 'Connexion',
+    backToLogin: 'Retour à la page de connexion',
   },
 });
 
