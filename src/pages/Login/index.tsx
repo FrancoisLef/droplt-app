@@ -32,6 +32,7 @@ interface LocationStateFrom {
 }
 
 type FormData = {
+  common: null;
   email: string;
   password: string;
 };
@@ -62,23 +63,27 @@ const LoginPage: React.FC = () => {
       await login(email, password);
       navigate(location?.state?.from?.pathname || '/', { replace: true });
     } catch (err: any) {
-      console.log(err);
-
       setIsLoading(false);
       switch (err.code) {
         case AuthErrorCodes.INVALID_PASSWORD:
           setError('password', {
-            type: 'manual',
-            message: locales.form.passwordNoMatch,
+            message: locales.error.password.invalid,
           });
           break;
         case AuthErrorCodes.USER_DELETED:
           setError('email', {
-            type: 'manual',
-            message: locales.form.emailNotFound,
+            message: locales.error.email.notFound,
+          });
+          break;
+        case AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER:
+          setError('common', {
+            message: locales.error.common.tooManyRequests,
           });
           break;
         default:
+          setError('common', {
+            message: locales.error.common.unknownError,
+          });
           break;
       }
     }
@@ -107,12 +112,15 @@ const LoginPage: React.FC = () => {
         >
           <form onSubmit={onSubmit}>
             <Stack spacing="6">
+              <FormControl isInvalid={!!errors.common}>
+                <FormErrorMessage>{errors?.common?.message}</FormErrorMessage>
+              </FormControl>
               <FormControl id="email" isInvalid={!!errors.email} isRequired>
-                <FormLabel>{locales.form.email}</FormLabel>
+                <FormLabel>{locales.label.email}</FormLabel>
                 <Input
                   autoComplete="email"
                   {...register('email', {
-                    required: locales.form.emailRequired,
+                    required: locales.error.email.required,
                   })}
                 />
                 <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
@@ -122,11 +130,11 @@ const LoginPage: React.FC = () => {
                 isInvalid={!!errors.password}
                 isRequired
               >
-                <FormLabel>{locales.form.password}</FormLabel>
+                <FormLabel>{locales.label.password}</FormLabel>
                 <InputPassword
                   autoComplete="password"
                   {...register('password', {
-                    required: locales.form.passwordRequired,
+                    required: locales.error.password.required,
                   })}
                 />
                 <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
@@ -135,14 +143,14 @@ const LoginPage: React.FC = () => {
                 isLoading={isLoading}
                 isDisabled={!isValid}
                 spinnerPlacement="end"
-                loadingText={locales.form.submitLoading}
+                loadingText={locales.loading}
                 rightIcon={<HiArrowRight />}
                 type="submit"
                 colorScheme="blue"
                 size="lg"
                 fontSize="md"
               >
-                {locales.form.submit}
+                {locales.submit}
               </Button>
             </Stack>
           </form>
