@@ -7,7 +7,7 @@ import { useAuth } from '../../helpers/auth';
 import { NavLink } from './components/NavLink';
 import locales from './locales';
 
-const AppLayout = () => {
+const ProtectedLayout = () => {
   const { logout } = useAuth();
 
   return (
@@ -47,4 +47,4 @@ const AppLayout = () => {
   );
 };
 
-export default AppLayout;
+export default ProtectedLayout;

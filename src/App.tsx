@@ -7,8 +7,13 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // import ProtectedRoutes from './layouts/ProtectedRoutes';
 // import { AuthProvider, AuthSession } from './modules/auth';
 // import HomePage from './pages/Home';
-import AppLayout from './components/AppLayout';
-import { AuthProvider, ProtectedRoutes, PublicRoutes } from './helpers/auth';
+import ProtectedLayout from './components/ProtectedLayout';
+import PublicLayout from './components/PublicLayout';
+import {
+  AuthProvider,
+  ProtectedRouteGuard,
+  PublicRouteGuard,
+} from './helpers/auth';
 import ForgotPasswordPage from './pages/ForgotPassword';
 import LoginPage from './pages/Login';
 import NotFoundPage from './pages/NotFound';
@@ -22,12 +27,17 @@ const App = () => {
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            <Route element={<PublicRoutes />}>
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route element={<PublicRouteGuard />}>
+              <Route element={<PublicLayout />}>
+                <Route path="/login" element={<LoginPage />} />
+                <Route
+                  path="/forgot-password"
+                  element={<ForgotPasswordPage />}
+                />
+              </Route>
             </Route>
-            <Route element={<ProtectedRoutes />}>
-              <Route element={<AppLayout />}>
+            <Route element={<ProtectedRouteGuard />}>
+              <Route element={<ProtectedLayout />}>
                 <Route index element={<ProtectedPage />} />
               </Route>
               <Route path="*" element={<NotFoundPage />} />

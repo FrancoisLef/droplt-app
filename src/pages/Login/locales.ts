@@ -2,7 +2,6 @@ import LocalizedStrings from 'react-localization';
 
 const locales = new LocalizedStrings({
   fr: {
-    heading: 'Droplt',
     label: {
       email: 'Adresse email',
       password: 'Mot de passe',

@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 /**
  * This route layout prevent users to access protected routes when not connected.
  */
-export const ProtectedRoutes = (): JSX.Element => {
+export const ProtectedRouteGuard = (): JSX.Element => {
   const { currentUser } = useAuth();
   const location = useLocation();
 
@@ -94,7 +94,7 @@ export const ProtectedRoutes = (): JSX.Element => {
 /**
  * This route layout prevent users to access public pages (login) while being connected.
  */
-export const PublicRoutes = (): JSX.Element => {
+export const PublicRouteGuard = (): JSX.Element => {
   const { currentUser } = useAuth();
   const location = useLocation() as LocationStateFrom;
 
