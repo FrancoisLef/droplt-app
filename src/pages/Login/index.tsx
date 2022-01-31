@@ -18,9 +18,6 @@ import InputPassword from '../../components/InputPassword';
 import { useAuth } from '../../helpers/auth';
 import locales from './locales';
 
-const { NODE_ENV } = process.env;
-const IS_DEV = NODE_ENV === 'development';
-
 interface LocationStateFrom {
   state?: {
     from?: {
@@ -47,8 +44,8 @@ const LoginPage: React.FC = () => {
   } = useForm<FormData>({
     mode: 'onChange',
     defaultValues: {
-      email: IS_DEV ? 'test@test.fr' : '',
-      password: IS_DEV ? 'password' : '',
+      email: process.env.NODE_ENV === 'development' ? 'test@test.fr' : '',
+      password: process.env.NODE_ENV === 'development' ? 'password' : '',
     },
   });
 

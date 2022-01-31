@@ -33,6 +33,9 @@ const ForgotPasswordPage: React.FC = () => {
     setError,
   } = useForm<FormData>({
     mode: 'onChange',
+    defaultValues: {
+      email: process.env.NODE_ENV === 'development' ? 'test@test.fr' : '',
+    },
   });
 
   const onSubmit = handleSubmit(async (credentials) => {
