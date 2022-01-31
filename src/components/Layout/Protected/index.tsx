@@ -3,7 +3,7 @@ import { HiLogout, HiUsers } from 'react-icons/hi';
 import { ImDroplet } from 'react-icons/im';
 import { Outlet } from 'react-router-dom';
 
-import { useAuth } from '../../helpers/auth';
+import { useAuth } from '../../../helpers/auth';
 import { NavLink } from './components/NavLink';
 import locales from './locales';
 

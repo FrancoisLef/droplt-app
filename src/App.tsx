@@ -7,8 +7,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // import ProtectedRoutes from './layouts/ProtectedRoutes';
 // import { AuthProvider, AuthSession } from './modules/auth';
 // import HomePage from './pages/Home';
-import ProtectedLayout from './components/ProtectedLayout';
-import PublicLayout from './components/PublicLayout';
+import ProtectedLayout from './components/Layout/Protected';
+import PublicLayout from './components/Layout/Public';
 import {
   AuthProvider,
   ProtectedRouteGuard,

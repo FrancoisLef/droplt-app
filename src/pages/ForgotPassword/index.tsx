@@ -1,13 +1,16 @@
 import {
+  Box,
   Button,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
+  Link,
   Stack,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { HiArrowRight } from 'react-icons/hi';
+import { HiArrowLeft, HiArrowRight } from 'react-icons/hi';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { useAuth } from '../../helpers/auth';
 import locales from './locales';
@@ -38,36 +41,49 @@ const ForgotPasswordPage: React.FC = () => {
   });
 
   return (
-    <form onSubmit={onSubmit}>
-      <Stack spacing="6">
-        {errors?.common ? (
-          <FormControl isInvalid>
-            <FormErrorMessage>{errors?.common?.message}</FormErrorMessage>
+    <Box>
+      <Button
+        as={RouterLink}
+        colorScheme="blue"
+        variant="link"
+        size="sm"
+        leftIcon={<HiArrowLeft />}
+        to="/login"
+      >
+        {locales.back}
+      </Button>
+      {/* <Link as={RouterLink} to="/login"><HiArrowLeft />{locales.back}</Link> */}
+      <form onSubmit={onSubmit}>
+        <Stack spacing="6">
+          {errors?.common ? (
+            <FormControl isInvalid>
+              <FormErrorMessage>{errors?.common?.message}</FormErrorMessage>
+            </FormControl>
+          ) : null}
+          <FormControl id="email" isInvalid={!!errors.email} isRequired>
+            <FormLabel>{locales.label.email}</FormLabel>
+            <Input
+              autoComplete="email"
+              {...register('email', {
+                required: locales.error.email.required,
+              })}
+            />
+            <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
           </FormControl>
-        ) : null}
-        <FormControl id="email" isInvalid={!!errors.email} isRequired>
-          <FormLabel>{locales.label.email}</FormLabel>
-          <Input
-            autoComplete="email"
-            {...register('email', {
-              required: locales.error.email.required,
-            })}
-          />
-          <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
-        </FormControl>
-        <Button
-          isDisabled={!isValid}
-          spinnerPlacement="end"
-          rightIcon={<HiArrowRight />}
-          type="submit"
-          colorScheme="blue"
-          size="lg"
-          fontSize="md"
-        >
-          {locales.submit}
-        </Button>
-      </Stack>
-    </form>
+          <Button
+            isDisabled={!isValid}
+            spinnerPlacement="end"
+            rightIcon={<HiArrowRight />}
+            type="submit"
+            colorScheme="blue"
+            size="lg"
+            fontSize="md"
+          >
+            {locales.submit}
+          </Button>
+        </Stack>
+      </form>
+    </Box>
   );
 };
 
