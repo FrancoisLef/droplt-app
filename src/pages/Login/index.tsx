@@ -49,8 +49,8 @@ const LoginPage: React.FC = () => {
   } = useForm<FormData>({
     mode: 'onChange',
     defaultValues: {
-      email: IS_DEV ? 'testa@test.fr' : '',
-      password: IS_DEV ? 'password1' : '',
+      email: IS_DEV ? 'test@test.fr' : '',
+      password: IS_DEV ? 'password' : '',
     },
   });
 
