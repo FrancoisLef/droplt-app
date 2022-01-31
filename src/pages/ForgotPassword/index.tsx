@@ -9,6 +9,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { HiArrowRight } from 'react-icons/hi';
 
+import { useAuth } from '../../helpers/auth';
 import locales from './locales';
 
 type FormData = {
@@ -17,6 +18,7 @@ type FormData = {
 };
 
 const ForgotPasswordPage: React.FC = () => {
+  const { resetPassword } = useAuth();
   const {
     register,
     formState: { errors, isValid },
@@ -27,7 +29,12 @@ const ForgotPasswordPage: React.FC = () => {
   });
 
   const onSubmit = handleSubmit(async (credentials) => {
-    console.log(credentials);
+    try {
+      await resetPassword(credentials.email);
+    } catch (err: any) {
+      console.log(err.code);
+      console.log(err.message);
+    }
   });
 
   return (
@@ -51,7 +58,6 @@ const ForgotPasswordPage: React.FC = () => {
         <Button
           isDisabled={!isValid}
           spinnerPlacement="end"
-          loadingText={locales.loading}
           rightIcon={<HiArrowRight />}
           type="submit"
           colorScheme="blue"
