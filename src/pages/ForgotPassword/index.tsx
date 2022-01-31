@@ -9,6 +9,8 @@ import {
   Text,
   useColorModeValue as mode,
 } from '@chakra-ui/react';
+import { AuthErrorCodes } from 'firebase/auth';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { HiArrowLeft, HiArrowRight } from 'react-icons/hi';
 import { Link as RouterLink } from 'react-router-dom';
@@ -22,23 +24,39 @@ type FormData = {
 };
 
 const ForgotPasswordPage: React.FC = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { resetPassword } = useAuth();
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
-    // setError,
+    setError,
   } = useForm<FormData>({
     mode: 'onChange',
+    defaultValues: {
+      email: 'testa@test.fr',
+    },
   });
 
   const onSubmit = handleSubmit(async (credentials) => {
+    setIsLoading(true);
     try {
       await resetPassword(credentials.email);
     } catch (err: any) {
-      console.log(err.code);
-      console.log(err.message);
+      switch (err.code) {
+        case AuthErrorCodes.USER_DELETED:
+          setError('email', {
+            message: locales.error.email.notFound,
+          });
+          break;
+        default:
+          setError('common', {
+            message: locales.error.common.unknownError,
+          });
+          break;
+      }
     }
+    setIsLoading(false);
   });
 
   return (
@@ -68,6 +86,7 @@ const ForgotPasswordPage: React.FC = () => {
           </FormControl>
           <Button
             isDisabled={!isValid}
+            isLoading={isLoading}
             spinnerPlacement="end"
             rightIcon={<HiArrowRight />}
             type="submit"
@@ -82,6 +101,7 @@ const ForgotPasswordPage: React.FC = () => {
       <Button
         as={RouterLink}
         colorScheme="blue"
+        isDisabled={isLoading}
         variant="link"
         size="sm"
         mt="4"

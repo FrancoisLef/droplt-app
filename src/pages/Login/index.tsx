@@ -4,7 +4,6 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Heading,
   Input,
   Stack,
 } from '@chakra-ui/react';
@@ -60,6 +59,7 @@ const LoginPage: React.FC = () => {
     setIsLoading(true);
     try {
       await login(email, password);
+      setIsLoading(false);
       navigate(location?.state?.from?.pathname || '/', { replace: true });
     } catch (err: any) {
       setIsLoading(false);
