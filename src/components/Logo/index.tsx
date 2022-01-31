@@ -5,8 +5,9 @@ import { ImDroplet } from 'react-icons/im';
 const Logo = () => {
   return (
     <Flex justify="center" align="center">
-      <Icon mr={2} as={ImDroplet} color={mode('blue.500', 'blue.300')} />
-      <Text colorScheme={mode('white', 'black')}>Droplt</Text>
+      <Text colorScheme={mode('white', 'black')}>Dr</Text>
+      <Icon as={ImDroplet} color={mode('blue.500', 'blue.300')} />
+      <Text colorScheme={mode('white', 'black')}>plt</Text>
     </Flex>
   );
 };

@@ -14,7 +14,6 @@ import { HiArrowRight } from 'react-icons/hi';
 import { Link as RouterLink } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import Card from '../../components/Card';
 import InputPassword from '../../components/InputPassword';
 import { useAuth } from '../../helpers/auth';
 import locales from './locales';
@@ -89,62 +88,60 @@ const LoginPage: React.FC = () => {
   });
 
   return (
-    <Card>
-      <form onSubmit={onSubmit}>
-        <Stack spacing="6">
-          {errors?.common ? (
-            <FormControl isInvalid>
-              <FormErrorMessage>{errors?.common?.message}</FormErrorMessage>
-            </FormControl>
-          ) : null}
-          <FormControl id="email" isInvalid={!!errors.email} isRequired>
-            <FormLabel>{locales.label.email}</FormLabel>
-            <Input
-              autoComplete="email"
-              {...register('email', {
-                required: locales.error.email.required,
-              })}
-            />
-            <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
+    <form onSubmit={onSubmit}>
+      <Stack spacing="6">
+        {errors?.common ? (
+          <FormControl isInvalid>
+            <FormErrorMessage>{errors?.common?.message}</FormErrorMessage>
           </FormControl>
-          <FormControl id="password" isInvalid={!!errors.password} isRequired>
-            <Flex justify="space-between">
-              <FormLabel>{locales.label.password}</FormLabel>
-              <Button
-                mb={2}
-                as={RouterLink}
-                colorScheme="blue"
-                variant="link"
-                size="sm"
-                to="/forgot-password"
-              >
-                {locales.forgotPassword}
-              </Button>
-            </Flex>
-            <InputPassword
-              autoComplete="password"
-              {...register('password', {
-                required: locales.error.password.required,
-              })}
-            />
-            <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
-          </FormControl>
-          <Button
-            isLoading={isLoading}
-            isDisabled={!isValid}
-            spinnerPlacement="end"
-            loadingText={locales.loading}
-            rightIcon={<HiArrowRight />}
-            type="submit"
-            colorScheme="blue"
-            size="lg"
-            fontSize="md"
-          >
-            {locales.submit}
-          </Button>
-        </Stack>
-      </form>
-    </Card>
+        ) : null}
+        <FormControl id="email" isInvalid={!!errors.email} isRequired>
+          <FormLabel>{locales.label.email}</FormLabel>
+          <Input
+            autoComplete="email"
+            {...register('email', {
+              required: locales.error.email.required,
+            })}
+          />
+          <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
+        </FormControl>
+        <FormControl id="password" isInvalid={!!errors.password} isRequired>
+          <Flex justify="space-between">
+            <FormLabel>{locales.label.password}</FormLabel>
+            <Button
+              mb={2}
+              as={RouterLink}
+              colorScheme="blue"
+              variant="link"
+              size="sm"
+              to="/forgot-password"
+            >
+              {locales.forgotPassword}
+            </Button>
+          </Flex>
+          <InputPassword
+            autoComplete="password"
+            {...register('password', {
+              required: locales.error.password.required,
+            })}
+          />
+          <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
+        </FormControl>
+        <Button
+          isLoading={isLoading}
+          isDisabled={!isValid}
+          spinnerPlacement="end"
+          loadingText={locales.loading}
+          rightIcon={<HiArrowRight />}
+          type="submit"
+          colorScheme="blue"
+          size="lg"
+          fontSize="md"
+        >
+          {locales.submit}
+        </Button>
+      </Stack>
+    </form>
   );
 };
 

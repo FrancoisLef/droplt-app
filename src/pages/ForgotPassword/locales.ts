@@ -18,7 +18,7 @@ const locales = new LocalizedStrings({
       },
     },
     submit: 'Réinitialiser mon mot de passe',
-    back: 'Page de connexion',
+    backToLogin: 'Connexion',
   },
 });
 

@@ -10,12 +10,20 @@ const PublicLayout = () => {
       <Box textAlign="right" pt={2} pr={2}>
         <ThemeSwitcher />
       </Box>
-      <Box py={[4, 12]} px={[4, 8]}>
+      <Box py={[2, 12]} px={[4, 8]}>
         <Box maxW="md" mx="auto">
           <Heading mb="8" size="2xl" fontWeight="extrabold">
             <Logo />
           </Heading>
-          <Outlet />
+          <Box
+            bg={mode('white', 'gray.700')}
+            py={[4, 8]}
+            px={[4, 10]}
+            shadow="base"
+            rounded="lg"
+          >
+            <Outlet />
+          </Box>
         </Box>
       </Box>
     </Box>

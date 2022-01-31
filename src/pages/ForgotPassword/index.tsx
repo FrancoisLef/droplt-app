@@ -1,11 +1,9 @@
 import {
-  Box,
   Button,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
-  Link,
   Stack,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
@@ -26,7 +24,7 @@ const ForgotPasswordPage: React.FC = () => {
     register,
     formState: { errors, isValid },
     handleSubmit,
-    setError,
+    // setError,
   } = useForm<FormData>({
     mode: 'onChange',
   });
@@ -41,7 +39,7 @@ const ForgotPasswordPage: React.FC = () => {
   });
 
   return (
-    <Box>
+    <>
       <Button
         as={RouterLink}
         colorScheme="blue"
@@ -50,9 +48,8 @@ const ForgotPasswordPage: React.FC = () => {
         leftIcon={<HiArrowLeft />}
         to="/login"
       >
-        {locales.back}
+        {locales.backToLogin}
       </Button>
-      {/* <Link as={RouterLink} to="/login"><HiArrowLeft />{locales.back}</Link> */}
       <form onSubmit={onSubmit}>
         <Stack spacing="6">
           {errors?.common ? (
@@ -83,7 +80,7 @@ const ForgotPasswordPage: React.FC = () => {
           </Button>
         </Stack>
       </form>
-    </Box>
+    </>
   );
 };
 
