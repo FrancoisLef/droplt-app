@@ -7,7 +7,7 @@ const Logo = ({ ...props }) => {
     <Flex justify="center" align="center" {...props}>
       <Text colorScheme={mode('white', 'black')}>Dr</Text>
       <Icon as={ImDroplet} color={mode('blue.500', 'blue.300')} />
-      <Text colorScheme={mode('white', 'black')}>eplt</Text>
+      <Text colorScheme={mode('white', 'black')}>plt</Text>
     </Flex>
   );
 };
