@@ -4,7 +4,7 @@ const locales = new LocalizedStrings({
   fr: {
     title: 'Mot de passe oublié ?',
     subtitle:
-      'Pas de panique, entrez votre adresse email et suivez les instructions.',
+      'Un email contenant les instructions de réinitialisation sera envoyé à votre adresse email.',
     label: {
       email: 'Adresse email',
     },

@@ -16,6 +16,7 @@ import { HiArrowLeft, HiArrowRight } from 'react-icons/hi';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { useAuth } from '../../helpers/auth';
+import ForgotPasswordSuccess from './components/Success';
 import locales from './locales';
 
 type FormData = {
@@ -25,6 +26,7 @@ type FormData = {
 
 const ForgotPasswordPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSuccessful, setIsSuccessful] = useState<boolean>(false);
   const { resetPassword } = useAuth();
   const {
     register,
@@ -42,6 +44,7 @@ const ForgotPasswordPage: React.FC = () => {
     setIsLoading(true);
     try {
       await resetPassword(credentials.email);
+      setIsSuccessful(true);
     } catch (err: any) {
       switch (err.code) {
         case AuthErrorCodes.USER_DELETED:
@@ -59,8 +62,24 @@ const ForgotPasswordPage: React.FC = () => {
     setIsLoading(false);
   });
 
+  if (isSuccessful) {
+    return <ForgotPasswordSuccess />;
+  }
+
   return (
     <>
+      <Button
+        as={RouterLink}
+        colorScheme="blue"
+        isDisabled={isLoading}
+        variant="link"
+        size="sm"
+        mb="4"
+        leftIcon={<HiArrowLeft />}
+        to="/login"
+      >
+        {locales.backToLogin}
+      </Button>
       <Heading mb="4" as="h2" size="md">
         {locales.title}
       </Heading>
@@ -98,18 +117,6 @@ const ForgotPasswordPage: React.FC = () => {
           </Button>
         </Stack>
       </form>
-      <Button
-        as={RouterLink}
-        colorScheme="blue"
-        isDisabled={isLoading}
-        variant="link"
-        size="sm"
-        mt="4"
-        leftIcon={<HiArrowLeft />}
-        to="/login"
-      >
-        {locales.backToLogin}
-      </Button>
     </>
   );
 };
