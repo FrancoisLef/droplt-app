@@ -37,6 +37,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PRIVATE_KEY_PASSPHRASE }}
           port: ${{ secrets.SSH_PORT }}
-          script: |
-            whoami
-            ls -la
+          script: ./deploy-app.sh
