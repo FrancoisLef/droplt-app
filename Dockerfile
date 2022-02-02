@@ -17,7 +17,7 @@ RUN yarn build
 ###
 # Runner
 ###
-FROM nginx:alpine as runner
+FROM fholzer/nginx-brotli as runner
 
 COPY --from=builder /builder/build /usr/share/nginx/html
 COPY --from=builder /builder/.env /usr/share/nginx/html/.env
