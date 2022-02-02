@@ -1,6 +1,7 @@
 import {
   Auth,
   getAuth,
+  IdTokenResult,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
@@ -15,6 +16,7 @@ import app from '../firebase';
 
 interface AuthContextType {
   auth: Auth;
+  token: string;
   currentUser: User | null;
   resetPassword: (email: string) => Promise<void>;
   login: (email: string, password: string) => Promise<UserCredential>;
@@ -40,6 +42,7 @@ export const useAuth = () => useContext(AuthContext);
 // Expose auth provider
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string>('');
   const [loading, setLoading] = useState(true);
 
   const auth = getAuth(app);
@@ -52,7 +55,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const resetPassword = (email: string) => sendPasswordResetEmail(auth, email);
 
   useEffect(() => {
-    return onAuthStateChanged(auth, (user) => {
+    return onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const token = await user.getIdToken(true);
+        setToken(token);
+      }
       setCurrentUser(user);
       setLoading(false);
     });
@@ -63,6 +70,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       value={{
         currentUser,
         auth,
+        token,
         login,
         logout,
         resetPassword,
