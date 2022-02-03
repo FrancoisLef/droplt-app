@@ -1,17 +1,11 @@
-import {
-  Avatar,
-  Flex,
-  HStack,
-  LinkBox,
-  LinkOverlay,
-  Text,
-} from '@chakra-ui/react';
+import { Avatar, Flex, HStack, Text, useDisclosure } from '@chakra-ui/react';
 import * as React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 
 import { useAuth } from '../../../../../helpers/auth';
+import ModalUserProfile from '../../../../ModalUserProfile';
 
 const UserProfile: React.FC = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { currentUser } = useAuth();
 
   if (!currentUser) {
@@ -19,9 +13,8 @@ const UserProfile: React.FC = () => {
   }
 
   return (
-    <LinkBox as="section">
-      <LinkOverlay as={RouterLink} to="/profile"></LinkOverlay>
-      <HStack spacing="4" px="2">
+    <>
+      <HStack cursor="pointer" spacing="4" px="2" onClick={onOpen}>
         <Avatar
           name={currentUser.displayName || undefined}
           src={currentUser.photoURL || undefined}
@@ -33,7 +26,8 @@ const UserProfile: React.FC = () => {
           </Text>
         </Flex>
       </HStack>
-    </LinkBox>
+      <ModalUserProfile isOpen={isOpen} onClose={onClose} />
+    </>
   );
 };
 
