@@ -11,7 +11,7 @@ interface TorrentsListItemProps {
   // les autres props que tu voudras passer
 }
 
-const TorrentsListItem = ({ item }: TorrentsListItemProps) => {
+const TorrentsListItem: React.FC<TorrentsListItemProps> = ({ item }) => {
   const { id, title } = item; // ta requête pour récupérer tes items
 
   return (

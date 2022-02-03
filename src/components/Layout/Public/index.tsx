@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import Logo from '../../Logo';
 import ThemeSwitcher from '../../ThemeSwitcher';
 
-const PublicLayout = () => {
+const PublicLayout: React.FC = () => {
   return (
     <Box bg={mode('gray.50', 'inherit')} minH="100vh">
       <Box textAlign="right" pt={2} pr={2}>

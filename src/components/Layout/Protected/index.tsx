@@ -8,7 +8,7 @@ import Logo from '../../Logo';
 import { NavLink } from './components/NavLink';
 import locales from './locales';
 
-const ProtectedLayout = () => {
+const ProtectedLayout: React.FC = () => {
   const { logout } = useAuth();
 
   return (

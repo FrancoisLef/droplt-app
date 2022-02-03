@@ -1,6 +1,6 @@
 import TorrentsListItem, { Item } from '../TorrentsListItem';
 
-const TorrentsList = () => {
+const TorrentsList: React.FC = () => {
   const items: Item[] = []; // ta requète pour récupérer tes items
 
   return (

@@ -13,22 +13,20 @@ interface AlertComponentProps {
   type?: 'info' | 'warning' | 'success' | 'error' | undefined;
 }
 
-const AlertComponent = ({
+const AlertComponent: React.FC<AlertComponentProps> = ({
   title,
   message,
   type,
   isClosable,
-}: AlertComponentProps) => {
-  return (
-    <Alert status={type || 'error'}>
-      <AlertIcon />
-      {title ? <AlertTitle mr={2}>{title}</AlertTitle> : null}
-      <AlertDescription>{message}</AlertDescription>
-      {isClosable ? (
-        <CloseButton position="absolute" right="8px" top="8px" />
-      ) : null}
-    </Alert>
-  );
-};
+}) => (
+  <Alert status={type || 'error'}>
+    <AlertIcon />
+    {title ? <AlertTitle mr={2}>{title}</AlertTitle> : null}
+    <AlertDescription>{message}</AlertDescription>
+    {isClosable ? (
+      <CloseButton position="absolute" right="8px" top="8px" />
+    ) : null}
+  </Alert>
+);
 
 export default AlertComponent;

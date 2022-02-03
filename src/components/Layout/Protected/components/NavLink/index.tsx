@@ -8,7 +8,7 @@ interface NavLinkProps extends LinkProps {
   icon: IconType;
 }
 
-export const NavLink = (props: NavLinkProps) => {
+export const NavLink: React.FC<NavLinkProps> = (props) => {
   const { icon, to, label, ...rest } = props;
   const resolved = useResolvedPath(to);
   const match = useMatch({ path: resolved.pathname, end: true });
