@@ -1,24 +1,30 @@
 import {
   Auth,
   getAuth,
-  IdTokenResult,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
   User,
   UserCredential,
 } from 'firebase/auth';
 import React, { useContext, useEffect, useState } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-import app from '../firebase';
+import firebase from '../firebase';
+
+interface AuthUpdateProfileProps {
+  displayName?: string | null;
+  photoURL?: string | null;
+}
 
 interface AuthContextType {
   auth: Auth;
   token: string;
   currentUser: User | null;
   resetPassword: (email: string) => Promise<void>;
+  updateUserProfile: (props: AuthUpdateProfileProps) => Promise<void>;
   login: (email: string, password: string) => Promise<UserCredential>;
   logout: () => Promise<void>;
 }
@@ -45,12 +51,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string>('');
   const [loading, setLoading] = useState(true);
 
-  const auth = getAuth(app);
+  const auth = getAuth(firebase);
 
   const login = (email: string, password: string) =>
     signInWithEmailAndPassword(auth, email, password);
 
   const logout = () => signOut(auth);
+
+  const updateUserProfile = (props: AuthUpdateProfileProps) =>
+    currentUser ? updateProfile(currentUser, props) : Promise.resolve();
 
   const resetPassword = (email: string) => sendPasswordResetEmail(auth, email);
 
@@ -69,6 +78,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     <AuthContext.Provider
       value={{
         currentUser,
+        updateUserProfile,
         auth,
         token,
         login,

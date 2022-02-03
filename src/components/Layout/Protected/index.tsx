@@ -1,11 +1,19 @@
-import { Button, Flex, Heading, Spacer, Stack } from '@chakra-ui/react';
+import {
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  Spacer,
+  Stack,
+} from '@chakra-ui/react';
 import { HiLogout, HiUsers } from 'react-icons/hi';
 import { ImDroplet } from 'react-icons/im';
 import { Outlet } from 'react-router-dom';
 
 import { useAuth } from '../../../helpers/auth';
 import Logo from '../../Logo';
-import { NavLink } from './components/NavLink';
+import NavLink from './components/NavLink';
+import UserProfile from './components/UserProfile';
 import locales from './locales';
 
 const ProtectedLayout: React.FC = () => {
@@ -32,14 +40,18 @@ const ProtectedLayout: React.FC = () => {
           </Stack>
         </Stack>
         <Spacer />
-        <Button
-          leftIcon={<HiLogout />}
-          colorScheme="red"
-          variant="link"
-          onClick={() => logout()}
-        >
-          {locales.signout}
-        </Button>
+        <Stack spacing={6}>
+          <UserProfile />
+          <Divider borderColor="gray.500" />
+          <Button
+            leftIcon={<HiLogout />}
+            variant="link"
+            size="sm"
+            onClick={() => logout()}
+          >
+            {locales.signout}
+          </Button>
+        </Stack>
       </Flex>
       <Flex px={6} py={8}>
         <Outlet />
