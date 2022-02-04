@@ -13,25 +13,25 @@ jobs:
     with:
       imageName: droplt/app:stable
       deployScript: ./deploy-app.sh
-    secrets:
-      dockerHubUsername: ${{ secrets.DOCKERHUB_USERNAME }}
-      dockerHubToken: ${{ secrets.DOCKERHUB_TOKEN }}
-      sshHost: ${{ secrets.SSH_HOST }}
-      sshPort: ${{ secrets.SSH_PORT }}
-      sshUsername: ${{ secrets.SSH_USERNAME }}
-      sshPrivateKey: ${{ secrets.SSH_PRIVATE_KEY }}
-      sshPrivateKeyPassphrase: ${{ secrets.SSH_PRIVATE_KEY_PASSPHRASE }}
+    # secrets:
+    #   dockerHubUsername: ${{ secrets.DOCKERHUB_USERNAME }}
+    #   dockerHubToken: ${{ secrets.DOCKERHUB_TOKEN }}
+    #   sshHost: ${{ secrets.SSH_HOST }}
+    #   sshPort: ${{ secrets.SSH_PORT }}
+    #   sshUsername: ${{ secrets.SSH_USERNAME }}
+    #   sshPrivateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+    #   sshPrivateKeyPassphrase: ${{ secrets.SSH_PRIVATE_KEY_PASSPHRASE }}
   deploy-staging:
     if: github.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
     with:
       imageName: droplt/app:staging
       deployScript: ./deploy-app-staging.sh
-    secrets:
-      dockerHubUsername: ${{ secrets.DOCKERHUB_USERNAME }}
-      dockerHubToken: ${{ secrets.DOCKERHUB_TOKEN }}
-      sshHost: ${{ secrets.SSH_HOST }}
-      sshPort: ${{ secrets.SSH_PORT }}
-      sshUsername: ${{ secrets.SSH_USERNAME }}
-      sshPrivateKey: ${{ secrets.SSH_PRIVATE_KEY }}
-      sshPrivateKeyPassphrase: ${{ secrets.SSH_PRIVATE_KEY_PASSPHRASE }}
+    # secrets:
+    #   dockerHubUsername: ${{ secrets.DOCKERHUB_USERNAME }}
+    #   dockerHubToken: ${{ secrets.DOCKERHUB_TOKEN }}
+    #   sshHost: ${{ secrets.SSH_HOST }}
+    #   sshPort: ${{ secrets.SSH_PORT }}
+    #   sshUsername: ${{ secrets.SSH_USERNAME }}
+    #   sshPrivateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+    #   sshPrivateKeyPassphrase: ${{ secrets.SSH_PRIVATE_KEY_PASSPHRASE }}
