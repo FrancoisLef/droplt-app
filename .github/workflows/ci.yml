@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy-production:
-    if: ${{ env.GITHUB_REF_NAME }} == 'main'
+    if: github.refname == 'main'
     uses: ./.github/workflows/deploy.yml
     with:
       imageName: droplt/app:stable
@@ -22,7 +22,7 @@ jobs:
       sshPrivateKey: ${{ secrets.SSH_PRIVATE_KEY }}
       sshPrivateKeyPassphrase: ${{ secrets.SSH_PRIVATE_KEY_PASSPHRASE }}
   deploy-staging:
-    if: ${{ env.GITHUB_REF_NAME }} == 'develop'
+    if: github.refname == 'develop'
     uses: ./.github/workflows/deploy.yml
     with:
       imageName: droplt/app:staging
