@@ -9,21 +9,21 @@ on:
       deployScript:
         required: true
         type: string
-    # secrets:
-    #   dockerHubUsername:
-    #     required: true
-    #   dockerHubToken:
-    #     required: true
-    #   sshHost:
-    #     required: true
-    #   sshPort:
-    #     required: true
-    #   sshUsername:
-    #     required: true
-    #   sshPrivateKey:
-    #     required: true
-    #   sshPrivateKeyPassphrase:
-    #     required: true
+    secrets:
+      DOCKERHUB_USERNAME:
+        required: true
+      DOCKERHUB_TOKEN:
+        required: true
+      SSH_HOST:
+        required: true
+      SSH_PORT:
+        required: true
+      SSH_USERNAME:
+        required: true
+      SSH_PRIVATE_KEY:
+        required: true
+      SSH_PRIVATE_KEY_PASSPHRASE:
+        required: true
 
 jobs:
   docker:
