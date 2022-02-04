@@ -1,0 +1,60 @@
+name: Build and deploy
+
+on:
+  workflow_call:
+    inputs:
+      imageName:
+        required: true
+        type: string
+      deployScript:
+        required: true
+        type: string
+    secrets:
+      dockerHubUsername:
+        required: true
+      dockerHubToken:
+        required: true
+      sshHost:
+        required: true
+      sshPort:
+        required: true
+      sshUsername:
+        required: true
+      sshPrivateKey:
+        required: true
+      sshPrivateKeyPassphrase:
+        required: true
+
+jobs:
+  docker:
+    name: Build and push docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.dockerHubUsername }}
+          password: ${{ secrets.dockerHubToken }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ inputs.imageName }}
+  deploy:
+    name: Deploy with SSH
+    runs-on: ubuntu-latest
+    needs: [docker]
+    steps:
+      - name: Executing remote ssh commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.sshHost }}
+          username: ${{ secrets.sshUsername }}
+          key: ${{ secrets.sshPrivateKey }}
+          passphrase: ${{ secrets.sshPrivateKeyPassphrase }}
+          port: ${{ secrets.sshPort }}
+          script: ${{ inputs.deployScript }}
