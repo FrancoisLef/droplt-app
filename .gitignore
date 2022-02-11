@@ -2,15 +2,19 @@
 
 # dependencies
 .yarn/*
-!.yarn/cache
+!.yarn/releases
 !.yarn/patches
 !.yarn/plugins
-!.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-/node_modules
-/.pnp
-.pnp.js
+node_modules
+
+# if you are NOT using Zero-installs, then:
+# comment the following lines
+# !.yarn/cache
+
+# and uncomment the following lines
+.pnp.*
 
 # testing
 /coverage
