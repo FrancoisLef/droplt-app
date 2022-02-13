@@ -2,8 +2,6 @@ import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
 import {
   Box,
   chakra,
-  CircularProgress,
-  CircularProgressLabel,
   Table,
   Tbody,
   Td,
@@ -16,6 +14,7 @@ import prettyBytes from 'pretty-bytes';
 import { useMemo } from 'react';
 import { Column, usePagination, useSortBy, useTable } from 'react-table';
 
+import CircularProgress from '../../components/CircularProgress';
 import { formatDistanceToNowStrict } from '../../helpers/date';
 import { useTorrents } from './hooks';
 import locales from './locales';
@@ -40,11 +39,7 @@ const HomePage: React.FC = () => {
         accessor: 'progress',
         isCentered: true,
         Cell: ({ value }) => (
-          <CircularProgress value={value * 100} thickness="5px" size="40px">
-            <CircularProgressLabel>
-              {Math.round(value * 100)}%
-            </CircularProgressLabel>
-          </CircularProgress>
+          <CircularProgress value={value} thickness="5px" size="40px" />
         ),
       },
       {
@@ -117,6 +112,7 @@ const HomePage: React.FC = () => {
             <Tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <Th
+                  textAlign={column.isCentered ? 'center' : 'unset'}
                   isNumeric={column.isNumeric}
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                 >
