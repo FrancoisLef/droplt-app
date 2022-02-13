@@ -9,6 +9,7 @@ import {
   Th,
   Thead,
   Tr,
+  useColorModeValue as mode,
 } from '@chakra-ui/react';
 import prettyBytes from 'pretty-bytes';
 import { useMemo } from 'react';
@@ -22,7 +23,6 @@ import locales from './locales';
 type ColumnType = Array<
   Column<{
     name: string;
-    ratio: number;
     size: number;
     progress: number;
     addedAt: string;
@@ -35,45 +35,39 @@ const HomePage: React.FC = () => {
   const columns: ColumnType = useMemo(
     () => [
       {
-        Header: locales.columns.progress,
-        accessor: 'progress',
-        isCentered: true,
+        Header: locales.columns.addedAt,
+        accessor: 'addedAt',
         Cell: ({ value }) => (
-          <CircularProgress value={value} thickness="6px" size="40px" />
+          <Text fontWeight="light" color="gray.500">
+            {formatDistanceToNowStrict(new Date(value)).replaceAll(' ', ' ')}
+          </Text>
         ),
       },
       {
         Header: locales.columns.name,
         accessor: 'name',
-        Cell: ({ value }) => <Text fontWeight="medium">{value}</Text>,
+        Cell: ({ value }) => (
+          <Text fontWeight="medium" color={mode('gray.800', 'gray.100')}>
+            {value}
+          </Text>
+        ),
       },
       {
         Header: locales.columns.size,
         accessor: 'size',
         isNumeric: true,
         Cell: ({ value }) => (
-          <Text fontWeight="light">
+          <Text fontWeight="light" color="gray.500">
             {prettyBytes(value).replaceAll(' ', ' ')}
           </Text>
         ),
       },
       {
-        Header: locales.columns.addedAt,
-        accessor: 'addedAt',
+        Header: locales.columns.progress,
+        accessor: 'progress',
+        isCentered: true,
         Cell: ({ value }) => (
-          <Text fontWeight="thin">
-            {formatDistanceToNowStrict(new Date(value)).replaceAll(' ', ' ')}
-          </Text>
-        ),
-      },
-      {
-        Header: locales.columns.ratio,
-        accessor: 'ratio',
-        isNumeric: true,
-        Cell: ({ value }) => (
-          <Text fontWeight="thin">
-            {Math.round((value + Number.EPSILON) * 100) / 100}
-          </Text>
+          <CircularProgress value={value} thickness="6px" size="40px" />
         ),
       },
     ],
@@ -84,7 +78,6 @@ const HomePage: React.FC = () => {
     () =>
       torrents.map((torrent) => ({
         name: torrent.name,
-        ratio: torrent.ratio,
         size: torrent.size,
         progress: torrent.progress,
         addedAt: torrent.addedAt,
@@ -105,7 +98,7 @@ const HomePage: React.FC = () => {
     );
 
   return (
-    <Box>
+    <Box width="full">
       <Table size="md" {...getTableProps()}>
         <Thead>
           {headerGroups.map((headerGroup) => (

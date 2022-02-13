@@ -1395,7 +1395,7 @@ export type TorrentWhereUniqueInput = {
 export type TorrentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TorrentsQuery = { __typename?: 'Query', torrents: Array<{ __typename?: 'Torrent', torrentId: string, name: string, size: number, ratio: number, progress: number, addedAt: any, createdAt: any, updatedAt: any }> };
+export type TorrentsQuery = { __typename?: 'Query', torrents: Array<{ __typename?: 'Torrent', torrentId: string, name: string, size: number, progress: number, addedAt: any }> };
 
 
 export const TorrentsDocument = gql`
@@ -1404,11 +1404,8 @@ export const TorrentsDocument = gql`
     torrentId
     name
     size
-    ratio
     progress
     addedAt
-    createdAt
-    updatedAt
   }
 }
     `;

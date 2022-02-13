@@ -3,11 +3,8 @@ query Torrents {
     torrentId
     name
     size
-    ratio
     progress
     addedAt
-    createdAt
-    updatedAt
   }
 }
 

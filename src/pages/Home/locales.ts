@@ -4,9 +4,8 @@ const locales = new LocalizedStrings({
   fr: {
     columns: {
       name: 'Nom',
-      ratio: 'Ratio',
       size: 'Taille',
-      addedAt: 'Ajouté',
+      addedAt: 'Ajout',
       progress: '#',
     },
     sortedDescending: 'sorted descending',
