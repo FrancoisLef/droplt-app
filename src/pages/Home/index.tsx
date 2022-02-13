@@ -1,10 +1,11 @@
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
-import { chakra, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Box, chakra, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { addSeconds } from 'date-fns';
 import prettyBytes from 'pretty-bytes';
 import { useMemo } from 'react';
 import { Column, usePagination, useSortBy, useTable } from 'react-table';
 
-import { formatDate, Patp } from '../../helpers/date';
+import { formatDate, formatDistanceToNow, Patp } from '../../helpers/date';
 import { useTorrents } from './hooks';
 import locales from './locales';
 
@@ -32,6 +33,12 @@ const HomePage: React.FC = () => {
       {
         Header: locales.columns.eta,
         accessor: 'eta',
+        Cell: ({ value }) => {
+          if (!value) {
+            return '-';
+          }
+          return formatDistanceToNow(addSeconds(new Date(), value));
+        },
       },
       {
         Header: locales.columns.ratio,
@@ -88,40 +95,44 @@ const HomePage: React.FC = () => {
     );
 
   return (
-    <Table {...getTableProps()}>
-      <Thead>
-        {headerGroups.map((headerGroup) => (
-          <Tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <Th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                {column.render('Header')}
-                <chakra.span pl="4">
-                  {column.isSorted ? (
-                    column.isSortedDesc ? (
-                      <TriangleDownIcon aria-label={locales.sortedDescending} />
-                    ) : (
-                      <TriangleUpIcon aria-label={locales.sortedAscending} />
-                    )
-                  ) : null}
-                </chakra.span>
-              </Th>
-            ))}
-          </Tr>
-        ))}
-      </Thead>
-      <Tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <Tr {...row.getRowProps()}>
-              {row.cells.map((cell) => (
-                <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
+    <Box>
+      <Table size="sm" variant="striped" {...getTableProps()}>
+        <Thead>
+          {headerGroups.map((headerGroup) => (
+            <Tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <Th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render('Header')}
+                  <chakra.span pl="2">
+                    {column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <TriangleDownIcon
+                          aria-label={locales.sortedDescending}
+                        />
+                      ) : (
+                        <TriangleUpIcon aria-label={locales.sortedAscending} />
+                      )
+                    ) : null}
+                  </chakra.span>
+                </Th>
               ))}
             </Tr>
-          );
-        })}
-      </Tbody>
-    </Table>
+          ))}
+        </Thead>
+        <Tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <Tr {...row.getRowProps()}>
+                {row.cells.map((cell) => (
+                  <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
+                ))}
+              </Tr>
+            );
+          })}
+        </Tbody>
+      </Table>
+    </Box>
   );
 };
 
