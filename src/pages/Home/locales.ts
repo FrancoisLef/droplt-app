@@ -8,6 +8,7 @@ const locales = new LocalizedStrings({
       addedAt: 'Ajout',
       progress: '#',
     },
+    searchPlaceholder: 'Chercher un torrent par son nom…',
     sortedDescending: 'sorted descending',
     sortedAscending: 'sorted ascending',
   },

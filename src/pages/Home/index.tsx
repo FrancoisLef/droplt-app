@@ -3,6 +3,9 @@ import {
   Box,
   chakra,
   Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
   Table,
   Tbody,
   Td,
@@ -13,8 +16,8 @@ import {
   useColorModeValue as mode,
 } from '@chakra-ui/react';
 import prettyBytes from 'pretty-bytes';
-import { useEffect, useMemo } from 'react';
-import { ImCheckmark } from 'react-icons/im';
+import { useEffect, useMemo, useState } from 'react';
+import { ImCheckmark, ImSearch } from 'react-icons/im';
 import { useSearchParams } from 'react-router-dom';
 import { Column, useSortBy, useTable } from 'react-table';
 
@@ -35,6 +38,7 @@ type ColumnType = Array<
 
 const HomePage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [name, setName] = useState(searchParams.get('name') || '');
   const { torrents } = useTorrents(searchParams);
 
   const columns: ColumnType = useMemo(
@@ -131,22 +135,40 @@ const HomePage: React.FC = () => {
   );
 
   useEffect(() => {
-    setSearchParams(
-      sortBy.reduce(
-        (acc, sort) => ({
-          ...acc,
-          [SORT_URL_PARAMS.SORT_BY]: sort.id,
-          [SORT_URL_PARAMS.SORT_DIRECTION]: sort.desc
-            ? SORT_DIRECTION.DESC
-            : SORT_DIRECTION.ASC,
-        }),
-        {}
-      )
+    const searchByParams = sortBy.reduce(
+      (acc, sort) => ({
+        ...acc,
+        [SORT_URL_PARAMS.SORT_BY]: sort.id,
+        [SORT_URL_PARAMS.SORT_DIRECTION]: sort.desc
+          ? SORT_DIRECTION.DESC
+          : SORT_DIRECTION.ASC,
+      }),
+      {}
     );
-  }, [searchParams, setSearchParams, sortBy]);
+
+    setSearchParams({
+      ...searchByParams,
+      ...(name ? { name } : {}),
+    });
+  }, [searchParams, name, setSearchParams, sortBy]);
+
+  const onSearch = (value: string) => {
+    setName(value);
+  };
 
   return (
     <Box width="full">
+      <InputGroup>
+        <InputLeftElement>
+          <Icon as={ImSearch} color={mode('gray.300', 'gray.600')} />
+        </InputLeftElement>
+        <Input
+          mb={4}
+          onChange={(e) => onSearch(e.target.value)}
+          value={name}
+          placeholder={locales.searchPlaceholder}
+        />
+      </InputGroup>
       <Table size="md" {...getTableProps()}>
         <Thead>
           {headerGroups.map((headerGroup) => (

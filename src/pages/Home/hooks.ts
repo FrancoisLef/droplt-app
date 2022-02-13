@@ -1,4 +1,5 @@
 import {
+  QueryMode,
   // TorrentsUpdatesDocument,
   // TorrentsUpdatesSubscription,
   useTorrentsQuery,
@@ -9,14 +10,38 @@ export const useTorrents = (searchParams: URLSearchParams) => {
   const sortBy = searchParams.get(SORT_URL_PARAMS.SORT_BY) || 'addedAt';
   const sortDirection =
     searchParams.get(SORT_URL_PARAMS.SORT_DIRECTION) || 'desc';
+  const name = searchParams.get('name') || '';
+  const extendedName = name.replaceAll(' ', ' <-> ');
+  // const finalName = `${name} <-> ${extendedName}`;
 
-  const orderBy = {
-    [sortBy]: sortDirection,
-  };
+  // console.log(finalName);
 
   const { data } = useTorrentsQuery({
+    fetchPolicy: 'cache-and-network',
     variables: {
-      orderBy,
+      orderBy: {
+        [sortBy]: sortDirection,
+      },
+      ...(name
+        ? {
+            where: {
+              OR: [
+                {
+                  name: {
+                    search: extendedName,
+                    mode: QueryMode.Insensitive,
+                  },
+                },
+                {
+                  name: {
+                    contains: extendedName,
+                    mode: QueryMode.Insensitive,
+                  },
+                },
+              ],
+            },
+          }
+        : {}),
     },
   });
 
