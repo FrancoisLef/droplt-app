@@ -1,14 +1,14 @@
-// import { ApolloProvider } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-// import client from './graphql';
 // import AppLayout from './layouts/AppLayout';
 // import ProtectedRoutes from './layouts/ProtectedRoutes';
 // import { AuthProvider, AuthSession } from './modules/auth';
 // import HomePage from './pages/Home';
 import ProtectedLayout from './components/Layout/Protected';
 import PublicLayout from './components/Layout/Public';
+import client from './graphql';
 import {
   AuthProvider,
   ProtectedRouteGuard,
@@ -18,7 +18,6 @@ import ForgotPasswordPage from './pages/ForgotPassword';
 import LoginPage from './pages/Login';
 import NotFoundPage from './pages/NotFound';
 import ProtectedPage from './pages/Protected';
-// import UsersPage from './pages/Users';
 import theme from './theme';
 
 const App = () => {
@@ -26,23 +25,25 @@ const App = () => {
     <ChakraProvider theme={theme}>
       <BrowserRouter>
         <AuthProvider>
-          <Routes>
-            <Route element={<PublicRouteGuard />}>
-              <Route element={<PublicLayout />}>
-                <Route path="/login" element={<LoginPage />} />
-                <Route
-                  path="/forgot-password"
-                  element={<ForgotPasswordPage />}
-                />
+          <ApolloProvider client={client}>
+            <Routes>
+              <Route element={<PublicRouteGuard />}>
+                <Route element={<PublicLayout />}>
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route
+                    path="/forgot-password"
+                    element={<ForgotPasswordPage />}
+                  />
+                </Route>
               </Route>
-            </Route>
-            <Route element={<ProtectedRouteGuard />}>
-              <Route element={<ProtectedLayout />}>
-                <Route index element={<ProtectedPage />} />
+              <Route element={<ProtectedRouteGuard />}>
+                <Route element={<ProtectedLayout />}>
+                  <Route index element={<ProtectedPage />} />
+                </Route>
+                <Route path="*" element={<NotFoundPage />} />
               </Route>
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
+            </Routes>
+          </ApolloProvider>
         </AuthProvider>
         {/* <AuthProvider>
           <AuthSession>

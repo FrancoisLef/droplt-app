@@ -1,9 +1,13 @@
-import { useAuth } from '../../helpers/auth';
+import { useTorrentsQuery } from '../../graphql';
+// import { useAuth } from '../../helpers/auth';
 
 const HomePage: React.FC = () => {
-  const { currentUser } = useAuth();
+  // const { currentUser } = useAuth();
+  const { data } = useTorrentsQuery();
 
-  console.log(currentUser);
+  if (data) {
+    console.log(data);
+  }
 
   return <div>Protected</div>;
 };

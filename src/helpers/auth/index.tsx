@@ -42,6 +42,9 @@ interface LocationStateFrom {
 // Because this context is filled by the AuthProvider (and only by itself)
 const AuthContext = React.createContext<AuthContextType>(null!);
 
+// Store & expose in memory accessToken
+export let accessToken: string = '';
+
 // Expose auth hook
 export const useAuth = () => useContext(AuthContext);
 
@@ -68,6 +71,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (user) {
         const token = await user.getIdToken(true);
         setToken(token);
+        accessToken = token;
       }
       setCurrentUser(user);
       setLoading(false);
