@@ -7,7 +7,7 @@ import {
   Spacer,
   Stack,
 } from '@chakra-ui/react';
-import { HiLogout, HiUsers } from 'react-icons/hi';
+import { HiLogout } from 'react-icons/hi';
 import { ImDroplet } from 'react-icons/im';
 import { Outlet } from 'react-router-dom';
 
@@ -38,7 +38,6 @@ const ProtectedLayout: React.FC = () => {
         <Stack spacing={6}>
           <Stack>
             <NavLink to="/" label={locales.torrents} icon={ImDroplet} />
-            <NavLink to="/users" label={locales.users} icon={HiUsers} />
           </Stack>
         </Stack>
         <Spacer />

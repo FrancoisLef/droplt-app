@@ -1392,15 +1392,17 @@ export type TorrentWhereUniqueInput = {
   torrentId?: InputMaybe<Scalars['String']>;
 };
 
-export type TorrentsQueryVariables = Exact<{ [key: string]: never; }>;
+export type TorrentsQueryVariables = Exact<{
+  orderBy?: InputMaybe<Array<TorrentOrderByWithRelationInput> | TorrentOrderByWithRelationInput>;
+}>;
 
 
 export type TorrentsQuery = { __typename?: 'Query', torrents: Array<{ __typename?: 'Torrent', torrentId: string, name: string, size: number, progress: number, addedAt: any }> };
 
 
 export const TorrentsDocument = gql`
-    query Torrents {
-  torrents(orderBy: {addedAt: desc}) {
+    query Torrents($orderBy: [TorrentOrderByWithRelationInput!]) {
+  torrents(orderBy: $orderBy, take: 5) {
     torrentId
     name
     size
@@ -1422,6 +1424,7 @@ export const TorrentsDocument = gql`
  * @example
  * const { data, loading, error } = useTorrentsQuery({
  *   variables: {
+ *      orderBy: // value for 'orderBy'
  *   },
  * });
  */

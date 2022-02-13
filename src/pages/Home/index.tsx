@@ -2,6 +2,7 @@ import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
 import {
   Box,
   chakra,
+  Icon,
   Table,
   Tbody,
   Td,
@@ -12,11 +13,14 @@ import {
   useColorModeValue as mode,
 } from '@chakra-ui/react';
 import prettyBytes from 'pretty-bytes';
-import { useMemo } from 'react';
-import { Column, usePagination, useSortBy, useTable } from 'react-table';
+import { useEffect, useMemo } from 'react';
+import { ImCheckmark } from 'react-icons/im';
+import { useSearchParams } from 'react-router-dom';
+import { Column, useSortBy, useTable } from 'react-table';
 
 import CircularProgress from '../../components/CircularProgress';
 import { formatDistanceToNowStrict } from '../../helpers/date';
+import { SORT_DIRECTION, SORT_URL_PARAMS } from '../../helpers/sorting';
 import { useTorrents } from './hooks';
 import locales from './locales';
 
@@ -30,13 +34,15 @@ type ColumnType = Array<
 >;
 
 const HomePage: React.FC = () => {
-  const { torrents } = useTorrents();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { torrents } = useTorrents(searchParams);
 
   const columns: ColumnType = useMemo(
     () => [
       {
         Header: locales.columns.addedAt,
         accessor: 'addedAt',
+        sortInverted: true,
         Cell: ({ value }) => (
           <Text fontWeight="light" color="gray.500">
             {formatDistanceToNowStrict(new Date(value)).replaceAll(' ', ' ')}
@@ -66,9 +72,19 @@ const HomePage: React.FC = () => {
         Header: locales.columns.progress,
         accessor: 'progress',
         isCentered: true,
-        Cell: ({ value }) => (
-          <CircularProgress value={value} thickness="6px" size="40px" />
-        ),
+        Cell: ({ value }) => {
+          if (Math.round(value) === 1) {
+            return (
+              <Icon
+                as={ImCheckmark}
+                w={3}
+                h={3}
+                color={mode('blue.300', 'blue.400')}
+              />
+            );
+          }
+          return <CircularProgress value={value} thickness="6px" size="40px" />;
+        },
       },
     ],
     []
@@ -85,17 +101,49 @@ const HomePage: React.FC = () => {
     [torrents]
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        columns,
-        data,
-        autoResetSortBy: false,
-        initialState: { pageSize: 5, pageIndex: 0 },
-      },
-      useSortBy
-      // usePagination
+  const sortByParam = searchParams.get(SORT_URL_PARAMS.SORT_BY);
+  const sortDirectionParam = searchParams.get(SORT_URL_PARAMS.SORT_DIRECTION);
+  const sortInitialState = [];
+
+  if (sortByParam && sortDirectionParam) {
+    sortInitialState.push({
+      id: sortByParam,
+      desc: sortDirectionParam === SORT_DIRECTION.DESC,
+    });
+  }
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    state: { sortBy },
+  } = useTable(
+    {
+      columns,
+      data,
+      autoResetSortBy: false,
+      initialState: { pageSize: 5, pageIndex: 0, sortBy: sortInitialState },
+      disableMultiSort: true,
+    },
+    useSortBy
+  );
+
+  useEffect(() => {
+    setSearchParams(
+      sortBy.reduce(
+        (acc, sort) => ({
+          ...acc,
+          [SORT_URL_PARAMS.SORT_BY]: sort.id,
+          [SORT_URL_PARAMS.SORT_DIRECTION]: sort.desc
+            ? SORT_DIRECTION.DESC
+            : SORT_DIRECTION.ASC,
+        }),
+        {}
+      )
     );
+  }, [searchParams, setSearchParams, sortBy]);
 
   return (
     <Box width="full">

@@ -1,13 +1,24 @@
-import { useEffect } from 'react';
-
 import {
   // TorrentsUpdatesDocument,
   // TorrentsUpdatesSubscription,
   useTorrentsQuery,
 } from '../../graphql';
+import { SORT_URL_PARAMS } from '../../helpers/sorting';
 
-export const useTorrents = () => {
-  const { data, subscribeToMore } = useTorrentsQuery();
+export const useTorrents = (searchParams: URLSearchParams) => {
+  const sortBy = searchParams.get(SORT_URL_PARAMS.SORT_BY) || 'addedAt';
+  const sortDirection =
+    searchParams.get(SORT_URL_PARAMS.SORT_DIRECTION) || 'desc';
+
+  const orderBy = {
+    [sortBy]: sortDirection,
+  };
+
+  const { data } = useTorrentsQuery({
+    variables: {
+      orderBy,
+    },
+  });
 
   // useEffect(() => {
   //   subscribeToMore<TorrentsUpdatesSubscription>({
