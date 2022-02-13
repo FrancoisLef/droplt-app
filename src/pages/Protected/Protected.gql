@@ -1,7 +1,0 @@
-query ProtectedTest {
-  torrents {
-    torrentId
-    name
-    size
-  }
-}

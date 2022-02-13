@@ -2,10 +2,6 @@ import { ApolloProvider } from '@apollo/client';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-// import AppLayout from './layouts/AppLayout';
-// import ProtectedRoutes from './layouts/ProtectedRoutes';
-// import { AuthProvider, AuthSession } from './modules/auth';
-// import HomePage from './pages/Home';
 import ProtectedLayout from './components/Layout/Protected';
 import PublicLayout from './components/Layout/Public';
 import client from './graphql';
@@ -15,9 +11,9 @@ import {
   PublicRouteGuard,
 } from './helpers/auth';
 import ForgotPasswordPage from './pages/ForgotPassword';
+import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
 import NotFoundPage from './pages/NotFound';
-import ProtectedPage from './pages/Protected';
 import theme from './theme';
 
 const App = () => {
@@ -38,29 +34,13 @@ const App = () => {
               </Route>
               <Route element={<ProtectedRouteGuard />}>
                 <Route element={<ProtectedLayout />}>
-                  <Route index element={<ProtectedPage />} />
+                  <Route index element={<HomePage />} />
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
             </Routes>
           </ApolloProvider>
         </AuthProvider>
-        {/* <AuthProvider>
-          <AuthSession>
-            <ApolloProvider client={client}>
-              <Routes>
-                <Route path="/signin" element={<SigninPage />} />
-                <Route path="/" element={<ProtectedRoutes />}>
-                  <Route element={<AppLayout />}>
-                    <Route index element={<HomePage />} />
-                    <Route path="users" element={<UsersPage />} />
-                    <Route path="*" element={<HomePage />} />
-                  </Route>
-                </Route>
-              </Routes>
-            </ApolloProvider>
-          </AuthSession>
-        </AuthProvider> */}
       </BrowserRouter>
     </ChakraProvider>
   );
