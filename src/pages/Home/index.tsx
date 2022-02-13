@@ -39,7 +39,7 @@ const HomePage: React.FC = () => {
         accessor: 'progress',
         isCentered: true,
         Cell: ({ value }) => (
-          <CircularProgress value={value} thickness="5px" size="40px" />
+          <CircularProgress value={value} thickness="6px" size="40px" />
         ),
       },
       {
@@ -61,7 +61,7 @@ const HomePage: React.FC = () => {
         Header: locales.columns.addedAt,
         accessor: 'addedAt',
         Cell: ({ value }) => (
-          <Text fontWeight="light">
+          <Text fontWeight="thin">
             {formatDistanceToNowStrict(new Date(value)).replaceAll(' ', ' ')}
           </Text>
         ),
@@ -71,7 +71,7 @@ const HomePage: React.FC = () => {
         accessor: 'ratio',
         isNumeric: true,
         Cell: ({ value }) => (
-          <Text fontWeight="light">
+          <Text fontWeight="thin">
             {Math.round((value + Number.EPSILON) * 100) / 100}
           </Text>
         ),
@@ -100,8 +100,8 @@ const HomePage: React.FC = () => {
         autoResetSortBy: false,
         initialState: { pageSize: 5, pageIndex: 0 },
       },
-      useSortBy,
-      usePagination
+      useSortBy
+      // usePagination
     );
 
   return (

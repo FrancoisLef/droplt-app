@@ -20,13 +20,13 @@ const CircularProgressComponent: React.FC<CircularProgressComponentProps> = ({
 
   if (rounded === 100) {
     return (
-      <Icon as={ImCheckmark} w={3} h={3} color={mode('gray.500', 'gray.600')} />
+      <Icon as={ImCheckmark} w={3} h={3} color={mode('gray.300', 'gray.600')} />
     );
   }
 
   return (
     <CircularProgress value={progress} {...props}>
-      <CircularProgressLabel color={mode('blue.500', 'blue.300')}>
+      <CircularProgressLabel color={mode('gray.800', 'blue.300')}>
         {Math.round(progress)}%
       </CircularProgressLabel>
     </CircularProgress>

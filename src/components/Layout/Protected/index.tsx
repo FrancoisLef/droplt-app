@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Divider,
   Flex,
@@ -12,6 +13,7 @@ import { Outlet } from 'react-router-dom';
 
 import { useAuth } from '../../../helpers/auth';
 import Logo from '../../Logo';
+import ThemeSwitcher from '../../ThemeSwitcher';
 import NavLink from './components/NavLink';
 import UserProfile from './components/UserProfile';
 import locales from './locales';
@@ -53,8 +55,13 @@ const ProtectedLayout: React.FC = () => {
           </Button>
         </Stack>
       </Flex>
-      <Flex height="100vh" overflowY="scroll" width="full" px={6} py={8}>
-        <Outlet />
+      <Flex height="100vh" direction="column" overflowY="scroll" width="full">
+        <Box textAlign="right" pt={2} pr={2}>
+          <ThemeSwitcher />
+        </Box>
+        <Flex px={6} py={8}>
+          <Outlet />
+        </Flex>
       </Flex>
     </Flex>
   );
