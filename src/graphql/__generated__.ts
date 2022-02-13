@@ -1395,12 +1395,7 @@ export type TorrentWhereUniqueInput = {
 export type TorrentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TorrentsQuery = { __typename?: 'Query', torrents: Array<{ __typename?: 'Torrent', torrentId: string, name: string, size: number, eta?: number | null | undefined, downloaded: number, uploaded: number, ratio: number, addedAt: any, createdAt: any, updatedAt: any }> };
-
-export type ProtectedTestQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ProtectedTestQuery = { __typename?: 'Query', torrents: Array<{ __typename?: 'Torrent', torrentId: string, name: string, size: number }> };
+export type TorrentsQuery = { __typename?: 'Query', torrents: Array<{ __typename?: 'Torrent', torrentId: string, name: string, size: number, ratio: number, progress: number, addedAt: any, createdAt: any, updatedAt: any }> };
 
 
 export const TorrentsDocument = gql`
@@ -1409,10 +1404,8 @@ export const TorrentsDocument = gql`
     torrentId
     name
     size
-    eta
-    downloaded
-    uploaded
     ratio
+    progress
     addedAt
     createdAt
     updatedAt
@@ -1446,39 +1439,3 @@ export function useTorrentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<T
 export type TorrentsQueryHookResult = ReturnType<typeof useTorrentsQuery>;
 export type TorrentsLazyQueryHookResult = ReturnType<typeof useTorrentsLazyQuery>;
 export type TorrentsQueryResult = Apollo.QueryResult<TorrentsQuery, TorrentsQueryVariables>;
-export const ProtectedTestDocument = gql`
-    query ProtectedTest {
-  torrents {
-    torrentId
-    name
-    size
-  }
-}
-    `;
-
-/**
- * __useProtectedTestQuery__
- *
- * To run a query within a React component, call `useProtectedTestQuery` and pass it any options that fit your needs.
- * When your component renders, `useProtectedTestQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProtectedTestQuery({
- *   variables: {
- *   },
- * });
- */
-export function useProtectedTestQuery(baseOptions?: Apollo.QueryHookOptions<ProtectedTestQuery, ProtectedTestQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ProtectedTestQuery, ProtectedTestQueryVariables>(ProtectedTestDocument, options);
-      }
-export function useProtectedTestLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProtectedTestQuery, ProtectedTestQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ProtectedTestQuery, ProtectedTestQueryVariables>(ProtectedTestDocument, options);
-        }
-export type ProtectedTestQueryHookResult = ReturnType<typeof useProtectedTestQuery>;
-export type ProtectedTestLazyQueryHookResult = ReturnType<typeof useProtectedTestLazyQuery>;
-export type ProtectedTestQueryResult = Apollo.QueryResult<ProtectedTestQuery, ProtectedTestQueryVariables>;

@@ -1,22 +1,31 @@
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
-import { Box, chakra, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
-import { addSeconds } from 'date-fns';
+import {
+  Box,
+  chakra,
+  CircularProgress,
+  CircularProgressLabel,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+} from '@chakra-ui/react';
 import prettyBytes from 'pretty-bytes';
 import { useMemo } from 'react';
 import { Column, usePagination, useSortBy, useTable } from 'react-table';
 
-import { formatDate, formatDistanceToNow, Patp } from '../../helpers/date';
+import { formatDistanceToNowStrict } from '../../helpers/date';
 import { useTorrents } from './hooks';
 import locales from './locales';
 
 type ColumnType = Array<
   Column<{
     name: string;
-    eta?: number | null;
     ratio: number;
-    downloaded: number;
     size: number;
-    uploaded: number;
+    progress: number;
     addedAt: string;
   }>
 >;
@@ -27,42 +36,50 @@ const HomePage: React.FC = () => {
   const columns: ColumnType = useMemo(
     () => [
       {
+        Header: locales.columns.progress,
+        accessor: 'progress',
+        isCentered: true,
+        Cell: ({ value }) => (
+          <CircularProgress value={value * 100} thickness="5px" size="40px">
+            <CircularProgressLabel>
+              {Math.round(value * 100)}%
+            </CircularProgressLabel>
+          </CircularProgress>
+        ),
+      },
+      {
         Header: locales.columns.name,
         accessor: 'name',
-      },
-      {
-        Header: locales.columns.eta,
-        accessor: 'eta',
-        Cell: ({ value }) => {
-          if (!value) {
-            return '-';
-          }
-          return formatDistanceToNow(addSeconds(new Date(), value));
-        },
-      },
-      {
-        Header: locales.columns.ratio,
-        accessor: 'ratio',
+        Cell: ({ value }) => <Text fontWeight="medium">{value}</Text>,
       },
       {
         Header: locales.columns.size,
         accessor: 'size',
-        Cell: ({ value }) => prettyBytes(value),
-      },
-      {
-        Header: locales.columns.downloaded,
-        accessor: 'downloaded',
-        Cell: ({ value }) => prettyBytes(value),
-      },
-      {
-        Header: locales.columns.uploaded,
-        accessor: 'uploaded',
-        Cell: ({ value }) => prettyBytes(value),
+        isNumeric: true,
+        Cell: ({ value }) => (
+          <Text fontWeight="light">
+            {prettyBytes(value).replaceAll(' ', ' ')}
+          </Text>
+        ),
       },
       {
         Header: locales.columns.addedAt,
         accessor: 'addedAt',
-        Cell: ({ value }) => formatDate(new Date(value), Patp),
+        Cell: ({ value }) => (
+          <Text fontWeight="light">
+            {formatDistanceToNowStrict(new Date(value)).replaceAll(' ', ' ')}
+          </Text>
+        ),
+      },
+      {
+        Header: locales.columns.ratio,
+        accessor: 'ratio',
+        isNumeric: true,
+        Cell: ({ value }) => (
+          <Text fontWeight="light">
+            {Math.round((value + Number.EPSILON) * 100) / 100}
+          </Text>
+        ),
       },
     ],
     []
@@ -72,11 +89,9 @@ const HomePage: React.FC = () => {
     () =>
       torrents.map((torrent) => ({
         name: torrent.name,
-        eta: torrent.eta,
         ratio: torrent.ratio,
-        downloaded: torrent.downloaded,
         size: torrent.size,
-        uploaded: torrent.uploaded,
+        progress: torrent.progress,
         addedAt: torrent.addedAt,
       })),
     [torrents]
@@ -96,12 +111,15 @@ const HomePage: React.FC = () => {
 
   return (
     <Box>
-      <Table size="sm" variant="striped" {...getTableProps()}>
+      <Table size="md" {...getTableProps()}>
         <Thead>
           {headerGroups.map((headerGroup) => (
             <Tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <Th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                <Th
+                  isNumeric={column.isNumeric}
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                >
                   {column.render('Header')}
                   <chakra.span pl="2">
                     {column.isSorted ? (
@@ -125,7 +143,13 @@ const HomePage: React.FC = () => {
             return (
               <Tr {...row.getRowProps()}>
                 {row.cells.map((cell) => (
-                  <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
+                  <Td
+                    textAlign={cell.column.isCentered ? 'center' : 'unset'}
+                    isNumeric={cell.column.isNumeric}
+                    {...cell.getCellProps()}
+                  >
+                    {cell.render('Cell')}
+                  </Td>
                 ))}
               </Tr>
             );

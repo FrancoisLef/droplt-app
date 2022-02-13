@@ -3,7 +3,7 @@ import { formatDistanceToNow as dateFnsFormatDistanceToNow } from 'date-fns';
 import { dateFnsLocales, locales } from './constants';
 
 /**
- * Localized **date-fns** `format` function
+ * Localized **date-fns** `formatDistanceToNow` function
  *
  * @link https://date-fns.org/v2.28.0/docs/formatDistanceToNow
  * @param {number | Date} date

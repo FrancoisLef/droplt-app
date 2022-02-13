@@ -53,7 +53,7 @@ const ProtectedLayout: React.FC = () => {
           </Button>
         </Stack>
       </Flex>
-      <Flex width="full" px={6} py={8}>
+      <Flex height="100vh" overflowY="scroll" width="full" px={6} py={8}>
         <Outlet />
       </Flex>
     </Flex>

@@ -3,10 +3,8 @@ query Torrents {
     torrentId
     name
     size
-    eta
-    downloaded
-    uploaded
     ratio
+    progress
     addedAt
     createdAt
     updatedAt
