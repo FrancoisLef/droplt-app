@@ -11,6 +11,7 @@ import { getAuth, signOut } from 'firebase/auth';
 // import { WebSocketLink } from '@apollo/client/link/ws';
 // import { getMainDefinition } from '@apollo/client/utilities';
 import { accessToken } from '../helpers/auth';
+import env from '../helpers/env';
 import firebase from '../helpers/firebase';
 
 // WebSocket Link
@@ -39,7 +40,7 @@ import firebase from '../helpers/firebase';
 // );
 
 // HTTP Link
-const httpLink = createHttpLink({ uri: '/graphql' });
+const httpLink = createHttpLink({ uri: env.GRAPHQL_ENDPOINT });
 
 // Auth Link
 const authLink = new ApolloLink((operation, forward) => {
@@ -68,7 +69,6 @@ const link = from([authLink, errorLink, httpLink]);
 
 const client = new ApolloClient({
   link,
-  uri: '/graphql',
   cache: new InMemoryCache(),
 });
 
