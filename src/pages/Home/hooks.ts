@@ -1,5 +1,4 @@
 import {
-  QueryMode,
   // TorrentsUpdatesDocument,
   // TorrentsUpdatesSubscription,
   useTorrentsQuery,
@@ -11,9 +10,7 @@ export const useTorrents = (searchParams: URLSearchParams) => {
   const sortDirection =
     searchParams.get(SORT_URL_PARAMS.SORT_DIRECTION) || 'desc';
   const name = searchParams.get('name') || '';
-  const extendedName = name.replaceAll(' ', ' <-> ');
   // const finalName = `${name} <-> ${extendedName}`;
-
   // console.log(finalName);
 
   const { data } = useTorrentsQuery({
@@ -25,20 +22,19 @@ export const useTorrents = (searchParams: URLSearchParams) => {
       ...(name
         ? {
             where: {
-              OR: [
-                {
-                  name: {
-                    search: extendedName,
-                    mode: QueryMode.Insensitive,
-                  },
-                },
-                {
-                  name: {
-                    contains: extendedName,
-                    mode: QueryMode.Insensitive,
-                  },
-                },
-              ],
+              name: {
+                startsWith: name,
+              },
+              // OR: [
+              //   {
+              //   },
+              //   // {
+              //   //   name: {
+              //   //     contains: extendedName,
+              //   //     mode: QueryMode.Insensitive,
+              //   //   },
+              //   // },
+              // ],
             },
           }
         : {}),

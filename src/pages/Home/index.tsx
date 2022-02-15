@@ -44,6 +44,15 @@ const HomePage: React.FC = () => {
   const columns: ColumnType = useMemo(
     () => [
       {
+        Header: locales.columns.name,
+        accessor: 'name',
+        Cell: ({ value }) => (
+          <Text fontWeight="medium" color={mode('gray.800', 'gray.100')}>
+            {value}
+          </Text>
+        ),
+      },
+      {
         Header: locales.columns.addedAt,
         accessor: 'addedAt',
         sortInverted: true,
@@ -51,15 +60,6 @@ const HomePage: React.FC = () => {
         Cell: ({ value }) => (
           <Text fontWeight="light" color="gray.500">
             {formatDistanceToNowStrict(new Date(value)).replaceAll(' ', ' ')}
-          </Text>
-        ),
-      },
-      {
-        Header: locales.columns.name,
-        accessor: 'name',
-        Cell: ({ value }) => (
-          <Text fontWeight="medium" color={mode('gray.800', 'gray.100')}>
-            {value}
           </Text>
         ),
       },

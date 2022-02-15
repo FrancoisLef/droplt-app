@@ -158,8 +158,6 @@ export type FloatWithAggregatesFilter = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createManyTorrent: AffectedRowsOutput;
-  createManyTorrentFile: AffectedRowsOutput;
   createTorrent: Torrent;
   createTorrentFile: TorrentFile;
   deleteManyTorrent: AffectedRowsOutput;
@@ -172,18 +170,6 @@ export type Mutation = {
   updateTorrentFile?: Maybe<TorrentFile>;
   upsertTorrent: Torrent;
   upsertTorrentFile: TorrentFile;
-};
-
-
-export type MutationCreateManyTorrentArgs = {
-  data: Array<TorrentCreateManyInput>;
-  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
-};
-
-
-export type MutationCreateManyTorrentFileArgs = {
-  data: Array<TorrentFileCreateManyInput>;
-  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -391,7 +377,6 @@ export type NestedStringFilter = {
   lte?: InputMaybe<Scalars['String']>;
   not?: InputMaybe<NestedStringFilter>;
   notIn?: InputMaybe<Array<Scalars['String']>>;
-  search?: InputMaybe<Scalars['String']>;
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
@@ -406,7 +391,6 @@ export type NestedStringNullableFilter = {
   lte?: InputMaybe<Scalars['String']>;
   not?: InputMaybe<NestedStringNullableFilter>;
   notIn?: InputMaybe<Array<Scalars['String']>>;
-  search?: InputMaybe<Scalars['String']>;
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
@@ -424,7 +408,6 @@ export type NestedStringNullableWithAggregatesFilter = {
   lte?: InputMaybe<Scalars['String']>;
   not?: InputMaybe<NestedStringNullableWithAggregatesFilter>;
   notIn?: InputMaybe<Array<Scalars['String']>>;
-  search?: InputMaybe<Scalars['String']>;
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
@@ -442,7 +425,6 @@ export type NestedStringWithAggregatesFilter = {
   lte?: InputMaybe<Scalars['String']>;
   not?: InputMaybe<NestedStringWithAggregatesFilter>;
   notIn?: InputMaybe<Array<Scalars['String']>>;
-  search?: InputMaybe<Scalars['String']>;
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
@@ -475,7 +457,7 @@ export type Query = {
 
 export type QueryAggregateTorrentArgs = {
   cursor?: InputMaybe<TorrentWhereUniqueInput>;
-  orderBy?: InputMaybe<Array<TorrentOrderByWithRelationAndSearchRelevanceInput>>;
+  orderBy?: InputMaybe<Array<TorrentOrderByWithRelationInput>>;
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<TorrentWhereInput>;
@@ -484,7 +466,7 @@ export type QueryAggregateTorrentArgs = {
 
 export type QueryAggregateTorrentFileArgs = {
   cursor?: InputMaybe<TorrentFileWhereUniqueInput>;
-  orderBy?: InputMaybe<Array<TorrentFileOrderByWithRelationAndSearchRelevanceInput>>;
+  orderBy?: InputMaybe<Array<TorrentFileOrderByWithRelationInput>>;
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<TorrentFileWhereInput>;
@@ -494,7 +476,7 @@ export type QueryAggregateTorrentFileArgs = {
 export type QueryFindFirstTorrentArgs = {
   cursor?: InputMaybe<TorrentWhereUniqueInput>;
   distinct?: InputMaybe<Array<TorrentScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<TorrentOrderByWithRelationAndSearchRelevanceInput>>;
+  orderBy?: InputMaybe<Array<TorrentOrderByWithRelationInput>>;
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<TorrentWhereInput>;
@@ -504,7 +486,7 @@ export type QueryFindFirstTorrentArgs = {
 export type QueryFindFirstTorrentFileArgs = {
   cursor?: InputMaybe<TorrentFileWhereUniqueInput>;
   distinct?: InputMaybe<Array<TorrentFileScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<TorrentFileOrderByWithRelationAndSearchRelevanceInput>>;
+  orderBy?: InputMaybe<Array<TorrentFileOrderByWithRelationInput>>;
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<TorrentFileWhereInput>;
@@ -544,7 +526,7 @@ export type QueryTorrentFileArgs = {
 export type QueryTorrentFilesArgs = {
   cursor?: InputMaybe<TorrentFileWhereUniqueInput>;
   distinct?: InputMaybe<Array<TorrentFileScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<TorrentFileOrderByWithRelationAndSearchRelevanceInput>>;
+  orderBy?: InputMaybe<Array<TorrentFileOrderByWithRelationInput>>;
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<TorrentFileWhereInput>;
@@ -554,16 +536,11 @@ export type QueryTorrentFilesArgs = {
 export type QueryTorrentsArgs = {
   cursor?: InputMaybe<TorrentWhereUniqueInput>;
   distinct?: InputMaybe<Array<TorrentScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<TorrentOrderByWithRelationAndSearchRelevanceInput>>;
+  orderBy?: InputMaybe<Array<TorrentOrderByWithRelationInput>>;
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<TorrentWhereInput>;
 };
-
-export enum QueryMode {
-  Default = 'default',
-  Insensitive = 'insensitive'
-}
 
 export enum SortOrder {
   Asc = 'asc',
@@ -583,10 +560,8 @@ export type StringFilter = {
   in?: InputMaybe<Array<Scalars['String']>>;
   lt?: InputMaybe<Scalars['String']>;
   lte?: InputMaybe<Scalars['String']>;
-  mode?: InputMaybe<QueryMode>;
   not?: InputMaybe<NestedStringFilter>;
   notIn?: InputMaybe<Array<Scalars['String']>>;
-  search?: InputMaybe<Scalars['String']>;
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
@@ -599,10 +574,8 @@ export type StringNullableFilter = {
   in?: InputMaybe<Array<Scalars['String']>>;
   lt?: InputMaybe<Scalars['String']>;
   lte?: InputMaybe<Scalars['String']>;
-  mode?: InputMaybe<QueryMode>;
   not?: InputMaybe<NestedStringNullableFilter>;
   notIn?: InputMaybe<Array<Scalars['String']>>;
-  search?: InputMaybe<Scalars['String']>;
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
@@ -618,10 +591,8 @@ export type StringNullableWithAggregatesFilter = {
   in?: InputMaybe<Array<Scalars['String']>>;
   lt?: InputMaybe<Scalars['String']>;
   lte?: InputMaybe<Scalars['String']>;
-  mode?: InputMaybe<QueryMode>;
   not?: InputMaybe<NestedStringNullableWithAggregatesFilter>;
   notIn?: InputMaybe<Array<Scalars['String']>>;
-  search?: InputMaybe<Scalars['String']>;
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
@@ -637,10 +608,8 @@ export type StringWithAggregatesFilter = {
   in?: InputMaybe<Array<Scalars['String']>>;
   lt?: InputMaybe<Scalars['String']>;
   lte?: InputMaybe<Scalars['String']>;
-  mode?: InputMaybe<QueryMode>;
   not?: InputMaybe<NestedStringWithAggregatesFilter>;
   notIn?: InputMaybe<Array<Scalars['String']>>;
-  search?: InputMaybe<Scalars['String']>;
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
@@ -668,7 +637,7 @@ export type Torrent = {
 export type TorrentFilesArgs = {
   cursor?: InputMaybe<TorrentFileWhereUniqueInput>;
   distinct?: InputMaybe<Array<TorrentFileScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<TorrentFileOrderByWithRelationAndSearchRelevanceInput>>;
+  orderBy?: InputMaybe<Array<TorrentFileOrderByWithRelationInput>>;
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<TorrentFileWhereInput>;
@@ -741,23 +710,6 @@ export type TorrentCreateInput = {
   downloaded?: InputMaybe<Scalars['Float']>;
   eta?: InputMaybe<Scalars['Float']>;
   files?: InputMaybe<TorrentFileCreateNestedManyWithoutTorrentInput>;
-  name: Scalars['String'];
-  path: Scalars['String'];
-  progress?: InputMaybe<Scalars['Float']>;
-  ratio?: InputMaybe<Scalars['Float']>;
-  size: Scalars['Float'];
-  status: Scalars['String'];
-  torrentId: Scalars['String'];
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-  uploaded?: InputMaybe<Scalars['Float']>;
-};
-
-export type TorrentCreateManyInput = {
-  addedAt: Scalars['DateTime'];
-  completedAt?: InputMaybe<Scalars['DateTime']>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  downloaded?: InputMaybe<Scalars['Float']>;
-  eta?: InputMaybe<Scalars['Float']>;
   name: Scalars['String'];
   path: Scalars['String'];
   progress?: InputMaybe<Scalars['Float']>;
@@ -852,35 +804,10 @@ export type TorrentFileCreateInput = {
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type TorrentFileCreateManyInput = {
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  downloaded?: InputMaybe<Scalars['Float']>;
-  name: Scalars['String'];
-  size: Scalars['Float'];
-  torrentFileId?: InputMaybe<Scalars['String']>;
-  torrentId?: InputMaybe<Scalars['String']>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type TorrentFileCreateManyTorrentInput = {
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  downloaded?: InputMaybe<Scalars['Float']>;
-  name: Scalars['String'];
-  size: Scalars['Float'];
-  torrentFileId?: InputMaybe<Scalars['String']>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type TorrentFileCreateManyTorrentInputEnvelope = {
-  data: Array<TorrentFileCreateManyTorrentInput>;
-  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
-};
-
 export type TorrentFileCreateNestedManyWithoutTorrentInput = {
   connect?: InputMaybe<Array<TorrentFileWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<TorrentFileCreateOrConnectWithoutTorrentInput>>;
   create?: InputMaybe<Array<TorrentFileCreateWithoutTorrentInput>>;
-  createMany?: InputMaybe<TorrentFileCreateManyTorrentInputEnvelope>;
 };
 
 export type TorrentFileCreateOrConnectWithoutTorrentInput = {
@@ -965,18 +892,6 @@ export type TorrentFileOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
 };
 
-export enum TorrentFileOrderByRelevanceFieldEnum {
-  Name = 'name',
-  TorrentFileId = 'torrentFileId',
-  TorrentId = 'torrentId'
-}
-
-export type TorrentFileOrderByRelevanceInput = {
-  fields: Array<TorrentFileOrderByRelevanceFieldEnum>;
-  search: Scalars['String'];
-  sort: SortOrder;
-};
-
 export type TorrentFileOrderByWithAggregationInput = {
   _avg?: InputMaybe<TorrentFileAvgOrderByAggregateInput>;
   _count?: InputMaybe<TorrentFileCountOrderByAggregateInput>;
@@ -992,9 +907,8 @@ export type TorrentFileOrderByWithAggregationInput = {
   updatedAt?: InputMaybe<SortOrder>;
 };
 
-export type TorrentFileOrderByWithRelationAndSearchRelevanceInput = {
-  Torrent?: InputMaybe<TorrentOrderByWithRelationAndSearchRelevanceInput>;
-  _relevance?: InputMaybe<TorrentFileOrderByRelevanceInput>;
+export type TorrentFileOrderByWithRelationInput = {
+  Torrent?: InputMaybe<TorrentOrderByWithRelationInput>;
   createdAt?: InputMaybe<SortOrder>;
   downloaded?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
@@ -1079,7 +993,6 @@ export type TorrentFileUpdateManyWithoutTorrentInput = {
   connect?: InputMaybe<Array<TorrentFileWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<TorrentFileCreateOrConnectWithoutTorrentInput>>;
   create?: InputMaybe<Array<TorrentFileCreateWithoutTorrentInput>>;
-  createMany?: InputMaybe<TorrentFileCreateManyTorrentInputEnvelope>;
   delete?: InputMaybe<Array<TorrentFileWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<TorrentFileScalarWhereInput>>;
   disconnect?: InputMaybe<Array<TorrentFileWhereUniqueInput>>;
@@ -1220,19 +1133,6 @@ export type TorrentMinOrderByAggregateInput = {
   uploaded?: InputMaybe<SortOrder>;
 };
 
-export enum TorrentOrderByRelevanceFieldEnum {
-  Name = 'name',
-  Path = 'path',
-  Status = 'status',
-  TorrentId = 'torrentId'
-}
-
-export type TorrentOrderByRelevanceInput = {
-  fields: Array<TorrentOrderByRelevanceFieldEnum>;
-  search: Scalars['String'];
-  sort: SortOrder;
-};
-
 export type TorrentOrderByWithAggregationInput = {
   _avg?: InputMaybe<TorrentAvgOrderByAggregateInput>;
   _count?: InputMaybe<TorrentCountOrderByAggregateInput>;
@@ -1255,8 +1155,7 @@ export type TorrentOrderByWithAggregationInput = {
   uploaded?: InputMaybe<SortOrder>;
 };
 
-export type TorrentOrderByWithRelationAndSearchRelevanceInput = {
-  _relevance?: InputMaybe<TorrentOrderByRelevanceInput>;
+export type TorrentOrderByWithRelationInput = {
   addedAt?: InputMaybe<SortOrder>;
   completedAt?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
@@ -1428,7 +1327,7 @@ export type TorrentWhereUniqueInput = {
 };
 
 export type TorrentsQueryVariables = Exact<{
-  orderBy?: InputMaybe<Array<TorrentOrderByWithRelationAndSearchRelevanceInput> | TorrentOrderByWithRelationAndSearchRelevanceInput>;
+  orderBy?: InputMaybe<Array<TorrentOrderByWithRelationInput> | TorrentOrderByWithRelationInput>;
   where?: InputMaybe<TorrentWhereInput>;
 }>;
 
@@ -1437,8 +1336,8 @@ export type TorrentsQuery = { __typename?: 'Query', torrents: Array<{ __typename
 
 
 export const TorrentsDocument = gql`
-    query Torrents($orderBy: [TorrentOrderByWithRelationAndSearchRelevanceInput!], $where: TorrentWhereInput) {
-  torrents(orderBy: $orderBy, where: $where, take: 50) {
+    query Torrents($orderBy: [TorrentOrderByWithRelationInput!], $where: TorrentWhereInput) {
+  torrents(orderBy: $orderBy, where: $where, take: 20) {
     torrentId
     name
     size

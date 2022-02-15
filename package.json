@@ -7,6 +7,7 @@
     "codegen": "graphql-codegen",
     "codegen:pull": "graphql-codegen --config codegen-pull.yml",
     "codegen:watch": "graphql-codegen --watch",
+    "generate": "run-s codegen:pull codegen",
     "env:copy": "cpy --no-overwrite .env --rename .env.local .",
     "env:runtime": "NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js --env-file .env.local",
     "hooks:install": "husky install",
