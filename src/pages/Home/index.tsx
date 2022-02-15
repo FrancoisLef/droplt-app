@@ -47,6 +47,7 @@ const HomePage: React.FC = () => {
         Header: locales.columns.addedAt,
         accessor: 'addedAt',
         sortInverted: true,
+        isNumeric: true,
         Cell: ({ value }) => (
           <Text fontWeight="light" color="gray.500">
             {formatDistanceToNowStrict(new Date(value)).replaceAll(' ', ' ')}

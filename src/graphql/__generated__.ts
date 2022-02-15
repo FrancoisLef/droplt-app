@@ -1438,7 +1438,7 @@ export type TorrentsQuery = { __typename?: 'Query', torrents: Array<{ __typename
 
 export const TorrentsDocument = gql`
     query Torrents($orderBy: [TorrentOrderByWithRelationAndSearchRelevanceInput!], $where: TorrentWhereInput) {
-  torrents(orderBy: $orderBy, where: $where, take: 10) {
+  torrents(orderBy: $orderBy, where: $where, take: 50) {
     torrentId
     name
     size

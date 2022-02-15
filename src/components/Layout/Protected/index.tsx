@@ -23,6 +23,9 @@ const ProtectedLayout: React.FC = () => {
 
   return (
     <Flex>
+      <Box position="fixed" left={2} top={2}>
+        <ThemeSwitcher size="sm" fontSize="sm" />
+      </Box>
       <Flex
         height="100vh"
         width={{ base: '2xs' }}
@@ -55,9 +58,6 @@ const ProtectedLayout: React.FC = () => {
         </Stack>
       </Flex>
       <Flex height="100vh" direction="column" overflowY="scroll" width="full">
-        <Box textAlign="right" pt={2} pr={2}>
-          <ThemeSwitcher />
-        </Box>
         <Flex px={6} py={8}>
           <Outlet />
         </Flex>
