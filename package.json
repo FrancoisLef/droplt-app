@@ -4,17 +4,17 @@
   "private": true,
   "scripts": {
     "app:start": "react-scripts start",
-    "codegen": "graphql-codegen",
-    "codegen:pull": "graphql-codegen --config codegen-pull.yml",
-    "codegen:watch": "graphql-codegen --watch",
-    "generate": "run-s env:copy env:runtime codegen:pull codegen",
-    "env:copy": "cpy --no-overwrite .env --rename .env.local .",
-    "env:runtime": "NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js --env-file .env.local",
-    "hooks:install": "husky install",
-    "prepare": "run-s env:copy hooks:install",
+    "gen": "run-s gen:env:copy gen:env:runtime gen:theme gen:graphql:pull gen:graphql",
+    "gen:env:copy": "cpy --no-overwrite .env --rename .env.local .",
+    "gen:env:runtime": "NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js --env-file .env.local",
+    "gen:theme": "chakra-cli tokens src/theme/index.ts",
+    "gen:graphql": "graphql-codegen",
+    "gen:graphql:pull": "graphql-codegen --config codegen-pull.yml",
+    "gen:graphql:watch": "graphql-codegen --watch",
+    "postinstall": "husky install",
     "build": "react-scripts build && precompress build",
     "eject": "react-scripts eject",
-    "start": "run-p app:start codegen:watch",
+    "start": "npm-run-all --serial gen --parallel app:start gen:graphql:watch",
     "test": "react-scripts test"
   },
   "lint-staged": {
@@ -87,6 +87,7 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "^1.8.1",
     "@graphql-codegen/cli": "2.4.0",
     "@graphql-codegen/schema-ast": "^2.4.1",
     "@graphql-codegen/typescript": "2.4.2",

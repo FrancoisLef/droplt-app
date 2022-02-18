@@ -1,11 +1,17 @@
-import { Flex, Icon, Text, useColorModeValue as mode } from '@chakra-ui/react';
+import { Flex, FlexProps, Icon, Text } from '@chakra-ui/react';
 import { ImDroplet } from 'react-icons/im';
 
-const Logo: React.FC = ({ ...props }) => (
+interface LogoProps extends FlexProps {}
+
+const Logo: React.FC<LogoProps> = ({ ...props }) => (
   <Flex justify="center" align="center" {...props}>
-    <Text colorScheme={mode('white', 'black')}>Dr</Text>
-    <Icon as={ImDroplet} color={mode('blue.300', 'blue.400')} />
-    <Text colorScheme={mode('white', 'black')}>plt</Text>
+    <Text fontWeight="bold" color="blue.500">
+      Dr
+    </Text>
+    <Icon as={ImDroplet} color="brand.100" />
+    <Text fontWeight="bold" color="blue.500">
+      plt
+    </Text>
   </Flex>
 );
 
