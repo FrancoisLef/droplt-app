@@ -97,6 +97,7 @@ const LoginPage: React.FC = () => {
           <FormLabel>{locales.label.email}</FormLabel>
           <Input
             autoComplete="email"
+            colorScheme="brand"
             {...register('email', {
               required: locales.error.email.required,
             })}
@@ -109,7 +110,7 @@ const LoginPage: React.FC = () => {
             <Button
               mb={2}
               as={RouterLink}
-              colorScheme="blue"
+              colorScheme="brand"
               variant="link"
               size="sm"
               to="/forgot-password"
@@ -132,7 +133,7 @@ const LoginPage: React.FC = () => {
           loadingText={locales.loading}
           rightIcon={<HiArrowRight />}
           type="submit"
-          colorScheme="blue"
+          colorScheme="brand"
           size="lg"
           fontSize="md"
         >

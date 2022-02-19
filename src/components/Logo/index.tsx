@@ -5,11 +5,11 @@ interface LogoProps extends FlexProps {}
 
 const Logo: React.FC<LogoProps> = ({ ...props }) => (
   <Flex justify="center" align="center" {...props}>
-    <Text fontWeight="bold" color="blue.500">
+    <Text fontWeight="bold" color="brand.500">
       Dr
     </Text>
-    <Icon as={ImDroplet} color="brand.100" />
-    <Text fontWeight="bold" color="blue.500">
+    <Icon as={ImDroplet} color="brand.400" />
+    <Text fontWeight="bold" color="brand.500">
       plt
     </Text>
   </Flex>

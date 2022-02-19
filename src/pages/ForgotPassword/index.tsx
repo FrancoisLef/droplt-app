@@ -70,7 +70,7 @@ const ForgotPasswordPage: React.FC = () => {
     <>
       <Button
         as={RouterLink}
-        colorScheme="blue"
+        colorScheme="brand"
         isDisabled={isLoading}
         variant="link"
         size="sm"
@@ -109,7 +109,7 @@ const ForgotPasswordPage: React.FC = () => {
             spinnerPlacement="end"
             rightIcon={<HiArrowRight />}
             type="submit"
-            colorScheme="blue"
+            colorScheme="brand"
             size="lg"
             fontSize="md"
           >

@@ -20,7 +20,7 @@ const ForgotPasswordSuccess: React.FC = () => {
       </Text>
       <Button
         as={RouterLink}
-        colorScheme="blue"
+        colorScheme="brand"
         variant="link"
         size="sm"
         mt="4"
