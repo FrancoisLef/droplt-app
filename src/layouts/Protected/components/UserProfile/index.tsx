@@ -1,8 +1,8 @@
 import { Avatar, Flex, HStack, Text, useDisclosure } from '@chakra-ui/react';
 import * as React from 'react';
 
-import { useAuth } from '../../../../../helpers/auth';
-import ModalUserProfile from '../../../../ModalUserProfile';
+import ModalUserProfile from '../../../../components/ModalUserProfile';
+import { useAuth } from '../../../../helpers/auth';
 
 const UserProfile: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

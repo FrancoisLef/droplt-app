@@ -7,7 +7,6 @@ import {
   Input,
   Stack,
   Text,
-  useColorModeValue as mode,
 } from '@chakra-ui/react';
 import { AuthErrorCodes } from 'firebase/auth';
 import { useState } from 'react';
@@ -83,7 +82,7 @@ const ForgotPasswordPage: React.FC = () => {
       <Heading mb="4" as="h2" size="md">
         {locales.title}
       </Heading>
-      <Text mb="4" fontSize="sm" textColor={mode('gray.500', 'gray.300')}>
+      <Text mb="4" fontSize="sm" textColor="gray.500">
         {locales.subtitle}
       </Text>
       <form onSubmit={onSubmit}>

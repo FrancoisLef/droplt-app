@@ -12,8 +12,8 @@ import { HiLogout } from 'react-icons/hi';
 import { ImDroplet } from 'react-icons/im';
 import { Outlet } from 'react-router-dom';
 
-import { useAuth } from '../../../helpers/auth';
-import Logo from '../../Logo';
+import Logo from '../../components/Logo';
+import { useAuth } from '../../helpers/auth';
 import HamburgerMenu from './components/HamburgerMenu';
 import NavLink from './components/NavLink';
 import NavMenu from './components/NavMenu';

@@ -1,18 +1,8 @@
-import { Flex, FlexProps, Icon, Text } from '@chakra-ui/react';
+import { Icon, IconProps } from '@chakra-ui/react';
 import { ImDroplet } from 'react-icons/im';
 
-interface LogoProps extends FlexProps {}
-
-const Logo: React.FC<LogoProps> = ({ ...props }) => (
-  <Flex justify="center" align="center" {...props}>
-    <Text fontWeight="bold" color="brand.500">
-      Dr
-    </Text>
-    <Icon as={ImDroplet} color="brand.400" />
-    <Text fontWeight="bold" color="brand.500">
-      plt
-    </Text>
-  </Flex>
+const Logo: React.FC<IconProps> = ({ ...props }) => (
+  <Icon as={ImDroplet} color="brand.500" {...props} />
 );
 
 export default Logo;

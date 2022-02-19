@@ -1,5 +1,5 @@
-import '@fontsource/raleway/400.css';
-import '@fontsource/open-sans/700.css';
+import '@fontsource/roboto';
+import '@fontsource/roboto-mono';
 
 import { ChakraProvider } from '@chakra-ui/react';
 import { ColorModeScript } from '@chakra-ui/react';

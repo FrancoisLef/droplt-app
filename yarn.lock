@@ -3156,17 +3156,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource/open-sans@npm:^4.5.5":
-  version: 4.5.5
-  resolution: "@fontsource/open-sans@npm:4.5.5"
-  checksum: e0b08bbe98ee98a88e817962bc4ac2b88c4dd36bd40eb8451abb7e0c2ded049795fd25496213b4799ab4a02c2f31f4996a8049f1116e9214c7ec558ab56651a9
+"@fontsource/roboto-mono@npm:^4.5.3":
+  version: 4.5.3
+  resolution: "@fontsource/roboto-mono@npm:4.5.3"
+  checksum: 98779a20a24fd50f0d8bb2a7c283e18a42e7eaf4829895601d63cdf9dc4e2212abf081f7609daa7c700b0bd8d18c530284730dd73ab07e4e2e3bf92b253e6ba8
   languageName: node
   linkType: hard
 
-"@fontsource/raleway@npm:^4.5.3":
+"@fontsource/roboto@npm:^4.5.3":
   version: 4.5.3
-  resolution: "@fontsource/raleway@npm:4.5.3"
-  checksum: 57365eaef284414ed287d251c7b53d9f97f857e53b7f2f42899dfaf9401518919397a7e108e3a7bf493afbfa43a559ea4fecb5ae0235df2e351ef42aaaf465a8
+  resolution: "@fontsource/roboto@npm:4.5.3"
+  checksum: 5c25485184dcb9162834ef2633528b8c21812ae4bbb37e9a32f07b4db93226361d6b60fe71c61b60aeea7e9fe69be6c9d80b05eea477ec71f166a0fd3feb3df5
   languageName: node
   linkType: hard
 
@@ -8386,8 +8386,8 @@ __metadata:
     "@chakra-ui/react": ^1.8.1
     "@emotion/react": ^11.7.1
     "@emotion/styled": ^11.6.0
-    "@fontsource/open-sans": ^4.5.5
-    "@fontsource/raleway": ^4.5.3
+    "@fontsource/roboto": ^4.5.3
+    "@fontsource/roboto-mono": ^4.5.3
     "@graphql-codegen/cli": 2.4.0
     "@graphql-codegen/schema-ast": ^2.4.1
     "@graphql-codegen/typescript": 2.4.2

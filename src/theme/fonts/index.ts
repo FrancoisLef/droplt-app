@@ -1,6 +1,7 @@
 const fonts = {
-  heading: 'Open Sans',
-  body: 'Raleway',
+  heading: 'Roboto',
+  body: 'Roboto',
+  mono: 'Roboto Mono',
 };
 
 export default fonts;
