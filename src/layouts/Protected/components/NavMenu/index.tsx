@@ -27,7 +27,6 @@ const MobileNavMenu = (props: { isOpen?: boolean }) => {
 const DesktopNavMenu = () => (
   <HStack spacing="3" flex="1" display={{ base: 'none', lg: 'flex' }}>
     <NavItem.Desktop to="/" label="Torrents" />
-    <NavItem.Desktop to="/dashboard" label="Dashboard" />
   </HStack>
 );
 
