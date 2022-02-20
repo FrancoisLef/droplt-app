@@ -6,7 +6,6 @@ import {
   Heading,
   Input,
   Stack,
-  Text,
 } from '@chakra-ui/react';
 import { AuthErrorCodes } from 'firebase/auth';
 import { useState } from 'react';
@@ -14,6 +13,7 @@ import { useForm } from 'react-hook-form';
 import { HiArrowLeft, HiArrowRight } from 'react-icons/hi';
 import { Link as RouterLink } from 'react-router-dom';
 
+import Text from '../../components/Text';
 import { useAuth } from '../../helpers/auth';
 import ForgotPasswordSuccess from './components/Success';
 import locales from './locales';
@@ -82,7 +82,7 @@ const ForgotPasswordPage: React.FC = () => {
       <Heading mb="4" as="h2" size="md">
         {locales.title}
       </Heading>
-      <Text mb="4" fontSize="sm" textColor="gray.500">
+      <Text mb="4" fontSize="sm" type="secondary">
         {locales.subtitle}
       </Text>
       <form onSubmit={onSubmit}>

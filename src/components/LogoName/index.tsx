@@ -1,11 +1,11 @@
-import { Flex, FlexProps, Text, TextProps } from '@chakra-ui/react';
+import { Flex, FlexProps, TextProps } from '@chakra-ui/react';
 
 import Logo from '../Logo';
+import Text from '../Text';
 
 const textProps: Partial<TextProps> = {
   fontFamily: 'mono',
   fontWeight: 'bold',
-  // color: 'brand.500',
   color: 'brand.800',
   letterSpacing: 'tighter',
 };
