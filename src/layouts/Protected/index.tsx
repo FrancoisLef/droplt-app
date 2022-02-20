@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, HStack } from '@chakra-ui/react';
+import { Flex, Heading, HStack } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
