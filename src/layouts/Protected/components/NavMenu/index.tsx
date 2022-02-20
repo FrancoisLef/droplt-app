@@ -1,11 +1,4 @@
 import { Box, Flex, HStack } from '@chakra-ui/react';
-import {
-  HiDuplicate,
-  HiMail,
-  HiRefresh,
-  HiTemplate,
-  HiViewGrid,
-} from 'react-icons/hi';
 
 import NavItem from '../NavItem';
 
@@ -25,11 +18,7 @@ const MobileNavMenu = (props: { isOpen?: boolean }) => {
       w="full"
     >
       <Box px="4">
-        <NavItem.Mobile active label="Dashboard" />
-        <NavItem.Mobile label="Campaigns" />
-        <NavItem.Mobile label="Forms" />
-        <NavItem.Mobile label="Sites" />
-        <NavItem.Mobile label="Automation" />
+        <NavItem.Mobile to="/torrents" label="Torrents" />
       </Box>
     </Flex>
   );
@@ -37,11 +26,8 @@ const MobileNavMenu = (props: { isOpen?: boolean }) => {
 
 const DesktopNavMenu = () => (
   <HStack spacing="3" flex="1" display={{ base: 'none', lg: 'flex' }}>
-    <NavItem.Desktop active icon={<HiViewGrid />} label="Dashboard" />
-    <NavItem.Desktop icon={<HiMail />} label="Campaigns" />
-    <NavItem.Desktop icon={<HiDuplicate />} label="Forms" />
-    <NavItem.Desktop icon={<HiTemplate />} label="Sites" />
-    <NavItem.Desktop icon={<HiRefresh />} label="Automation" />
+    <NavItem.Desktop to="/" label="Torrents" />
+    <NavItem.Desktop to="/dashboard" label="Dashboard" />
   </HStack>
 );
 

@@ -1,59 +1,77 @@
-import { Box, HStack } from '@chakra-ui/react';
+import { Link } from '@chakra-ui/react';
 import * as React from 'react';
+import {
+  Link as RouterLink,
+  LinkProps,
+  useMatch,
+  useResolvedPath,
+} from 'react-router-dom';
 
-interface NavItemProps {
-  href?: string;
-  active?: boolean;
+interface NavItemProps extends LinkProps {
   label: string;
 }
 
-interface DesktopNavItemProps extends NavItemProps {
-  icon: React.ReactNode;
-}
+const DesktopNavItem: React.FC<NavItemProps> = (props) => {
+  const { label, to, ...rest } = props;
+  const resolved = useResolvedPath(to);
+  const match = useMatch({ path: resolved.pathname, end: true });
 
-const DesktopNavItem = (props: DesktopNavItemProps) => {
-  const { icon, label, href = '#', active } = props;
   return (
-    <HStack
-      as="a"
-      href={href}
-      aria-current={active ? 'page' : undefined}
-      spacing="2"
-      px="3"
-      py="2"
-      rounded="md"
-      transition="all 0.2s"
-      color="gray.200"
-      _hover={{ bg: 'whiteAlpha.200' }}
-      _activeLink={{ bg: 'blackAlpha.300', color: 'white' }}
+    <Link
+      as={RouterLink}
+      py={2}
+      to={to}
+      px={3}
+      borderRadius="md"
+      transition="all 0.3s"
+      lineHeight="1.5rem"
+      fontWeight="medium"
+      aria-current={match ? 'page' : undefined}
+      color="whiteAlpha.900"
+      _hover={{
+        bg: 'brand.400',
+        color: 'white',
+      }}
+      _activeLink={{
+        bg: 'brand.300',
+        color: 'white',
+      }}
+      {...rest}
     >
-      {icon && (
-        <Box aria-hidden fontSize="md">
-          {icon}
-        </Box>
-      )}
-      <Box fontWeight="semibold">{label}</Box>
-    </HStack>
+      {label}
+    </Link>
   );
 };
 
-const MobileNavItem = (props: NavItemProps) => {
-  const { label, href = '#', active } = props;
+const MobileNavItem: React.FC<NavItemProps> = (props) => {
+  const { label, to, ...rest } = props;
+  const resolved = useResolvedPath(to);
+  const match = useMatch({ path: resolved.pathname, end: true });
+
   return (
-    <Box
-      as="a"
-      display="block"
-      href={href}
-      px="3"
-      py="3"
-      rounded="md"
-      fontWeight="semibold"
-      aria-current={active ? 'page' : undefined}
-      _hover={{ bg: 'whiteAlpha.200' }}
-      _activeLink={{ bg: 'blackAlpha.300', color: 'white' }}
+    <Link
+      as={RouterLink}
+      py={2}
+      to={to}
+      px={3}
+      borderRadius="md"
+      transition="all 0.3s"
+      fontWeight="medium"
+      lineHeight="1.5rem"
+      aria-current={match ? 'page' : undefined}
+      color="whiteAlpha.900"
+      _hover={{
+        bg: 'gray.500',
+        color: 'white',
+      }}
+      _activeLink={{
+        bg: 'gray.600',
+        color: 'white',
+      }}
+      {...rest}
     >
       {label}
-    </Box>
+    </Link>
   );
 };
 

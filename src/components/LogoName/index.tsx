@@ -10,11 +10,15 @@ const textProps: Partial<TextProps> = {
   letterSpacing: 'tighter',
 };
 
-const LogoName: React.FC<FlexProps> = ({ ...props }) => (
+const LogoName: React.FC<FlexProps> = ({ color, ...props }) => (
   <Flex justify="center" align="center" {...props}>
-    <Text {...textProps}>Dr</Text>
-    <Logo />
-    <Text {...textProps}>plt</Text>
+    <Text textColor={color} {...textProps}>
+      Dr
+    </Text>
+    <Logo color={color || 'brand.500'} />
+    <Text textColor={color} {...textProps}>
+      plt
+    </Text>
   </Flex>
 );
 
