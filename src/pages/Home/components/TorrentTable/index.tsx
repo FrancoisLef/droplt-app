@@ -42,7 +42,7 @@ interface TorrentTableComponentProps extends TableProps {
   data: TorrentsQuery;
 }
 
-const PAGE_SIZES = [5, 10, 20, 30, 40, 50];
+const PAGE_SIZES = [10, 20, 30, 40, 50];
 
 const TorrentTable: React.FC<TorrentTableComponentProps> = ({
   data,
@@ -116,7 +116,6 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
     canNextPage,
     nextPage,
     previousPage,
-    pageOptions,
     gotoPage,
 
     // Table state
