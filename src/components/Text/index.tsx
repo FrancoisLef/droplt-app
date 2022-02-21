@@ -1,6 +1,6 @@
 import { Text, TextProps } from '@chakra-ui/react';
 
-interface TextComponentProps extends TextProps {
+export interface TextComponentProps extends TextProps {
   type?: 'primary' | 'secondary' | 'light' | 'disabled';
 }
 

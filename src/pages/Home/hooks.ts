@@ -1,44 +1,47 @@
 import {
+  useTorrentsLazyQuery,
   // TorrentsUpdatesDocument,
   // TorrentsUpdatesSubscription,
-  useTorrentsQuery,
+  // useTorrentsQuery,
 } from '../../graphql';
-import { SORT_URL_PARAMS } from '../../helpers/sorting';
+// import { SORT_URL_PARAMS } from '../../helpers/sorting';
 
-export const useTorrents = (searchParams: URLSearchParams) => {
-  const sortBy = searchParams.get(SORT_URL_PARAMS.SORT_BY) || 'addedAt';
-  const sortDirection =
-    searchParams.get(SORT_URL_PARAMS.SORT_DIRECTION) || 'desc';
-  const name = searchParams.get('name') || '';
+export const useTorrents = () => {
+  // const sortBy = searchParams.get(SORT_URL_PARAMS.SORT_BY) || 'addedAt';
+  // const sortDirection =
+  //   searchParams.get(SORT_URL_PARAMS.SORT_DIRECTION) || 'desc';
+  // const name = searchParams.get('name') || '';
   // const finalName = `${name} <-> ${extendedName}`;
   // console.log(finalName);
 
-  const { data } = useTorrentsQuery({
-    fetchPolicy: 'cache-and-network',
-    variables: {
-      orderBy: {
-        [sortBy]: sortDirection,
-      },
-      ...(name
-        ? {
-            where: {
-              name: {
-                startsWith: name,
-              },
-              // OR: [
-              //   {
-              //   },
-              //   // {
-              //   //   name: {
-              //   //     contains: extendedName,
-              //   //     mode: QueryMode.Insensitive,
-              //   //   },
-              //   // },
-              // ],
-            },
-          }
-        : {}),
-    },
+  console.log('HOOK');
+
+  const [loadTorrents, { data, loading, error }] = useTorrentsLazyQuery({
+    // fetchPolicy: 'cache-and-network',
+    // variables: {
+    //   orderBy: {
+    //     [sortBy]: sortDirection,
+    //   },
+    //   ...(name
+    //     ? {
+    //         where: {
+    //           name: {
+    //             startsWith: name,
+    //           },
+    //           // OR: [
+    //           //   {
+    //           //   },
+    //           //   // {
+    //           //   //   name: {
+    //           //   //     contains: extendedName,
+    //           //   //     mode: QueryMode.Insensitive,
+    //           //   //   },
+    //           //   // },
+    //           // ],
+    //         },
+    //       }
+    //     : {}),
+    // },
   });
 
   // useEffect(() => {
@@ -70,6 +73,7 @@ export const useTorrents = (searchParams: URLSearchParams) => {
   // }, [subscribeToMore]);
 
   return {
+    data,
     torrents: data?.torrents || [],
   };
 };

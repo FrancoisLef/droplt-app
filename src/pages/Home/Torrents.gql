@@ -1,5 +1,5 @@
-query Torrents($orderBy: [TorrentOrderByWithRelationInput!], $where: TorrentWhereInput) {
-  torrents(orderBy: $orderBy, where: $where, take: 20 ) {
+query Torrents {
+  torrents {
     torrentId
     name
     size

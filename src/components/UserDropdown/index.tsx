@@ -31,13 +31,13 @@ const ProfileMenuButton = (props: UseMenuButtonProps) => {
   );
 };
 
-const ProfileDropdown: React.FC = () => {
+const UserDropdown: React.FC = () => {
   const { logout, currentUser } = useAuth();
 
   return (
     <Menu>
       <ProfileMenuButton />
-      <MenuList rounded="md" shadow="lg" py="1" color="gray.900" fontSize="sm">
+      <MenuList rounded="md" shadow="lg" color="gray.900" fontSize="sm">
         <HStack px="3" py="4">
           <UserAvatar />
           <Box lineHeight="1">
@@ -62,4 +62,4 @@ const ProfileDropdown: React.FC = () => {
   );
 };
 
-export default ProfileDropdown;
+export default UserDropdown;
