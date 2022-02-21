@@ -1,8 +1,7 @@
 import { Select, SelectProps } from '@chakra-ui/react';
 
+import { PAGE_SIZES } from '../constants';
 import locales from './locales';
-
-const PAGE_SIZES = [5, 10, 20, 30, 40, 50];
 
 export interface PageSizeProps extends SelectProps {
   pageSize: number;

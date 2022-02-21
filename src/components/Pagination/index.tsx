@@ -16,4 +16,6 @@ Pagination.Control = Control;
 Pagination.Count = Count;
 Pagination.PageSize = PageSize;
 
+export * from './constants';
+
 export default Pagination;
