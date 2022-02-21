@@ -36,6 +36,7 @@ import Pagination, {
 import Text from '../../../../components/Text';
 import { TorrentsQuery } from '../../../../graphql';
 import { formatDistanceToNowStrict } from '../../../../helpers/date';
+import { useQueryParamsState } from './hooks';
 import locales from './locales';
 
 type ColumnType = Array<
@@ -55,6 +56,8 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
   data,
   ...props
 }) => {
+  const { queryParamPage, setQueryParamPage } = useQueryParamsState();
+
   const torrents = useMemo(
     () =>
       data.torrents.map((torrent) => ({
@@ -135,13 +138,33 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
       columns,
       data: torrents,
       autoResetSortBy: false,
-      initialState: { pageSize: DEFAULT_PAGE_SIZE, pageIndex: 0 },
+      initialState: { pageSize: DEFAULT_PAGE_SIZE, pageIndex: queryParamPage },
       disableMultiSort: true,
     },
     useFlexLayout,
     useSortBy,
     usePagination
   );
+
+  const onFirst = () => {
+    gotoPage(0);
+    setQueryParamPage(0);
+  };
+
+  const onPrevious = () => {
+    previousPage();
+    setQueryParamPage(pageIndex - 1);
+  };
+
+  const onNext = () => {
+    nextPage();
+    setQueryParamPage(pageIndex + 1);
+  };
+
+  const onLast = () => {
+    gotoPage(pageCount - 1);
+    setQueryParamPage(pageCount - 1);
+  };
 
   return (
     <>
@@ -203,7 +226,7 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
           label={locales.pagination.firstPage}
           isDisabled={!canPreviousPage}
           icon={<FaArrowLeft />}
-          onClick={() => gotoPage(0)}
+          onClick={onFirst}
           mr="4"
         />
         <Pagination.Control
@@ -213,7 +236,7 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
           label={locales.pagination.previousPage}
           isDisabled={!canPreviousPage}
           icon={<FaChevronLeft />}
-          onClick={previousPage}
+          onClick={onPrevious}
           mr="4"
         />
         <Pagination.Count pageIndex={pageIndex} pageCount={pageCount} mr="4" />
@@ -230,7 +253,7 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
           label={locales.pagination.nextPage}
           isDisabled={!canNextPage}
           icon={<FaChevronRight />}
-          onClick={nextPage}
+          onClick={onNext}
           mr="4"
         />
         <Pagination.Control
@@ -240,7 +263,7 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
           label={locales.pagination.lastPage}
           isDisabled={!canNextPage}
           icon={<FaArrowRight />}
-          onClick={() => gotoPage(pageCount - 1)}
+          onClick={onLast}
           mr="4"
         />
       </Flex>
