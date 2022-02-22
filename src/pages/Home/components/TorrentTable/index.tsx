@@ -56,7 +56,10 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
   data,
   ...props
 }) => {
-  const { queryParamPage, setQueryParamPage } = useQueryParamsState();
+  const { initialPageSize, initialPageIndex, setPage, setSize } =
+    useQueryParamsState({
+      defaultPageSize: DEFAULT_PAGE_SIZE,
+    });
 
   const torrents = useMemo(
     () =>
@@ -138,7 +141,8 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
       columns,
       data: torrents,
       autoResetSortBy: false,
-      initialState: { pageSize: DEFAULT_PAGE_SIZE, pageIndex: queryParamPage },
+      autoResetPage: false,
+      initialState: { pageSize: initialPageSize, pageIndex: initialPageIndex },
       disableMultiSort: true,
     },
     useFlexLayout,
@@ -148,22 +152,27 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
 
   const onFirst = () => {
     gotoPage(0);
-    setQueryParamPage(0);
+    setPage(0);
   };
 
   const onPrevious = () => {
     previousPage();
-    setQueryParamPage(pageIndex - 1);
+    setPage(pageIndex - 1);
   };
 
   const onNext = () => {
     nextPage();
-    setQueryParamPage(pageIndex + 1);
+    setPage(pageIndex + 1);
   };
 
   const onLast = () => {
     gotoPage(pageCount - 1);
-    setQueryParamPage(pageCount - 1);
+    setPage(pageCount - 1);
+  };
+
+  const onPageSize = (size: number) => {
+    setPageSize(size);
+    setSize(size);
   };
 
   return (
@@ -243,7 +252,7 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
         <Pagination.PageSize
           width={36}
           pageSize={pageSize}
-          setPageSize={setPageSize}
+          setPageSize={onPageSize}
           mr="4"
         />
         <Pagination.Control
