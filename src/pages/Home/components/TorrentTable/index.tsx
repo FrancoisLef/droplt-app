@@ -189,7 +189,8 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
                   isSortedDesc,
                   getSortByToggleProps,
                 } = column;
-                const { onClick } = getSortByToggleProps();
+                const { onClick: defaultSortByOnClick } =
+                  getSortByToggleProps();
 
                 return (
                   <Th
@@ -197,8 +198,8 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
                     isNumeric={isNumeric}
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     onClick={(e) => {
-                      if (onClick) {
-                        onClick(e);
+                      if (defaultSortByOnClick) {
+                        defaultSortByOnClick(e);
                       }
                       setSort(id, isSortedDesc);
                     }}
