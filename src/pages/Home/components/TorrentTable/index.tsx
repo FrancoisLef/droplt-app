@@ -136,6 +136,7 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
       data: torrents,
       autoResetSortBy: false,
       autoResetPage: false,
+      // ease the process of sorting by allowing only 2 values: true || false
       disableSortRemove: true,
       initialState: {
         pageSize: initialPageSize,
