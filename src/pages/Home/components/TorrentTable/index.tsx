@@ -21,13 +21,7 @@ import {
   FaChevronRight,
   FaChevronUp,
 } from 'react-icons/fa';
-import {
-  Column,
-  useFlexLayout,
-  usePagination,
-  useSortBy,
-  useTable,
-} from 'react-table';
+import { useFlexLayout, usePagination, useSortBy, useTable } from 'react-table';
 
 import CircularProgress from '../../../../components/CircularProgress';
 import Pagination, {
@@ -38,28 +32,28 @@ import { TorrentsQuery } from '../../../../graphql';
 import { formatDistanceToNowStrict } from '../../../../helpers/date';
 import { useQueryParamsState } from './hooks';
 import locales from './locales';
-
-type ColumnType = Array<
-  Column<{
-    name: string;
-    size: number;
-    progress: number;
-    addedAt: string;
-  }>
->;
+import { ColumnType } from './types';
 
 interface TorrentTableComponentProps extends TableProps {
+  name: string;
   data: TorrentsQuery;
 }
 
 const TorrentTable: React.FC<TorrentTableComponentProps> = ({
   data,
+  name,
   ...props
 }) => {
-  const { initialPageSize, initialPageIndex, setPage, setSize } =
-    useQueryParamsState({
-      defaultPageSize: DEFAULT_PAGE_SIZE,
-    });
+  const {
+    initialPageSize,
+    initialPageIndex,
+    initialSort,
+    setPage,
+    setSize,
+    setSort,
+  } = useQueryParamsState({
+    defaultPageSize: DEFAULT_PAGE_SIZE,
+  });
 
   const torrents = useMemo(
     () =>
@@ -142,7 +136,12 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
       data: torrents,
       autoResetSortBy: false,
       autoResetPage: false,
-      initialState: { pageSize: initialPageSize, pageIndex: initialPageIndex },
+      disableSortRemove: true,
+      initialState: {
+        pageSize: initialPageSize,
+        pageIndex: initialPageIndex,
+        sortBy: initialSort,
+      },
       disableMultiSort: true,
     },
     useFlexLayout,
@@ -181,30 +180,48 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
         <Thead>
           {headerGroups.map((headerGroup) => (
             <Tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <Th
-                  textAlign={column.isCentered ? 'center' : 'unset'}
-                  isNumeric={column.isNumeric}
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                >
-                  {column.render('Header')}
-                  <chakra.span pl="2">
-                    {column.isSorted ? (
-                      column.isSortedDesc ? (
-                        <Icon
-                          as={FaChevronDown}
-                          aria-label={locales.sortedDescending}
-                        />
-                      ) : (
-                        <Icon
-                          as={FaChevronUp}
-                          aria-label={locales.sortedAscending}
-                        />
-                      )
-                    ) : null}
-                  </chakra.span>
-                </Th>
-              ))}
+              {headerGroup.headers.map((column) => {
+                const {
+                  isSorted,
+                  isCentered,
+                  isNumeric,
+                  id,
+                  isSortedDesc,
+                  getSortByToggleProps,
+                } = column;
+                const { onClick } = getSortByToggleProps();
+
+                return (
+                  <Th
+                    textAlign={isCentered ? 'center' : 'unset'}
+                    isNumeric={isNumeric}
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    onClick={(e) => {
+                      if (onClick) {
+                        onClick(e);
+                      }
+                      setSort(id, isSortedDesc);
+                    }}
+                  >
+                    {column.render('Header')}
+                    <chakra.span pl="2">
+                      {isSorted ? (
+                        isSortedDesc ? (
+                          <Icon
+                            as={FaChevronDown}
+                            aria-label={locales.sortedDescending}
+                          />
+                        ) : (
+                          <Icon
+                            as={FaChevronUp}
+                            aria-label={locales.sortedAscending}
+                          />
+                        )
+                      ) : null}
+                    </chakra.span>
+                  </Th>
+                );
+              })}
             </Tr>
           ))}
         </Thead>

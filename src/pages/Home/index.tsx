@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
     <Box width="full" height="full" mb="4">
       <Box bg="white" padding="6" rounded="lg" mb="6">
         <SearchInput name={name} onChange={setName} />
-        {data ? <TorrentTable data={data} mb="4" /> : null}
+        {data ? <TorrentTable name={name} data={data} mb="4" /> : null}
       </Box>
     </Box>
   );
