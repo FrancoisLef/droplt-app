@@ -33,10 +33,8 @@ export const useQueryParamsState = ({
     const direction = [undefined, true].includes(desc) ? 'ASC' : 'DESC';
     setSearch({
       ...searchAsObject,
-      ...{
-        sortBy: id,
-        sortDirection: direction,
-      },
+      sortBy: id,
+      sortDirection: direction,
     });
   };
 
