@@ -36,26 +36,27 @@ import Pagination, {
 import Text from '../../../../components/Text';
 import { TorrentsQuery } from '../../../../graphql';
 import { formatDistanceToNowStrict } from '../../../../helpers/date';
+import NameFilter from './components/NameFilter';
 import { useQueryParamsState } from './hooks';
 import locales from './locales';
 import { ColumnType } from './types';
 
 interface TorrentTableComponentProps extends TableProps {
-  name: string;
   data: TorrentsQuery;
 }
 
 const TorrentTable: React.FC<TorrentTableComponentProps> = ({
   data,
-  name,
   ...props
 }) => {
   const {
-    initialPageSize,
-    initialPageIndex,
-    initialSort,
+    pageSize: hookPageSize,
+    pageIndex: hookPageIndex,
+    sortBy: hookSort,
+    filter: hookFilter,
     setPage,
     setSize,
+    setFilter,
     setSort,
   } = useQueryParamsState({
     defaultPageSize: DEFAULT_PAGE_SIZE,
@@ -128,6 +129,8 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
     prepareRow,
     page,
 
+    // Filter
+
     // Pagination
     setPageSize,
     pageCount,
@@ -141,24 +144,23 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
     state: { pageIndex, pageSize },
   } = useTable(
     {
-      columns,
-      data: torrents,
       autoResetSortBy: false,
       autoResetPage: false,
       autoResetGlobalFilter: false,
-      // ease the process of sorting by allowing only 2 values: true || false
-      disableSortRemove: true,
-      initialState: {
-        pageSize: initialPageSize,
-        pageIndex: initialPageIndex,
-        sortBy: initialSort,
-      },
+      columns,
+      data: torrents,
+      disableSortRemove: true, // ease the process of sorting by allowing only 2 values: true || false
       disableMultiSort: true,
+      initialState: {
+        pageSize: hookPageSize,
+        pageIndex: hookPageIndex,
+        sortBy: hookSort,
+      },
     },
+    useFlexLayout,
     useGlobalFilter,
     useSortBy,
-    usePagination,
-    useFlexLayout
+    usePagination
   );
 
   const onFirst = () => {
@@ -188,6 +190,7 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
 
   return (
     <>
+      <NameFilter value={hookFilter} onChange={setFilter} />
       <Table size="md" {...getTableProps()} {...props}>
         <Thead>
           {headerGroups.map((headerGroup) => (

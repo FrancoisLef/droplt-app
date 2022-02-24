@@ -1,10 +1,10 @@
 import { Column } from 'react-table';
 
-export type TorrentColumn = {
+export type Torrent = {
   name: string;
   size: number;
   progress: number;
   addedAt: string;
 };
 
-export type ColumnType = Array<Column<TorrentColumn>>;
+export type ColumnType = Array<Column<Torrent>>;

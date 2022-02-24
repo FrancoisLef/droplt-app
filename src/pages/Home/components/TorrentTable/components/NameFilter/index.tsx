@@ -3,13 +3,13 @@ import { ImSearch } from 'react-icons/im';
 
 import locales from './locales';
 
-interface SearchInputComponentProps {
-  name: string;
+interface NameFilterComponentProps {
+  value: string;
   onChange: Function;
 }
 
-const SearchInput: React.FC<SearchInputComponentProps> = ({
-  name,
+const NameFilter: React.FC<NameFilterComponentProps> = ({
+  value,
   onChange,
 }) => {
   return (
@@ -19,11 +19,11 @@ const SearchInput: React.FC<SearchInputComponentProps> = ({
       </InputLeftElement>
       <Input
         onChange={(e) => onChange(e.target.value)}
-        value={name}
+        value={value}
         placeholder={locales.searchPlaceholder}
       />
     </InputGroup>
   );
 };
 
-export default SearchInput;
+export default NameFilter;
