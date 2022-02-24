@@ -5,7 +5,7 @@ const locales = new LocalizedStrings({
     columns: {
       name: 'Nom',
       size: 'Taille',
-      addedAt: 'Ajout',
+      addedAt: 'Ajouté',
       progress: '#',
     },
     pagination: {

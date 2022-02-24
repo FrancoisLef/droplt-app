@@ -21,7 +21,13 @@ import {
   FaChevronRight,
   FaChevronUp,
 } from 'react-icons/fa';
-import { useFlexLayout, usePagination, useSortBy, useTable } from 'react-table';
+import {
+  useFlexLayout,
+  useGlobalFilter,
+  usePagination,
+  useSortBy,
+  useTable,
+} from 'react-table';
 
 import CircularProgress from '../../../../components/CircularProgress';
 import Pagination, {
@@ -69,13 +75,14 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
   const columns: ColumnType = useMemo(
     () => [
       {
-        Header: locales.columns.name,
         accessor: 'name',
+        Header: locales.columns.name,
         Cell: ({ value }) => <Text fontWeight="medium">{value}</Text>,
       },
       {
-        Header: locales.columns.addedAt,
         accessor: 'addedAt',
+        Header: locales.columns.addedAt,
+        disableGlobalFilter: true,
         sortInverted: true,
         isNumeric: true,
         width: '30',
@@ -86,8 +93,9 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
         ),
       },
       {
-        Header: locales.columns.size,
         accessor: 'size',
+        Header: locales.columns.size,
+        disableGlobalFilter: true,
         isNumeric: true,
         width: '30',
         Cell: ({ value }) => (
@@ -97,10 +105,11 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
         ),
       },
       {
-        Header: locales.columns.progress,
         accessor: 'progress',
+        Header: locales.columns.progress,
+        disableGlobalFilter: true,
         isCentered: true,
-        width: '5',
+        width: '15',
         Cell: ({ value }) => {
           if (Math.round(value) === 1) {
             return <Icon as={FaCheck} w={3} h={3} color="brand.500" />;
@@ -136,6 +145,7 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
       data: torrents,
       autoResetSortBy: false,
       autoResetPage: false,
+      autoResetGlobalFilter: false,
       // ease the process of sorting by allowing only 2 values: true || false
       disableSortRemove: true,
       initialState: {
@@ -145,9 +155,10 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
       },
       disableMultiSort: true,
     },
-    useFlexLayout,
+    useGlobalFilter,
     useSortBy,
-    usePagination
+    usePagination,
+    useFlexLayout
   );
 
   const onFirst = () => {
@@ -208,17 +219,15 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
                     {column.render('Header')}
                     <chakra.span pl="2">
                       {isSorted ? (
-                        isSortedDesc ? (
-                          <Icon
-                            as={FaChevronDown}
-                            aria-label={locales.sortedDescending}
-                          />
-                        ) : (
-                          <Icon
-                            as={FaChevronUp}
-                            aria-label={locales.sortedAscending}
-                          />
-                        )
+                        <Icon
+                          verticalAlign="middle"
+                          as={isSortedDesc ? FaChevronDown : FaChevronUp}
+                          aria-label={
+                            isSortedDesc
+                              ? locales.sortedDescending
+                              : locales.sortedAscending
+                          }
+                        />
                       ) : null}
                     </chakra.span>
                   </Th>
