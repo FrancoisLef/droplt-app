@@ -86,7 +86,7 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
         disableGlobalFilter: true,
         sortInverted: true,
         isNumeric: true,
-        width: '30',
+        width: '50',
         Cell: ({ value }) => (
           <Text type="secondary" fontWeight="light">
             {formatDistanceToNowStrict(new Date(value)).replaceAll(' ', ' ')}
@@ -98,7 +98,7 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
         Header: locales.columns.size,
         disableGlobalFilter: true,
         isNumeric: true,
-        width: '30',
+        width: '50',
         Cell: ({ value }) => (
           <Text type="secondary" fontWeight="light">
             {prettyBytes(value).replaceAll(' ', ' ')}
@@ -110,7 +110,7 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
         Header: locales.columns.progress,
         disableGlobalFilter: true,
         isCentered: true,
-        width: '15',
+        width: '30',
         Cell: ({ value }) => {
           if (Math.round(value) === 1) {
             return <Icon as={FaCheck} w={3} h={3} color="brand.500" />;
@@ -131,6 +131,7 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
 
     // Filter
     setFilter,
+    filteredRows,
 
     // Pagination
     setPageSize,
@@ -197,7 +198,11 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
 
   return (
     <>
-      <NameFilter value={search} onChange={onSearch} />
+      <NameFilter
+        count={filteredRows.length}
+        value={search}
+        onChange={onSearch}
+      />
       <Table size="md" {...getTableProps()} {...props}>
         <Thead>
           {headerGroups.map((headerGroup) => (
