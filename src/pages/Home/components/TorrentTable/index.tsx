@@ -22,8 +22,8 @@ import {
   FaChevronUp,
 } from 'react-icons/fa';
 import {
+  useFilters,
   useFlexLayout,
-  useGlobalFilter,
   usePagination,
   useSortBy,
   useTable,
@@ -53,10 +53,10 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
     pageSize: hookPageSize,
     pageIndex: hookPageIndex,
     sortBy: hookSort,
-    filter: hookFilter,
+    search,
     setPage,
     setSize,
-    setFilter,
+    setSearch,
     setSort,
   } = useQueryParamsState({
     defaultPageSize: DEFAULT_PAGE_SIZE,
@@ -130,6 +130,7 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
     page,
 
     // Filter
+    setFilter,
 
     // Pagination
     setPageSize,
@@ -155,10 +156,11 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
         pageSize: hookPageSize,
         pageIndex: hookPageIndex,
         sortBy: hookSort,
+        filters: [{ id: 'name', value: search }],
       },
     },
     useFlexLayout,
-    useGlobalFilter,
+    useFilters,
     useSortBy,
     usePagination
   );
@@ -188,9 +190,14 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
     setSize(size);
   };
 
+  const onSearch = (value: string) => {
+    setSearch(value);
+    setFilter('name', value);
+  };
+
   return (
     <>
-      <NameFilter value={hookFilter} onChange={setFilter} />
+      <NameFilter value={search} onChange={onSearch} />
       <Table size="md" {...getTableProps()} {...props}>
         <Thead>
           {headerGroups.map((headerGroup) => (

@@ -19,7 +19,7 @@ export const useQueryParamsState = ({
       desc: params.sortDirection === 'DESC' || false,
     },
   ];
-  const [filter, setFilterState] = useState('');
+  const [search, setSearchState] = useState(params.filter || '');
 
   // Same thing about the index starting at 0 but pages starting at 1
   const setPage = (index: number) =>
@@ -40,9 +40,9 @@ export const useQueryParamsState = ({
     });
   };
 
-  const setFilter = (value: string) => {
+  const setSearch = (value: string) => {
     const { filter: _, ...paramsWithoutFilter } = params;
-    setFilterState(value);
+    setSearchState(value);
     setSearchParams({
       ...paramsWithoutFilter,
       ...(value !== ''
@@ -57,10 +57,10 @@ export const useQueryParamsState = ({
     pageIndex,
     pageSize,
     sortBy,
-    filter,
+    search,
     setPage,
     setSize,
     setSort,
-    setFilter,
+    setSearch,
   };
 };

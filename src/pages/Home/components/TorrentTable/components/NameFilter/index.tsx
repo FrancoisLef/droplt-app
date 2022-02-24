@@ -5,7 +5,7 @@ import locales from './locales';
 
 interface NameFilterComponentProps {
   value: string;
-  onChange: Function;
+  onChange: (value: string) => void;
 }
 
 const NameFilter: React.FC<NameFilterComponentProps> = ({
