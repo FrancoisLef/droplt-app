@@ -7,7 +7,13 @@ export interface ControlProps extends Omit<IconButtonProps, 'aria-label'> {
 const PageSize: React.FC<ControlProps> = ({ label, ...props }) => {
   return (
     <Tooltip label={label}>
-      <IconButton aria-label={label} {...props} />
+      <IconButton
+        colorScheme="brand"
+        variant="outline"
+        size="sm"
+        aria-label={label}
+        {...props}
+      />
     </Tooltip>
   );
 };

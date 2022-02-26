@@ -1,5 +1,4 @@
 import {
-  Button,
   chakra,
   Flex,
   Icon,
@@ -21,61 +20,37 @@ import {
   FaChevronLeft,
   FaChevronRight,
   FaChevronUp,
-  FaPlus,
 } from 'react-icons/fa';
-import {
-  useFilters,
-  useFlexLayout,
-  usePagination,
-  useSortBy,
-  useTable,
-} from 'react-table';
+import { useFlexLayout, usePagination, useSortBy, useTable } from 'react-table';
 
 import CircularProgress from '../../../../components/CircularProgress';
-import Pagination, {
-  DEFAULT_PAGE_SIZE,
-} from '../../../../components/Pagination';
+import Pagination from '../../../../components/Pagination';
 import Text from '../../../../components/Text';
-import { TorrentsQuery } from '../../../../graphql';
 import { formatDistanceToNowStrict } from '../../../../helpers/date';
-import NameFilter from './components/NameFilter';
-import { useQueryParamsState } from './hooks';
+import { TorrentColumns, TorrentRow, TorrentSorting } from '../../types';
 import locales from './locales';
-import { ColumnType } from './types';
 
-interface TorrentTableComponentProps extends TableProps {
-  data: TorrentsQuery;
+interface TorrentTableProps extends TableProps {
+  data: TorrentRow[];
+  initialState: {
+    pageSize: number;
+    pageIndex: number;
+    sortBy: TorrentSorting;
+  };
+  setPageIndex: (index: number) => void;
+  setPageSize: (size: number) => void;
+  setSortBy: (id: string, desc: boolean | undefined) => void;
 }
 
-const TorrentTable: React.FC<TorrentTableComponentProps> = ({
+const TorrentTable: React.FC<TorrentTableProps> = ({
   data,
+  setPageIndex,
+  setPageSize,
+  setSortBy,
+  initialState,
   ...props
 }) => {
-  const {
-    pageSize: hookPageSize,
-    pageIndex: hookPageIndex,
-    sortBy: hookSort,
-    search,
-    setPage,
-    setSize,
-    setSearch,
-    setSort,
-  } = useQueryParamsState({
-    defaultPageSize: DEFAULT_PAGE_SIZE,
-  });
-
-  const torrents = useMemo(
-    () =>
-      data.torrents.map((torrent) => ({
-        name: torrent.name,
-        size: torrent.size,
-        progress: torrent.progress,
-        addedAt: torrent.addedAt,
-      })),
-    [data]
-  );
-
-  const columns: ColumnType = useMemo(
+  const columns: TorrentColumns = useMemo(
     () => [
       {
         accessor: 'name',
@@ -131,12 +106,8 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
     prepareRow,
     page,
 
-    // Filter
-    setFilter,
-    filteredRows,
-
     // Pagination
-    setPageSize,
+    setPageSize: setTablePageSize,
     pageCount,
     canPreviousPage,
     canNextPage,
@@ -150,64 +121,44 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
     {
       autoResetSortBy: false,
       autoResetPage: false,
-      autoResetGlobalFilter: false,
       columns,
-      data: torrents,
+      data,
       disableSortRemove: true, // ease the process of sorting by allowing only 2 values: true || false
       disableMultiSort: true,
-      initialState: {
-        pageSize: hookPageSize,
-        pageIndex: hookPageIndex,
-        sortBy: hookSort,
-        filters: [{ id: 'name', value: search }],
-      },
+      initialState,
     },
     useFlexLayout,
-    useFilters,
     useSortBy,
     usePagination
   );
 
   const onFirst = () => {
     gotoPage(0);
-    setPage(0);
+    setPageIndex(0);
   };
 
   const onPrevious = () => {
     previousPage();
-    setPage(pageIndex - 1);
+    setPageIndex(pageIndex - 1);
   };
 
   const onNext = () => {
     nextPage();
-    setPage(pageIndex + 1);
+    setPageIndex(pageIndex + 1);
   };
 
   const onLast = () => {
     gotoPage(pageCount - 1);
-    setPage(pageCount - 1);
+    setPageIndex(pageCount - 1);
   };
 
   const onPageSize = (size: number) => {
+    setTablePageSize(size);
     setPageSize(size);
-    setSize(size);
-  };
-
-  const onSearch = (value: string) => {
-    setSearch(value);
-    setFilter('name', value);
   };
 
   return (
     <>
-      {/* <Flex align="center" mb="6">
-        <Button leftIcon={<FaPlus />} mr="4" colorScheme="brand">{locales.addTorrent}</Button>
-        <NameFilter
-          count={filteredRows.length}
-          value={search}
-          onChange={onSearch}
-        />
-      </Flex> */}
       <Table size="md" {...getTableProps()} {...props}>
         <Thead>
           {headerGroups.map((headerGroup) => (
@@ -233,7 +184,7 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
                       if (defaultSortByOnClick) {
                         defaultSortByOnClick(e);
                       }
-                      setSort(id, isSortedDesc);
+                      setSortBy(id, isSortedDesc);
                     }}
                   >
                     {column.render('Header')}
@@ -277,9 +228,6 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
       </Table>
       <Flex width="full" mt={6} justifyContent="center" alignItems="center">
         <Pagination.Control
-          colorScheme="brand"
-          variant="outline"
-          size="sm"
           label={locales.pagination.firstPage}
           isDisabled={!canPreviousPage}
           icon={<FaArrowLeft />}
@@ -287,9 +235,6 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
           mr="4"
         />
         <Pagination.Control
-          colorScheme="brand"
-          variant="outline"
-          size="sm"
           label={locales.pagination.previousPage}
           isDisabled={!canPreviousPage}
           icon={<FaChevronLeft />}
@@ -300,13 +245,10 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
         <Pagination.PageSize
           width={36}
           pageSize={pageSize}
-          setPageSize={onPageSize}
+          onPageSize={onPageSize}
           mr="4"
         />
         <Pagination.Control
-          colorScheme="brand"
-          variant="outline"
-          size="sm"
           label={locales.pagination.nextPage}
           isDisabled={!canNextPage}
           icon={<FaChevronRight />}
@@ -314,14 +256,10 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
           mr="4"
         />
         <Pagination.Control
-          colorScheme="brand"
-          variant="outline"
-          size="sm"
           label={locales.pagination.lastPage}
           isDisabled={!canNextPage}
           icon={<FaArrowRight />}
           onClick={onLast}
-          mr="4"
         />
       </Flex>
     </>

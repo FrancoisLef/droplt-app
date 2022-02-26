@@ -5,19 +5,19 @@ import locales from './locales';
 
 export interface PageSizeProps extends SelectProps {
   pageSize: number;
-  setPageSize: Function;
+  onPageSize: Function;
 }
 
 const PageSize: React.FC<PageSizeProps> = ({
   pageSize,
-  setPageSize,
+  onPageSize,
   ...props
 }) => {
   return (
     <Select
       width={36}
       value={pageSize}
-      onChange={(e) => setPageSize(Number(e.target.value))}
+      onChange={(e) => onPageSize(Number(e.target.value))}
       {...props}
     >
       {PAGE_SIZES.map((size) => (
