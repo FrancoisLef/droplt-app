@@ -108,6 +108,7 @@ export const useTorrentsTable = () => {
 
   const fuzzy = new Fuse(torrents, {
     keys: ['name'],
+    threshold: 0.4,
   });
 
   const searchResults = fuzzy.search(filter).map(({ item }) => item);
