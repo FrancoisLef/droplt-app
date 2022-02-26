@@ -17,7 +17,7 @@ RUN yarn build
 ###
 # Runner
 ###
-FROM fholzer/nginx-brotli as runner
+FROM fholzer/nginx-brotli:v1.19.1 as runner
 
 COPY --from=builder /builder/build /usr/share/nginx/html
 COPY --from=builder /builder/.env /usr/share/nginx/html/.env
@@ -31,5 +31,4 @@ WORKDIR /usr/share/nginx/html
 
 EXPOSE 80
 
-ENTRYPOINT ["/bin/ash"]
-CMD ["run.sh", "-c", "runtime-env-cra && nginx -g \"daemon off;\""]
+CMD ["/bin/sh", "-c", "runtime-env-cra && nginx -g \"daemon off;\""]
