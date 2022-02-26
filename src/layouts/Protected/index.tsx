@@ -39,7 +39,7 @@ const ProtectedLayout: React.FC = () => {
         </Flex>
       </Flex>
 
-      <Flex px="6" py="8" overflowX="auto">
+      <Flex px="4" py="4" overflowY="auto">
         <Outlet />
       </Flex>
     </Flex>

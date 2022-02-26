@@ -1,22 +1,22 @@
 import { Box } from '@chakra-ui/react';
-import { useEffect } from 'react';
 
-import { useTorrentsLazyQuery } from '../../graphql';
+import { useTorrentsQuery } from '../../graphql';
+import NameFilter from './components/NameFilter';
 // import StatCard from './components/StatCard';
 import TorrentTable from './components/TorrentTable';
-const HomePage: React.FC = () => {
-  const [loadTorrents, { data }] = useTorrentsLazyQuery();
+import { useQueryParams } from './hooks';
 
-  useEffect(() => {
-    loadTorrents();
-  }, [loadTorrents]);
+const HomePage: React.FC = () => {
+  const { data } = useTorrentsQuery();
+  const { sortBy, pageSize, pageIndex, filter, setFilter } = useQueryParams();
 
   return (
-    <Box width="full" height="full" mb="4">
+    <Box width="full">
       {/* <SimpleGrid mb="6" columns={{ base: 1, md: 4 }} gap={{ base: 6 }}>
         <StatCard label="Torrents" value={data?.torrents?.length} />
       </SimpleGrid> */}
-      <Box bg="white" padding="6" rounded="lg" mb="6">
+      <Box bg="white" padding="6" rounded="lg">
+        <NameFilter count={0} value={filter} onChange={setFilter} />
         {data ? <TorrentTable data={data} mb="4" /> : null}
       </Box>
     </Box>

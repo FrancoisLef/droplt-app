@@ -31,4 +31,5 @@ WORKDIR /usr/share/nginx/html
 
 EXPOSE 80
 
-CMD ["/bin/sh", "-c", "runtime-env-cra && nginx -g \"daemon off;\""]
+ENTRYPOINT ["/bin/ash"]
+CMD ["run.sh", "-c", "runtime-env-cra && nginx -g \"daemon off;\""]

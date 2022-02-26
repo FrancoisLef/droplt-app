@@ -17,6 +17,7 @@ const locales = new LocalizedStrings({
     sortedDescending: 'sorted descending',
     sortedAscending: 'sorted ascending',
     pageSize: 'Afficher {size}',
+    addTorrent: 'Ajouter',
   },
 });
 

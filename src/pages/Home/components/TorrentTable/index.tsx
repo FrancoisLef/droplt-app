@@ -1,4 +1,5 @@
 import {
+  Button,
   chakra,
   Flex,
   Icon,
@@ -20,6 +21,7 @@ import {
   FaChevronLeft,
   FaChevronRight,
   FaChevronUp,
+  FaPlus,
 } from 'react-icons/fa';
 import {
   useFilters,
@@ -198,11 +200,14 @@ const TorrentTable: React.FC<TorrentTableComponentProps> = ({
 
   return (
     <>
-      <NameFilter
-        count={filteredRows.length}
-        value={search}
-        onChange={onSearch}
-      />
+      {/* <Flex align="center" mb="6">
+        <Button leftIcon={<FaPlus />} mr="4" colorScheme="brand">{locales.addTorrent}</Button>
+        <NameFilter
+          count={filteredRows.length}
+          value={search}
+          onChange={onSearch}
+        />
+      </Flex> */}
       <Table size="md" {...getTableProps()} {...props}>
         <Thead>
           {headerGroups.map((headerGroup) => (

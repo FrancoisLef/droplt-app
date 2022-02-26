@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react';
 import { ImSearch } from 'react-icons/im';
 
-import Text from '../../../../../../components/Text';
+import Text from '../../../../components/Text';
 import locales from './locales';
 
 interface NameFilterComponentProps {
