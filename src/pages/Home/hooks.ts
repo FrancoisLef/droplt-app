@@ -96,13 +96,7 @@ export const useTorrentsTable = () => {
   const { filter } = props;
 
   const torrents: TorrentRow[] = useMemo(
-    () =>
-      (queryData?.torrents || []).map((torrent) => ({
-        name: torrent.name,
-        size: torrent.size,
-        progress: torrent.progress,
-        addedAt: torrent.addedAt,
-      })),
+    () => queryData?.torrents || [],
     [queryData]
   );
 

@@ -7,12 +7,16 @@ const locales = new LocalizedStrings({
       size: 'Taille',
       addedAt: 'Ajouté',
       progress: '#',
+      actions: 'Actions',
     },
     pagination: {
       firstPage: 'Première page',
       previousPage: 'Page précédente',
       nextPage: 'Page suivante',
       lastPage: 'Dernière page',
+    },
+    actions: {
+      delete: 'Supprimer',
     },
     sortedDescending: 'sorted descending',
     sortedAscending: 'sorted ascending',

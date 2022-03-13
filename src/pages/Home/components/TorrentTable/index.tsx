@@ -1,4 +1,5 @@
 import {
+  Button,
   chakra,
   Flex,
   Icon,
@@ -20,8 +21,9 @@ import {
   FaChevronLeft,
   FaChevronRight,
   FaChevronUp,
+  FaTrash,
 } from 'react-icons/fa';
-import { useFlexLayout, usePagination, useSortBy, useTable } from 'react-table';
+import { usePagination, useSortBy, useTable } from 'react-table';
 
 import CircularProgress from '../../../../components/CircularProgress';
 import Pagination from '../../../../components/Pagination';
@@ -50,6 +52,10 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
   initialState,
   ...props
 }) => {
+  const onDelete = (id: string) => {
+    console.log('delete torrent', id);
+  };
+
   const columns: TorrentColumns = useMemo(
     () => [
       {
@@ -63,7 +69,6 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
         disableGlobalFilter: true,
         sortInverted: true,
         isNumeric: true,
-        width: '50',
         Cell: ({ value }) => (
           <Text type="secondary" fontWeight="light">
             {formatDistanceToNowStrict(new Date(value)).replaceAll(' ', ' ')}
@@ -75,7 +80,6 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
         Header: locales.columns.size,
         disableGlobalFilter: true,
         isNumeric: true,
-        width: '50',
         Cell: ({ value }) => (
           <Text type="secondary" fontWeight="light">
             {prettyBytes(value).replaceAll(' ', ' ')}
@@ -87,12 +91,28 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
         Header: locales.columns.progress,
         disableGlobalFilter: true,
         isCentered: true,
-        width: '30',
         Cell: ({ value }) => {
           if (Math.round(value) === 1) {
             return <Icon as={FaCheck} w={3} h={3} color="brand.500" />;
           }
           return <CircularProgress value={value} thickness="6px" size="40px" />;
+        },
+      },
+      {
+        accessor: 'torrentId',
+        Header: locales.columns.actions,
+        Cell: ({ value }) => {
+          return (
+            <Button
+              rightIcon={<FaTrash />}
+              onClick={() => onDelete(value)}
+              colorScheme="brand"
+              size="sm"
+              variant="ghost"
+            >
+              {locales.actions.delete}
+            </Button>
+          );
         },
       },
     ],
@@ -127,7 +147,6 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
       disableMultiSort: true,
       initialState,
     },
-    useFlexLayout,
     useSortBy,
     usePagination
   );
