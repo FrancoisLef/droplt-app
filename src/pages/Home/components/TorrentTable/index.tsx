@@ -59,6 +59,18 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
   const columns: TorrentColumns = useMemo(
     () => [
       {
+        accessor: 'progress',
+        Header: locales.columns.progress,
+        disableGlobalFilter: true,
+        isCentered: true,
+        Cell: ({ value }) => {
+          if (Math.round(value) === 1) {
+            return <Icon as={FaCheck} w={3} h={3} color="brand.500" />;
+          }
+          return <CircularProgress value={value} thickness="6px" size="40px" />;
+        },
+      },
+      {
         accessor: 'name',
         Header: locales.columns.name,
         Cell: ({ value }) => <Text fontWeight="medium">{value}</Text>,
@@ -85,18 +97,6 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
             {prettyBytes(value).replaceAll(' ', ' ')}
           </Text>
         ),
-      },
-      {
-        accessor: 'progress',
-        Header: locales.columns.progress,
-        disableGlobalFilter: true,
-        isCentered: true,
-        Cell: ({ value }) => {
-          if (Math.round(value) === 1) {
-            return <Icon as={FaCheck} w={3} h={3} color="brand.500" />;
-          }
-          return <CircularProgress value={value} thickness="6px" size="40px" />;
-        },
       },
       {
         accessor: 'torrentId',
