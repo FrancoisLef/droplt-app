@@ -1,0 +1,7 @@
+query Dashboard {
+  dashboard {
+    freeSpace
+    torrentCount
+    version
+  }
+}

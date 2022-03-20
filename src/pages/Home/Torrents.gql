@@ -7,12 +7,3 @@ query Torrents {
     addedAt
   }
 }
-
-# subscription TorrentsUpdates {
-#   torrentsUpdate {
-#     torrentId
-#     downloaded
-#     ratio
-#     eta
-#   }
-# }
