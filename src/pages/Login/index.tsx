@@ -14,7 +14,6 @@ import { HiArrowRight } from 'react-icons/hi';
 import { Link as RouterLink } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import InputPassword from '../../components/InputPassword';
 import { useAuth } from '../../helpers/auth';
 import locales from './locales';
 
@@ -118,8 +117,10 @@ const LoginPage: React.FC = () => {
               {locales.forgotPassword}
             </Button>
           </Flex>
-          <InputPassword
+          <Input
             autoComplete="password"
+            colorScheme="brand"
+            type="password"
             {...register('password', {
               required: locales.error.password.required,
             })}
