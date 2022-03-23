@@ -1,6 +1,8 @@
 type Dashboard {
+  downloaded: Float!
   freeSpace: Float!
   torrentCount: Float!
+  uploaded: Float!
   version: String!
 }
 

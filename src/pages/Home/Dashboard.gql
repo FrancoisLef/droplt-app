@@ -3,5 +3,7 @@ query Dashboard {
     freeSpace
     torrentCount
     version
+    downloaded
+    uploaded
   }
 }
