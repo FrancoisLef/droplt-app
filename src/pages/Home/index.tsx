@@ -1,6 +1,12 @@
 import { Box, Button, Flex, SimpleGrid } from '@chakra-ui/react';
 import prettyBytes from 'pretty-bytes';
-import { FaDownload, FaServer, FaUpload, FaWater } from 'react-icons/fa';
+import {
+  FaDownload,
+  FaFile,
+  FaServer,
+  FaUpload,
+  FaWater,
+} from 'react-icons/fa';
 
 import NameFilter from './components/NameFilter';
 import StatCard from './components/StatCard';
@@ -23,13 +29,23 @@ const HomePage: React.FC = () => {
     <Box width="full">
       <SimpleGrid
         mb="6"
-        columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
+        columns={{
+          base: 2,
+          sm: 3,
+          md: 4,
+          lg: 5,
+        }}
         gap={{ base: 6 }}
       >
         <StatCard
           icon={<FaWater />}
           label={locales.torrentCount}
-          value={dashboard?.torrentCount}
+          value={dashboard?.torrents}
+        />
+        <StatCard
+          icon={<FaFile />}
+          label={locales.fileCount}
+          value={dashboard?.files}
         />
         <StatCard
           icon={<FaServer />}

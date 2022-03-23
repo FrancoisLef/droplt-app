@@ -20,8 +20,9 @@ export type Scalars = {
 export type Dashboard = {
   __typename?: 'Dashboard';
   downloaded: Scalars['Float'];
+  files: Scalars['Float'];
   freeSpace: Scalars['Float'];
-  torrentCount: Scalars['Float'];
+  torrents: Scalars['Float'];
   uploaded: Scalars['Float'];
   version: Scalars['String'];
 };
@@ -59,7 +60,7 @@ export type TorrentCount = {
 export type DashboardQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DashboardQuery = { __typename?: 'Query', dashboard: { __typename?: 'Dashboard', freeSpace: number, torrentCount: number, version: string, downloaded: number, uploaded: number } };
+export type DashboardQuery = { __typename?: 'Query', dashboard: { __typename?: 'Dashboard', freeSpace: number, torrents: number, files: number, version: string, downloaded: number, uploaded: number } };
 
 export type TorrentsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -71,7 +72,8 @@ export const DashboardDocument = gql`
     query Dashboard {
   dashboard {
     freeSpace
-    torrentCount
+    torrents
+    files
     version
     downloaded
     uploaded

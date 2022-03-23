@@ -1,7 +1,8 @@
 query Dashboard {
   dashboard {
     freeSpace
-    torrentCount
+    torrents
+    files
     version
     downloaded
     uploaded
