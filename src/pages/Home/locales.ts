@@ -11,13 +11,7 @@ const locales = new LocalizedStrings({
     searchPlaceholder: 'Chercher un torrent par son nom…',
     sortedDescending: 'sorted descending',
     sortedAscending: 'sorted ascending',
-    freeSpace: 'Espace libre',
-    torrentCount: 'Torrents',
-    downloaded: 'Téléchargé',
     addTorrent: 'Ajouter',
-    uploaded: 'Envoyé',
-    fileCount: 'Fichiers',
-    transmissionVersion: 'Version transmission',
   },
 });
 

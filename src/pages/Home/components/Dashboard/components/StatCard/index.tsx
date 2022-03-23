@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, Stack } from '@chakra-ui/react';
 
-import Text from '../../../../components/Text';
+import Text from '../../../../../../components/Text';
 
 interface StatCardProps {
   label: string;

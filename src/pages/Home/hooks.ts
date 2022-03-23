@@ -2,7 +2,7 @@ import Fuse from 'fuse.js';
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { useDashboardQuery, useTorrentsQuery } from '../../graphql';
+import { useTorrentsQuery } from '../../graphql';
 import {
   DEFAULT_PAGE_SIZE,
   DEFAULT_SORT_BY,
@@ -111,13 +111,5 @@ export const useTorrentsTable = () => {
     data: filter ? searchResults : torrents,
     torrentsCount: torrents.length,
     ...props,
-  };
-};
-
-export const useDashboard = () => {
-  const { data } = useDashboardQuery();
-
-  return {
-    dashboard: data?.dashboard,
   };
 };
