@@ -1,5 +1,6 @@
-import { Box, Button, Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 
+import ButtonUpload from '../../components/ButtonUpload';
 import Dashboard from './components/Dashboard';
 import NameFilter from './components/NameFilter';
 import TorrentTable from './components/TorrentTable';
@@ -16,14 +17,18 @@ const HomePage: React.FC = () => {
     ...tableProps
   } = useTorrentsTable();
 
+  // const onUploadSuccess = () => {
+  //   console.log('upload success');
+  // };
+
   return (
     <Box width="full">
       <Dashboard mb="6" />
       <Box bg="white" padding="6" rounded="lg">
         <Flex alignItems="center" gap={{ base: 4 }}>
-          <Button variant="solid" colorScheme="brand">
+          <ButtonUpload variant="solid" colorScheme="brand">
             {locales.addTorrent}
-          </Button>
+          </ButtonUpload>
           <NameFilter count={data.length} value={filter} onChange={setFilter} />
         </Flex>
         {data ? (
