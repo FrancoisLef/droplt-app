@@ -1,7 +1,7 @@
 import { Button, ButtonProps } from '@chakra-ui/react';
 import { ChangeEvent, useRef, useState } from 'react';
 
-import { FILE_TYPE } from '../../helpers/file';
+import { FILE_TYPE, FILE_UPLOAD_ENDPOINT } from '../../helpers/file';
 
 interface ButtonUploadProps extends ButtonProps {
   // onUploadSuccess: () => void,
@@ -28,7 +28,7 @@ const ButtonUpload: React.FC<ButtonUploadProps> = ({ children, ...props }) => {
       body.append('torrents', file);
     });
 
-    const res = await fetch('/upload', {
+    const res = await fetch(FILE_UPLOAD_ENDPOINT, {
       method: 'POST',
       body,
     })
