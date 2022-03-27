@@ -23,7 +23,7 @@ import {
   FaChevronUp,
   FaTrash,
 } from 'react-icons/fa';
-import { usePagination, useSortBy, useTable } from 'react-table';
+import { useFlexLayout, usePagination, useSortBy, useTable } from 'react-table';
 
 import CircularProgress from '../../../../components/CircularProgress';
 import Pagination from '../../../../components/Pagination';
@@ -63,6 +63,7 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
         Header: locales.columns.progress,
         disableGlobalFilter: true,
         isCentered: true,
+        width: 1,
         Cell: ({ value }) => {
           if (Math.round(value) === 1) {
             return <Icon as={FaCheck} w={3} h={3} color="brand.500" />;
@@ -73,6 +74,7 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
       {
         accessor: 'name',
         Header: locales.columns.name,
+        width: 20,
         Cell: ({ value }) => <Text fontWeight="medium">{value}</Text>,
       },
       {
@@ -81,6 +83,7 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
         disableGlobalFilter: true,
         sortInverted: true,
         isNumeric: true,
+        width: 2,
         Cell: ({ value }) => (
           <Text type="secondary" fontWeight="light">
             {formatDistanceToNowStrict(new Date(value)).replaceAll(' ', ' ')}
@@ -92,6 +95,7 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
         Header: locales.columns.size,
         disableGlobalFilter: true,
         isNumeric: true,
+        width: 2,
         Cell: ({ value }) => (
           <Text type="secondary" fontWeight="light">
             {prettyBytes(value).replaceAll(' ', ' ')}
@@ -101,13 +105,14 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
       {
         accessor: 'torrentId',
         Header: locales.columns.actions,
+        width: 2,
         Cell: ({ value }) => {
           return (
             <Button
               rightIcon={<FaTrash />}
               onClick={() => onDelete(value)}
               colorScheme="brand"
-              size="sm"
+              size="xs"
               variant="ghost"
             >
               {locales.actions.delete}
@@ -147,6 +152,7 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
       disableMultiSort: true,
       initialState,
     },
+    useFlexLayout,
     useSortBy,
     usePagination
   );
