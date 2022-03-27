@@ -63,6 +63,7 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
         Header: locales.columns.progress,
         disableGlobalFilter: true,
         isCentered: true,
+        isSortable: true,
         width: 1,
         Cell: ({ value }) => {
           if (Math.round(value) === 1) {
@@ -75,6 +76,7 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
         accessor: 'name',
         Header: locales.columns.name,
         width: 20,
+        isSortable: true,
         Cell: ({ value }) => <Text fontWeight="medium">{value}</Text>,
       },
       {
@@ -83,6 +85,7 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
         disableGlobalFilter: true,
         sortInverted: true,
         isNumeric: true,
+        isSortable: true,
         width: 2,
         Cell: ({ value }) => (
           <Text type="secondary" fontWeight="light">
@@ -95,6 +98,7 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
         Header: locales.columns.size,
         disableGlobalFilter: true,
         isNumeric: true,
+        isSortable: true,
         width: 2,
         Cell: ({ value }) => (
           <Text type="secondary" fontWeight="light">
@@ -106,6 +110,7 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
         accessor: 'torrentId',
         Header: locales.columns.actions,
         width: 2,
+        isSortable: false,
         Cell: ({ value }) => {
           return (
             <Button
@@ -192,6 +197,7 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
                 const {
                   isSorted,
                   isCentered,
+                  isSortable,
                   isNumeric,
                   id,
                   isSortedDesc,
@@ -206,6 +212,9 @@ const TorrentTable: React.FC<TorrentTableProps> = ({
                     isNumeric={isNumeric}
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     onClick={(e) => {
+                      if (!isSortable) {
+                        return;
+                      }
                       if (defaultSortByOnClick) {
                         defaultSortByOnClick(e);
                       }

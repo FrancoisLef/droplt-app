@@ -108,6 +108,7 @@ declare module 'react-table' {
       UseSortByColumnOptions<D> {
     isNumeric?: boolean;
     isCentered?: boolean;
+    isSortable?: boolean;
   }
 
   export interface ColumnInstance<

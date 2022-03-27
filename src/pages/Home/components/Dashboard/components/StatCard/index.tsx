@@ -12,12 +12,14 @@ const StatCard: React.FC<StatCardProps> = ({ label, icon, value }) => {
   return (
     <Box bg="white" rounded="lg" padding="4">
       <Stack>
-        <Text fontSize="sm" type="secondary">
-          <Flex alignItems="center" gap={{ base: 1 }}>
+        <Flex alignItems="center" gap={{ base: 1 }}>
+          <Text fontSize="sm" type="secondary">
             {icon}
+          </Text>
+          <Text fontSize="sm" type="secondary">
             {label}
-          </Flex>
-        </Text>
+          </Text>
+        </Flex>
         <Heading size="md">{value}</Heading>
       </Stack>
     </Box>
