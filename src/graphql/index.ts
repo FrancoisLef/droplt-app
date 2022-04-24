@@ -72,5 +72,5 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export * from './__generated__';
+export * from './types';
 export default client;

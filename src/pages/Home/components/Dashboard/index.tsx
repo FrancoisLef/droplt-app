@@ -8,8 +8,8 @@ import {
   FaWater,
 } from 'react-icons/fa';
 
-import { useDashboardQuery } from '../../../../graphql';
 import StatCard from './components/StatCard';
+import { useDashboardQuery } from './dashboard.gql';
 import locales from './locales';
 
 interface DashboardProps extends SimpleGridProps {}

@@ -2,13 +2,13 @@ import Fuse from 'fuse.js';
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { useTorrentsQuery } from '../../graphql';
 import {
   DEFAULT_PAGE_SIZE,
   DEFAULT_SORT_BY,
   DEFAULT_SORT_DESC,
   SORT_DIRECTION,
 } from './constants';
+import { useTorrentsQuery } from './home.gql';
 import { TorrentRow, TorrentSorting } from './types';
 
 export const useQueryParams = () => {
