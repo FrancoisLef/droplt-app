@@ -1,10 +1,17 @@
+/* eslint-disable */
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -57,29 +64,47 @@ export type TorrentCount = {
   files: Scalars['Int'];
 };
 
-export type DashboardQueryVariables = Exact<{ [key: string]: never; }>;
+export type DashboardQueryVariables = Exact<{ [key: string]: never }>;
 
+export type DashboardQuery = {
+  __typename?: 'Query';
+  dashboard: {
+    __typename?: 'Dashboard';
+    freeSpace: number;
+    torrents: number;
+    files: number;
+    version: string;
+    downloaded: number;
+    uploaded: number;
+  };
+};
 
-export type DashboardQuery = { __typename?: 'Query', dashboard: { __typename?: 'Dashboard', freeSpace: number, torrents: number, files: number, version: string, downloaded: number, uploaded: number } };
+export type TorrentsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type TorrentsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type TorrentsQuery = { __typename?: 'Query', torrents: Array<{ __typename?: 'Torrent', torrentId: string, name: string, size: number, progress: number, addedAt: any }> };
-
+export type TorrentsQuery = {
+  __typename?: 'Query';
+  torrents: Array<{
+    __typename?: 'Torrent';
+    torrentId: string;
+    name: string;
+    size: number;
+    progress: number;
+    addedAt: any;
+  }>;
+};
 
 export const DashboardDocument = gql`
-    query Dashboard {
-  dashboard {
-    freeSpace
-    torrents
-    files
-    version
-    downloaded
-    uploaded
+  query Dashboard {
+    dashboard {
+      freeSpace
+      torrents
+      files
+      version
+      downloaded
+      uploaded
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useDashboardQuery__
@@ -96,28 +121,46 @@ export const DashboardDocument = gql`
  *   },
  * });
  */
-export function useDashboardQuery(baseOptions?: Apollo.QueryHookOptions<DashboardQuery, DashboardQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<DashboardQuery, DashboardQueryVariables>(DashboardDocument, options);
-      }
-export function useDashboardLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DashboardQuery, DashboardQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<DashboardQuery, DashboardQueryVariables>(DashboardDocument, options);
-        }
-export type DashboardQueryHookResult = ReturnType<typeof useDashboardQuery>;
-export type DashboardLazyQueryHookResult = ReturnType<typeof useDashboardLazyQuery>;
-export type DashboardQueryResult = Apollo.QueryResult<DashboardQuery, DashboardQueryVariables>;
-export const TorrentsDocument = gql`
-    query Torrents {
-  torrents {
-    torrentId
-    name
-    size
-    progress
-    addedAt
-  }
+export function useDashboardQuery(
+  baseOptions?: Apollo.QueryHookOptions<DashboardQuery, DashboardQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<DashboardQuery, DashboardQueryVariables>(
+    DashboardDocument,
+    options
+  );
 }
-    `;
+export function useDashboardLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    DashboardQuery,
+    DashboardQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<DashboardQuery, DashboardQueryVariables>(
+    DashboardDocument,
+    options
+  );
+}
+export type DashboardQueryHookResult = ReturnType<typeof useDashboardQuery>;
+export type DashboardLazyQueryHookResult = ReturnType<
+  typeof useDashboardLazyQuery
+>;
+export type DashboardQueryResult = Apollo.QueryResult<
+  DashboardQuery,
+  DashboardQueryVariables
+>;
+export const TorrentsDocument = gql`
+  query Torrents {
+    torrents {
+      torrentId
+      name
+      size
+      progress
+      addedAt
+    }
+  }
+`;
 
 /**
  * __useTorrentsQuery__
@@ -134,14 +177,32 @@ export const TorrentsDocument = gql`
  *   },
  * });
  */
-export function useTorrentsQuery(baseOptions?: Apollo.QueryHookOptions<TorrentsQuery, TorrentsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TorrentsQuery, TorrentsQueryVariables>(TorrentsDocument, options);
-      }
-export function useTorrentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TorrentsQuery, TorrentsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TorrentsQuery, TorrentsQueryVariables>(TorrentsDocument, options);
-        }
+export function useTorrentsQuery(
+  baseOptions?: Apollo.QueryHookOptions<TorrentsQuery, TorrentsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<TorrentsQuery, TorrentsQueryVariables>(
+    TorrentsDocument,
+    options
+  );
+}
+export function useTorrentsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TorrentsQuery,
+    TorrentsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<TorrentsQuery, TorrentsQueryVariables>(
+    TorrentsDocument,
+    options
+  );
+}
 export type TorrentsQueryHookResult = ReturnType<typeof useTorrentsQuery>;
-export type TorrentsLazyQueryHookResult = ReturnType<typeof useTorrentsLazyQuery>;
-export type TorrentsQueryResult = Apollo.QueryResult<TorrentsQuery, TorrentsQueryVariables>;
+export type TorrentsLazyQueryHookResult = ReturnType<
+  typeof useTorrentsLazyQuery
+>;
+export type TorrentsQueryResult = Apollo.QueryResult<
+  TorrentsQuery,
+  TorrentsQueryVariables
+>;

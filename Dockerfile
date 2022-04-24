@@ -21,7 +21,7 @@ FROM fholzer/nginx-brotli:v1.19.1 as runner
 
 COPY --from=builder /builder/build /usr/share/nginx/html
 COPY --from=builder /builder/.env /usr/share/nginx/html/.env
-COPY --from=builder /builder/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /builder/config/nginx.conf /etc/nginx/conf.d/default.conf
 
 RUN apk add --update nodejs
 RUN apk add --update npm

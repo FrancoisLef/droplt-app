@@ -1,5 +1,5 @@
 overwrite: true
-schema: schema.graphql
+schema: public/schema.graphql
 documents: src/**/*.gql
 generates:
   src/graphql/__generated__.ts:
@@ -7,5 +7,10 @@ generates:
       - typescript
       - typescript-operations
       - typescript-react-apollo
+      - add:
+          content: '/* eslint-disable */'
     config:
       withHOC: false
+    hooks:
+      afterOneFileWrite:
+        - prettier --write

@@ -3,17 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "app:start": "react-scripts start",
-    "gen": "run-s gen:env:runtime gen:theme gen:graphql:pull gen:graphql",
-    "gen:env:runtime": "NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js --env-file .env.local",
-    "gen:theme": "chakra-cli tokens src/theme/index.ts",
-    "gen:graphql": "graphql-codegen",
-    "gen:graphql:pull": "graphql-codegen --config codegen-pull.yml",
-    "gen:graphql:watch": "graphql-codegen --watch",
+    "gen": "run-s runtime theme codegen",
+    "runtime": "NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js --env-file .env.local",
+    "theme": "chakra-cli tokens src/theme/index.ts",
+    "codegen": "graphql-codegen",
+    "codegen:pull": "graphql-codegen -s -c config/codegen-pull.yml",
     "postinstall": "husky install",
     "build": "react-scripts build && precompress build",
     "eject": "react-scripts eject",
-    "start": "npm-run-all --serial gen --parallel app:start gen:graphql:watch",
+    "start": "react-scripts start",
     "test": "react-scripts test"
   },
   "lint-staged": {
@@ -61,6 +59,9 @@
       "simple-import-sort/imports": "error"
     }
   },
+  "eslintIgnore": [
+    "public/runtime-env.js"
+  ],
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@chakra-ui/icons": "^1.1.7",
@@ -90,6 +91,7 @@
   },
   "devDependencies": {
     "@chakra-ui/cli": "^1.9.0",
+    "@graphql-codegen/add": "^3.1.1",
     "@graphql-codegen/cli": "2.6.2",
     "@graphql-codegen/schema-ast": "^2.4.1",
     "@graphql-codegen/typescript": "2.4.8",
@@ -116,5 +118,9 @@
     "typescript": "^4.6.3"
   },
   "packageManager": "yarn@3.1.1",
+  "graphql": {
+    "schema": "public/schema.graphql",
+    "documents": "src/**/*.graphql"
+  },
   "proxy": "http://localhost:4000"
 }
