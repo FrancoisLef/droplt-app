@@ -13,7 +13,7 @@ generates:
   src/:
     preset: near-operation-file
     presetConfig:
-      extension: .gql.ts
+      extension: .generated.tsx
       baseTypesPath: graphql/types.ts
     plugins:
       - add:

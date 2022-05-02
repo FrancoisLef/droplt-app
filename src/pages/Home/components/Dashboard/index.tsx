@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fa';
 
 import StatCard from './components/StatCard';
-import { useDashboardQuery } from './dashboard.gql';
+import { useDashboardQuery } from './dashboard.generated';
 import locales from './locales';
 
 interface DashboardProps extends SimpleGridProps {}

@@ -1,4 +1,11 @@
+/* eslint-disable import/first */
 import 'reflect-metadata';
+
+import dotenv from 'dotenv-flow';
+
+dotenv.config({
+  silent: true,
+});
 
 import {
   ApolloServerPluginDrainHttpServer,
@@ -6,7 +13,6 @@ import {
 } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
-import dotenv from 'dotenv-flow';
 import express, { Application, json, RequestHandler } from 'express';
 import { execute, subscribe } from 'graphql';
 import helmet from 'helmet';
@@ -22,10 +28,6 @@ import feeder from './jobs/feeder';
 import admin from './services/firebase';
 import prisma from './services/prisma';
 import { Context } from './types';
-
-dotenv.config({
-  silent: true,
-});
 
 const {
   SERVER_PORT = 4000,

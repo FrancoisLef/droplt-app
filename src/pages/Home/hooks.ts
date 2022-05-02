@@ -8,7 +8,7 @@ import {
   DEFAULT_SORT_DESC,
   SORT_DIRECTION,
 } from './constants';
-import { useTorrentsQuery } from './home.gql';
+import { useTorrentsQuery } from './home.generated';
 import { TorrentRow, TorrentSorting } from './types';
 
 export const useQueryParams = () => {

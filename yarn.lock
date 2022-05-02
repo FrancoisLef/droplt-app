@@ -4305,17 +4305,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:^3.13.0":
-  version: 3.13.0
-  resolution: "@prisma/client@npm:3.13.0"
+"@prisma/client@npm:3.12.0":
+  version: 3.12.0
+  resolution: "@prisma/client@npm:3.12.0"
   dependencies:
-    "@prisma/engines-version": 3.13.0-17.efdf9b1183dddfd4258cd181a72125755215ab7b
+    "@prisma/engines-version": 3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980
   peerDependencies:
     prisma: "*"
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: 8c1e6c91208158b71684a9b03a27d8240315002340ca3ad5c298beaedf4ca29fda949e934a55e1f238ff215388c77348acf05f0cea7636f3236d66d6510d0c56
+  checksum: b342c6e771e671a49684f69a2cb27df1d5083fb97a55aa0d07db3e6ad5bf16e27ee566e528b97b1c501be2c46b98eb7577996e1be6e029910537538107eba471
   languageName: node
   linkType: hard
 
@@ -4362,10 +4362,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/engines-version@npm:3.13.0-17.efdf9b1183dddfd4258cd181a72125755215ab7b":
-  version: 3.13.0-17.efdf9b1183dddfd4258cd181a72125755215ab7b
-  resolution: "@prisma/engines-version@npm:3.13.0-17.efdf9b1183dddfd4258cd181a72125755215ab7b"
-  checksum: 80238c778333eb0d9bc993e933cb83ed82488d53980d2cdc68ff25ef719de1a63ec05a32bb2af505115e4c179ea43389c8650c297c2f8dbda0c122e9c00197ee
+"@prisma/engines-version@npm:3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980":
+  version: 3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980
+  resolution: "@prisma/engines-version@npm:3.12.0-37.22b822189f46ef0dc5c5b503368d1bee01213980"
+  checksum: e69f48def4b5761d594ebe7c87f04772fd03f2fb3cc2eacee92188b244d6c2d9aeff75be88d10bfd2a3c05b1da8d04d2a4d4a977b7a23671cc0617fb811b2855
   languageName: node
   linkType: hard
 
@@ -9358,7 +9358,7 @@ __metadata:
     "@graphql-codegen/typescript": 2.4.8
     "@graphql-codegen/typescript-operations": 2.3.5
     "@graphql-codegen/typescript-react-apollo": 3.2.11
-    "@prisma/client": ^3.13.0
+    "@prisma/client": 3.12.0
     "@testing-library/jest-dom": ^5.16.4
     "@testing-library/react": ^13.1.1
     "@testing-library/user-event": ^14.1.1
@@ -9417,7 +9417,7 @@ __metadata:
     ts-node-dev: ^1.1.8
     tslib: ^2.4.0
     type-graphql: ^1.1.1
-    typegraphql-prisma: ^0.20.1
+    typegraphql-prisma: 0.20.1
     typescript: ^4.6.4
     web-vitals: ^2.1.4
   languageName: unknown
@@ -19886,7 +19886,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typegraphql-prisma@npm:^0.20.1":
+"typegraphql-prisma@npm:0.20.1":
   version: 0.20.1
   resolution: "typegraphql-prisma@npm:0.20.1"
   dependencies:

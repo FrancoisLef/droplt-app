@@ -3,19 +3,11 @@ import { Box, Flex } from '@chakra-ui/react';
 import ButtonUpload from '../../components/ButtonUpload';
 import Dashboard from './components/Dashboard';
 import NameFilter from './components/NameFilter';
-import TorrentTable from './components/TorrentTable';
 import { useTorrentsTable } from './hooks';
 import locales from './locales';
 
 const HomePage: React.FC = () => {
-  const {
-    data,
-    filter,
-    torrentsCount,
-    initialState,
-    setFilter,
-    ...tableProps
-  } = useTorrentsTable();
+  const { data, filter, setFilter } = useTorrentsTable();
 
   // const onUploadSuccess = () => {
   //   console.log('upload success');
@@ -31,14 +23,6 @@ const HomePage: React.FC = () => {
           </ButtonUpload>
           <NameFilter count={data.length} value={filter} onChange={setFilter} />
         </Flex>
-        {data ? (
-          <TorrentTable
-            data={data}
-            initialState={initialState}
-            {...tableProps}
-            mb="4"
-          />
-        ) : null}
       </Box>
     </Box>
   );

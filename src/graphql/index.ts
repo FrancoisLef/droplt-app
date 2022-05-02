@@ -56,7 +56,7 @@ const authLink = new ApolloLink((operation, forward) => {
 const errorLink = onError(({ graphQLErrors }) => {
   const hasUnauthenticatedError =
     (graphQLErrors || []).filter(
-      (err) => err.extensions.code === 'UNAUTHENTICATED'
+      (err) => err?.extensions?.code === 'UNAUTHENTICATED'
     ).length > 0;
 
   // Sign out user on UNAUTHENTICATED error
