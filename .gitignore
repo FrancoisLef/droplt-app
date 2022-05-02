@@ -21,7 +21,10 @@ node_modules
 
 # production
 /build
+/build-server
 /public/runtime-env.js
+/tmp
+/database
 
 # misc
 .DS_Store
